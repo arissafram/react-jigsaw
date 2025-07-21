@@ -3,11 +3,11 @@ import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
 
 interface BoardProps {
-  numPieces?: number;
+  numPieces: number; // required
 }
 
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
-  const { numPieces = 4 } = props;
+  const { numPieces } = props;
 
   return (
     <div className={styles.board}>

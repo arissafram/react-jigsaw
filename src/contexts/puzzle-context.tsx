@@ -10,11 +10,12 @@ const PuzzleContext = createContext<PuzzleContextState | undefined>(undefined);
 
 interface PuzzleProviderProps {
   children: React.ReactNode;
+  initialNumPieces?: number;
 }
 
 export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProviderProps) => {
-  const { children } = props;
-  const [numPieces, setNumPieces] = useState(4);
+  const { children, initialNumPieces = 4 } = props;
+  const [numPieces, setNumPieces] = useState(initialNumPieces);
 
   const value: PuzzleContextState = {
     numPieces,
