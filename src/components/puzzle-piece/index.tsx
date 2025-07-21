@@ -33,7 +33,7 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   return (
     <g
       ref={ref}
-      transform={`translate(${dragState.x},${dragState.y})`}
+      transform={isSnapped ? '' :`translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
       className={styles.puzzlePiece}
     >
@@ -51,7 +51,11 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         clipPath={`url(#piece-clip-${index})`}
         preserveAspectRatio="xMidYMid slice"
       />
-      <path d={path} fill="none" stroke="#b8860b" strokeWidth={showOutlines ? 2 : 0} />
+      <path d={path} 
+        fill="none" 
+        // stroke="#b8860b" 
+        // strokeWidth={showOutlines ? 2 : 0} 
+      />
     </g>
   );
 };
