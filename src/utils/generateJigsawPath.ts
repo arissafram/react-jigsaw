@@ -26,7 +26,7 @@ export function computeEdgeMap(rows: number, columns: number): [number, number, 
 
 /**
  * Generates a rectangular SVG path string for a puzzle piece at (row, col),
- * with perfect semicircular half-circle knobs/innies (1/3 edge length) on non-border edges.
+ * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
  * Edges alternate so adjoining pieces plug into each other.
  */
 export function generateJigsawPath(row: number, col: number, options: JigsawPathOptions): string {
@@ -38,9 +38,8 @@ export function generateJigsawPath(row: number, col: number, options: JigsawPath
 
   const edgeMap = computeEdgeMap(rows, columns);
   const [top, right, bottom, left] = edgeMap[row][col];
-  const knobW = pieceWidth / 3;
-  const knobH = pieceHeight / 3;
-  const knobR = Math.min(knobW, knobH) / 2;
+  const knobD = Math.min(pieceWidth, pieceHeight) / 3; // diameter of knob
+  const knobR = knobD / 2;
 
   let d = `M${x},${y}`;
 
@@ -48,38 +47,36 @@ export function generateJigsawPath(row: number, col: number, options: JigsawPath
   if (top === 0) {
     d += ` h${pieceWidth}`;
   } else {
-    d += ` h${(pieceWidth - knobW) / 2}`;
-    d += ` a${knobW / 2},${knobR} 0 0 ${top === 1 ? 1 : 0} ${knobW},0`;
-    d += ` h${(pieceWidth - knobW) / 2}`;
+    d += ` h${(pieceWidth - knobD) / 2}`;
+    d += ` a${knobR},${knobR} 0 0 ${top === 1 ? 1 : 0} ${knobD},0`;
+    d += ` h${(pieceWidth - knobD) / 2}`;
   }
 
   // Right edge
   if (right === 0) {
     d += ` v${pieceHeight}`;
   } else {
-    d += ` v${(pieceHeight - knobH) / 2}`;
-    d += ` a${knobR},${knobH / 2} 0 0 ${right === 1 ? 1 : 0} 0,${knobH}`;
-    d += ` v${(pieceHeight - knobH) / 2}`;
+    d += ` v${(pieceHeight - knobD) / 2}`;
+    d += ` a${knobR},${knobR} 0 0 ${right === 1 ? 1 : 0} 0,${knobD}`;
+    d += ` v${(pieceHeight - knobD) / 2}`;
   }
 
   // Bottom edge
   if (bottom === 0) {
     d += ` h-${pieceWidth}`;
   } else {
-    d += ` h-${(pieceWidth - knobW) / 2}`;
-    // Use negative x for arc, sweep-flag same as top
-    d += ` a${knobW / 2},${knobR} 0 0 ${bottom === 1 ? 1 : 0} -${knobW},0`;
-    d += ` h-${(pieceWidth - knobW) / 2}`;
+    d += ` h-${(pieceWidth - knobD) / 2}`;
+    d += ` a${knobR},${knobR} 0 0 ${bottom === 1 ? 1 : 0} -${knobD},0`;
+    d += ` h-${(pieceWidth - knobD) / 2}`;
   }
 
   // Left edge
   if (left === 0) {
     d += ` v-${pieceHeight}`;
   } else {
-    d += ` v-${(pieceHeight - knobH) / 2}`;
-    // Use negative y for arc, sweep-flag same as right
-    d += ` a${knobR},${knobH / 2} 0 0 ${left === 1 ? 1 : 0} 0,-${knobH}`;
-    d += ` v-${(pieceHeight - knobH) / 2}`;
+    d += ` v-${(pieceHeight - knobD) / 2}`;
+    d += ` a${knobR},${knobR} 0 0 ${left === 1 ? 1 : 0} 0,-${knobD}`;
+    d += ` v-${(pieceHeight - knobD) / 2}`;
   }
 
   d += ' Z';
