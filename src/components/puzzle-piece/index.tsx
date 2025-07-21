@@ -13,13 +13,28 @@ interface PuzzlePieceProps {
   pieceSize: 's' | 'm' | 'l';
 }
 
+const BOARD_WIDTH = 400;
+const BOARD_HEIGHT = 600;
+
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
-  const { index, path, image, rows, columns, aspectRatio, showOutlines, scramble, pieceSize } = props;
+  const { index, path, image, showOutlines } = props;
   return (
     <g className={styles.puzzlePiece}>
-      <path d={path} fill="#fffbe6" stroke="#b8860b" strokeWidth={showOutlines ? 2 : 0} />
-      {/* Debug info */}
-      <title>{`Piece #${index + 1}\n${path}`}</title>
+      <defs>
+        <clipPath id={`piece-clip-${index}`}>
+          <path d={path} />
+        </clipPath>
+      </defs>
+      <image
+        href={image}
+        x={0}
+        y={0}
+        width={BOARD_WIDTH}
+        height={BOARD_HEIGHT}
+        clipPath={`url(#piece-clip-${index})`}
+        preserveAspectRatio="xMidYMid slice"
+      />
+      <path d={path} fill="none" stroke="#b8860b" strokeWidth={showOutlines ? 2 : 0} />
     </g>
   );
 };
