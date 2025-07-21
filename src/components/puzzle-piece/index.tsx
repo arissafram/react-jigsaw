@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
+import { useDraggablePiece } from '../../hooks/drag-and-drop/useDraggablePiece';
 
 interface PuzzlePieceProps {
   index: number;
@@ -8,15 +9,24 @@ interface PuzzlePieceProps {
   boardHeight: number;
   image: string;
   showOutlines: boolean;
+  initialX: number;
+  initialY: number;
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
-    index, path, boardWidth, boardHeight, image, showOutlines
+    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY
   } = props;
 
+  const { ref, dragState, eventHandlers } = useDraggablePiece(initialX, initialY);
+
   return (
-    <g className={styles.puzzlePiece}>
+    <g
+      ref={ref}
+      transform={`translate(${dragState.x},${dragState.y})`}
+      {...eventHandlers}
+      className={styles.puzzlePiece}
+    >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
           <path d={path} />

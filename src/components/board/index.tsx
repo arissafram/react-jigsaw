@@ -62,16 +62,17 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
       {positions.map(({ row, col, x, y }, i) => (
-        <g key={`${row}-${col}`} transform={`translate(${x},${y})`}>
-          <PuzzlePiece
-            index={i}
-            path={generateJigsawPath(row, col, options)}
-            boardWidth={BOARD_WIDTH}
-            boardHeight={BOARD_HEIGHT}
-            image={image}
-            showOutlines={showOutlines}
-          />
-        </g>
+        <PuzzlePiece
+          key={`${row}-${col}`}
+          index={i}
+          path={generateJigsawPath(row, col, options)}
+          boardWidth={BOARD_WIDTH}
+          boardHeight={BOARD_HEIGHT}
+          image={image}
+          showOutlines={showOutlines}
+          initialX={x}
+          initialY={y}
+        />
       ))}
     </svg>
   );

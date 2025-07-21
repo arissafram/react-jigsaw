@@ -19,8 +19,8 @@ export interface PuzzleProps {
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
     image = DEFAULT_IMAGE,
-    rows = 5,
-    columns = 5,
+    rows = 2,
+    columns = 2,
     aspectRatio = '4x6',
     showOutlines = true,
     onComplete = () => console.log('complete'),
@@ -41,8 +41,6 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         scramble={scramble}
         pieceSize={pieceSize}
       />
-      {/* For now, just show the image and props for debugging */}
-      <img src={image} alt="Puzzle" style={{ maxWidth: '5%', margin: '1rem 0' }} />
       <pre style={{ textAlign: 'left', background: '#f8f8f8', padding: '1rem', borderRadius: 8 }}>
         {JSON.stringify({ rows, columns, aspectRatio, showOutlines, scramble, pieceSize }, null, 2)}
       </pre>
