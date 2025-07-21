@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 
 interface PuzzlePieceProps {
   index: number;
+  path: string;
   image: string;
   rows: number;
   columns: number;
@@ -13,13 +14,13 @@ interface PuzzlePieceProps {
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
-  const { index, image, rows, columns, aspectRatio, showOutlines, scramble, pieceSize } = props;
+  const { index, path, image, rows, columns, aspectRatio, showOutlines, scramble, pieceSize } = props;
   return (
-    <div className={styles.puzzlePiece}>
-      <h2>Puzzle Piece #{index + 1}</h2>
-      <div>pieceSize: {pieceSize}</div>
-      {/* More debug info can be added here as needed */}
-    </div>
+    <g className={styles.puzzlePiece}>
+      <path d={path} fill="#fffbe6" stroke="#b8860b" strokeWidth={showOutlines ? 2 : 0} />
+      {/* Debug info */}
+      <title>{`Piece #${index + 1}\n${path}`}</title>
+    </g>
   );
 };
 
