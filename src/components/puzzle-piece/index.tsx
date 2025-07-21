@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
 import { useDraggablePiece } from '../../hooks/drag-and-drop/useDraggablePiece';
 
@@ -14,14 +14,21 @@ interface PuzzlePieceProps {
   targetX: number;
   targetY: number;
   snapThreshold: number;
+  svgRef: React.RefObject<SVGSVGElement> | undefined;
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
-    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY, targetX, targetY, snapThreshold
+    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY, targetX, targetY, snapThreshold, svgRef
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDraggablePiece(initialX, initialY, targetX, targetY, snapThreshold);
+  const { ref, dragState, isSnapped, eventHandlers } = useDraggablePiece(initialX, initialY, targetX, targetY, snapThreshold, svgRef);
+
+  useEffect(() => {
+    // Debug log for each piece
+    // eslint-disable-next-line no-console
+    console.log(`Piece ${index}: initial=(${initialX},${initialY}), target=(${targetX},${targetY}), drag=(${dragState.x},${dragState.y}), snapped=${isSnapped}`);
+  }, [index, initialX, initialY, targetX, targetY, dragState.x, dragState.y, isSnapped]);
 
   return (
     <g

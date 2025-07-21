@@ -13,7 +13,8 @@ export function useDraggablePiece(
   initialY: number,
   targetX: number,
   targetY: number,
-  snapThreshold: number
+  snapThreshold: number,
+  svgRef: React.RefObject<SVGSVGElement>;
 ) {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
@@ -28,7 +29,7 @@ export function useDraggablePiece(
   function onPointerDown(e: React.PointerEvent) {
     if (isSnapped) return;
     if (e.button !== 0) return; // Only left click
-    const svg = ref.current?.ownerSVGElement;
+    const svg = svgRef.current;
     if (!svg) return;
     const pt = svg.createSVGPoint();
     pt.x = e.clientX;
@@ -47,7 +48,7 @@ export function useDraggablePiece(
   function onPointerMove(e: PointerEvent) {
     setDragState((s) => {
       if (!s.isDragging) return s;
-      const svg = ref.current?.ownerSVGElement;
+      const svg = svgRef.current;
       if (!svg) return s;
       const pt = svg.createSVGPoint();
       pt.x = e.clientX;

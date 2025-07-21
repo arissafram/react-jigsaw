@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
 import { generateJigsawPath, JigsawPathOptions, computeEdgeMap } from '../../utils/generate-jigsaw-path';
@@ -39,6 +39,9 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
   // Scrambled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
 
+  // SVG ref for drag coordinate transforms
+  const svgRef = useRef<SVGSVGElement>(null);
+
   useEffect(() => {
     if (scramble) {
       setPositions(scramblePieces(rows, columns, BOARD_WIDTH, BOARD_HEIGHT, pieceWidth, pieceHeight));
@@ -47,7 +50,7 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       const ordered: PiecePosition[] = [];
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < columns; col++) {
-          ordered.push({ row, col, x: col * pieceWidth, y: row * pieceHeight });
+          ordered.push({ pieceRow: row, pieceCol: col, x: col * pieceWidth, y: row * pieceHeight });
         }
       }
       setPositions(ordered);
@@ -56,6 +59,7 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
 
   return (
     <svg
+      ref={svgRef}
       className={styles.board}
       width={BOARD_WIDTH}
       height={BOARD_HEIGHT}
@@ -77,20 +81,21 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
           />
         ))
       )}
-      {positions.map(({ row, col, x, y }, i) => (
+      {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
-          key={`${row}-${col}`}
+          key={`${pieceRow}-${pieceCol}`}
           index={i}
-          path={generateJigsawPath(row, col, options)}
+          path={generateJigsawPath(pieceRow, pieceCol, options)}
           boardWidth={BOARD_WIDTH}
           boardHeight={BOARD_HEIGHT}
           image={image}
           showOutlines={showOutlines}
           initialX={x}
           initialY={y}
-          targetX={col * pieceWidth}
-          targetY={row * pieceHeight}
+          targetX={(pieceCol * pieceWidth) / 100}
+          targetY={(pieceRow * pieceHeight) / 100}
           snapThreshold={SNAP_THRESHOLD}
+          svgRef={svgRef}
         />
       ))}
     </svg>
