@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles.scss';
+import styles from './styles.scss';
 
 const Puzzle: React.FC = () => {
   return (
-    <div className="puzzle-root">
+    <div className={styles.puzzle}>
       <h2>Puzzle Component</h2>
       {/* Puzzle content will go here */}
     </div>
