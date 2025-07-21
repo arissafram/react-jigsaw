@@ -17,6 +17,7 @@ interface BoardProps {
 
 const BOARD_WIDTH = 400;
 const BOARD_HEIGHT = 600;
+const SNAP_THRESHOLD = 20;
 
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const { numPieces, image, rows, columns, aspectRatio, showOutlines, scramble = true, pieceSize } = props;
@@ -61,6 +62,21 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
+      {/* Debug: show snap target areas */}
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: columns }).map((_, col) => (
+          <rect
+            key={`target-${row}-${col}`}
+            x={col * pieceWidth + pieceWidth / 2 - SNAP_THRESHOLD}
+            y={row * pieceHeight + pieceHeight / 2 - SNAP_THRESHOLD}
+            width={SNAP_THRESHOLD * 2}
+            height={SNAP_THRESHOLD * 2}
+            fill="red"
+            opacity={0.15}
+            pointerEvents="none"
+          />
+        ))
+      )}
       {positions.map(({ row, col, x, y }, i) => (
         <PuzzlePiece
           key={`${row}-${col}`}
@@ -72,6 +88,9 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
           showOutlines={showOutlines}
           initialX={x}
           initialY={y}
+          targetX={col * pieceWidth}
+          targetY={row * pieceHeight}
+          snapThreshold={SNAP_THRESHOLD}
         />
       ))}
     </svg>

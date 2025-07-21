@@ -11,14 +11,17 @@ interface PuzzlePieceProps {
   showOutlines: boolean;
   initialX: number;
   initialY: number;
+  targetX: number;
+  targetY: number;
+  snapThreshold: number;
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
-    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY
+    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY, targetX, targetY, snapThreshold
   } = props;
 
-  const { ref, dragState, eventHandlers } = useDraggablePiece(initialX, initialY);
+  const { ref, dragState, isSnapped, eventHandlers } = useDraggablePiece(initialX, initialY, targetX, targetY, snapThreshold);
 
   return (
     <g

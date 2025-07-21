@@ -8,7 +8,13 @@ export interface DragState {
   offsetY: number;
 }
 
-export function useDraggablePiece(initialX: number, initialY: number) {
+export function useDraggablePiece(
+  initialX: number,
+  initialY: number,
+  targetX: number,
+  targetY: number,
+  snapThreshold: number
+) {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
     x: initialX,
@@ -16,9 +22,11 @@ export function useDraggablePiece(initialX: number, initialY: number) {
     offsetX: 0,
     offsetY: 0,
   });
+  const [isSnapped, setIsSnapped] = useState(false);
   const ref = useRef<SVGGElement | null>(null);
 
   function onPointerDown(e: React.PointerEvent) {
+    if (isSnapped) return;
     if (e.button !== 0) return; // Only left click
     const svg = ref.current?.ownerSVGElement;
     if (!svg) return;
@@ -54,7 +62,14 @@ export function useDraggablePiece(initialX: number, initialY: number) {
   }
 
   function onPointerUp() {
-    setDragState((s) => ({ ...s, isDragging: false }));
+    setDragState((s) => {
+      const dist = Math.hypot(s.x - targetX, s.y - targetY);
+      if (dist <= snapThreshold) {
+        setIsSnapped(true);
+        return { ...s, isDragging: false, x: targetX, y: targetY };
+      }
+      return { ...s, isDragging: false };
+    });
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('pointerup', onPointerUp);
   }
@@ -62,9 +77,10 @@ export function useDraggablePiece(initialX: number, initialY: number) {
   return {
     ref,
     dragState,
+    isSnapped,
     eventHandlers: {
-      onPointerDown,
-      style: { cursor: 'grab' },
+      onPointerDown: isSnapped ? undefined : onPointerDown,
+      style: { cursor: isSnapped ? 'default' : 'grab' },
     },
   };
 } 
