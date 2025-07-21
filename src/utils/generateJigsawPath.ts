@@ -3,22 +3,21 @@ export interface JigsawPathOptions {
   height: number;
   rows: number;
   columns: number;
-  tabSize?: number; // size of the jigsaw tab
-  edgeMap: EdgeType[][];
 }
 
-// 0 = flat (border), 1 = outie, -1 = innie
-export type EdgeType = [number, number, number, number]; // [top, right, bottom, left]
-
-export function computeEdgeMap(rows: number, columns: number): EdgeType[][] {
-  const edgeMap: EdgeType[][] = [];
+// Precompute edge types for the whole puzzle
+export function computeEdgeMap(rows: number, columns: number): [number, number, number, number][][] {
+  const edgeMap: [number, number, number, number][][] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {
-      let top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
-      let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
+      // Right and bottom: checkerboard pattern
       let right = col === columns - 1 ? 0 : ((row + col) % 2 === 0 ? 1 : -1);
-      let bottom = row === rows - 1 ? 0 : ((row - col) % 2 === 0 ? 1 : -1);
+      let bottom = row === rows - 1 ? 0 : ((row + col) % 2 === 0 ? 1 : -1);
+      // Left: invert right of left neighbor
+      let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
+      // Top: invert bottom of top neighbor
+      let top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
       edgeMap[row][col] = [top, right, bottom, left];
     }
   }
@@ -26,42 +25,22 @@ export function computeEdgeMap(rows: number, columns: number): EdgeType[][] {
 }
 
 /**
- * Generates an SVG path string for a jigsaw puzzle piece at (row, col).
- * Each tab/innie is a nearly circular Bézier, centered on the edge.
+ * Generates a rectangular SVG path string for a puzzle piece at (row, col),
+ * with perfect semicircular half-circle knobs/innies (1/3 edge length) on non-border edges.
+ * Edges alternate so adjoining pieces plug into each other.
  */
 export function generateJigsawPath(row: number, col: number, options: JigsawPathOptions): string {
-  const { width, height, rows, columns, tabSize, edgeMap } = options;
+  const { width, height, rows, columns } = options;
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 
+  const edgeMap = computeEdgeMap(rows, columns);
   const [top, right, bottom, left] = edgeMap[row][col];
-
-  // Tab shape params
-  const tabW = pieceWidth / 4;
-  const tabH = pieceHeight / 4;
-  const tabR = Math.min(tabW, tabH); // radius for circular tab
-
-  // Helper for a circular tab/innie (horizontal, centered)
-  function tabHorz(dir: number) {
-    // dir: 1 = outie, -1 = innie
-    // Move to center, draw a circular tab, then back
-    return [
-      `h${(pieceWidth - tabW) / 2}`,
-      // Circular tab using a single Bézier (approximate a half-circle)
-      `c0,${-tabR * dir} ${tabW},${-tabR * dir} ${tabW},0`,
-      `h${(pieceWidth - tabW) / 2}`
-    ].join(' ');
-  }
-  // Helper for a circular tab/innie (vertical, centered)
-  function tabVert(dir: number) {
-    return [
-      `v${(pieceHeight - tabH) / 2}`,
-      `c${tabR * dir},0 ${tabR * dir},${tabH} 0,${tabH}`,
-      `v${(pieceHeight - tabH) / 2}`
-    ].join(' ');
-  }
+  const knobW = pieceWidth / 3;
+  const knobH = pieceHeight / 3;
+  const knobR = Math.min(knobW, knobH) / 2;
 
   let d = `M${x},${y}`;
 
@@ -69,28 +48,38 @@ export function generateJigsawPath(row: number, col: number, options: JigsawPath
   if (top === 0) {
     d += ` h${pieceWidth}`;
   } else {
-    d += tabHorz(top);
+    d += ` h${(pieceWidth - knobW) / 2}`;
+    d += ` a${knobW / 2},${knobR} 0 0 ${top === 1 ? 1 : 0} ${knobW},0`;
+    d += ` h${(pieceWidth - knobW) / 2}`;
   }
 
   // Right edge
   if (right === 0) {
     d += ` v${pieceHeight}`;
   } else {
-    d += tabVert(right);
+    d += ` v${(pieceHeight - knobH) / 2}`;
+    d += ` a${knobR},${knobH / 2} 0 0 ${right === 1 ? 1 : 0} 0,${knobH}`;
+    d += ` v${(pieceHeight - knobH) / 2}`;
   }
 
   // Bottom edge
   if (bottom === 0) {
     d += ` h-${pieceWidth}`;
   } else {
-    d += tabHorz(-bottom);
+    d += ` h-${(pieceWidth - knobW) / 2}`;
+    // Use negative x for arc, sweep-flag same as top
+    d += ` a${knobW / 2},${knobR} 0 0 ${bottom === 1 ? 1 : 0} -${knobW},0`;
+    d += ` h-${(pieceWidth - knobW) / 2}`;
   }
 
   // Left edge
   if (left === 0) {
     d += ` v-${pieceHeight}`;
   } else {
-    d += tabVert(-left);
+    d += ` v-${(pieceHeight - knobH) / 2}`;
+    // Use negative y for arc, sweep-flag same as right
+    d += ` a${knobR},${knobH / 2} 0 0 ${left === 1 ? 1 : 0} 0,-${knobH}`;
+    d += ` v-${(pieceHeight - knobH) / 2}`;
   }
 
   d += ' Z';

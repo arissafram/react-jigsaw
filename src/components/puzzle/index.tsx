@@ -19,8 +19,8 @@ export interface PuzzleProps {
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
     image = DEFAULT_IMAGE,
-    rows = 5,
-    columns = 4,
+    rows = 4,
+    columns = 5,
     aspectRatio = '4x6',
     showOutlines = true,
     onComplete = () => console.log('complete'),
@@ -28,7 +28,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     pieceSize = 's',
   } = props;
   const { numPieces } = usePuzzleContext();
-  
+
   return (
     <div className={styles.puzzle}>
       <Board

@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
-import { generateClipPaths } from '../../utils/generateClipPaths';
-import { JigsawPathOptions, computeEdgeMap } from '../../utils/generateJigsawPath';
+import { generateJigsawPath, JigsawPathOptions } from '../../utils/generateJigsawPath';
 
 interface BoardProps {
   numPieces: number;
@@ -21,17 +20,12 @@ const BOARD_HEIGHT = 600;
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const { numPieces, image, rows, columns, aspectRatio, showOutlines, scramble, pieceSize } = props;
 
-  // Compute edgeMap once for the whole puzzle
-  const edgeMap = computeEdgeMap(rows, columns);
-
   const options: JigsawPathOptions = {
     width: BOARD_WIDTH,
     height: BOARD_HEIGHT,
     rows,
     columns,
-    edgeMap,
   };
-  const paths = generateClipPaths(options);
 
   return (
     <svg
@@ -41,20 +35,25 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
-      {paths.map((path, i) => (
-        <PuzzlePiece
-          key={i}
-          index={i}
-          path={path}
-          image={image}
-          rows={rows}
-          columns={columns}
-          aspectRatio={aspectRatio}
-          showOutlines={showOutlines}
-          scramble={scramble}
-          pieceSize={pieceSize}
-        />
-      ))}
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: columns }).map((_, col) => (
+          <PuzzlePiece
+            key={`${row}-${col}`}
+            index={row * columns + col}
+            path={generateJigsawPath(row, col, options)}
+            rows={rows}
+            columns={columns}
+            row={row}
+            col={col}
+            boardWidth={BOARD_WIDTH}
+            boardHeight={BOARD_HEIGHT}
+            aspectRatio={aspectRatio}
+            showOutlines={showOutlines}
+            scramble={scramble}
+            pieceSize={pieceSize}
+          />
+        ))
+      )}
     </svg>
   );
 };
