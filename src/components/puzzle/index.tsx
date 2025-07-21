@@ -4,7 +4,7 @@ import Board from '../board';
 import { PuzzleProvider, usePuzzleContext } from '../../contexts/puzzle-context';
 
 interface PuzzleProps {
-  initialNumPieces: number;
+  initialNumPieces?: number;
 }
 
 const PuzzleContent: React.FC = () => {
@@ -19,7 +19,7 @@ const PuzzleContent: React.FC = () => {
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const { initialNumPieces } = props;
-  
+
   return (
     <PuzzleProvider initialNumPieces={initialNumPieces}>
       <PuzzleContent />
