@@ -53,8 +53,8 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       />
       <path d={path} 
         fill="none" 
-        // stroke="#b8860b" 
-        // strokeWidth={showOutlines ? 2 : 0} 
+        stroke={isSnapped ? "" : "#b8860b"}
+        strokeWidth={showOutlines ? 2 : 0} 
       />
     </g>
   );
