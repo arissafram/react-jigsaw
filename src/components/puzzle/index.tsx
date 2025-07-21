@@ -19,8 +19,8 @@ export interface PuzzleProps {
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
     image = DEFAULT_IMAGE,
-    rows,
-    columns,
+    rows = 5,
+    columns = 4,
     aspectRatio = '4x6',
     showOutlines = true,
     onComplete = () => console.log('complete'),
@@ -28,10 +28,19 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     pieceSize = 's',
   } = props;
   const { numPieces } = usePuzzleContext();
-  // You can pass these props down to Board or context as needed
+  
   return (
     <div className={styles.puzzle}>
-      <Board numPieces={numPieces} />
+      <Board
+        numPieces={numPieces}
+        image={image}
+        rows={rows}
+        columns={columns}
+        aspectRatio={aspectRatio}
+        showOutlines={showOutlines}
+        scramble={scramble}
+        pieceSize={pieceSize}
+      />
       {/* For now, just show the image and props for debugging */}
       <img src={image} alt="Puzzle" style={{ maxWidth: '5%', margin: '1rem 0' }} />
       <pre style={{ textAlign: 'left', background: '#f8f8f8', padding: '1rem', borderRadius: 8 }}>
@@ -42,7 +51,8 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
 };
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
-  const { rows = 3, columns = 3 } = props;
+  const { rows = 5, columns = 4 } = props;
+
   return (
     <PuzzleProvider rows={rows} columns={columns}>
       <PuzzleContent {...props} />
