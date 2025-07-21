@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
-import { generateJigsawPath, JigsawPathOptions, computeEdgeMap } from '../../utils/generateJigsawPath';
+import { generateJigsawPath, JigsawPathOptions, computeEdgeMap } from '../../utils/generate-jigsaw-path';
 
 interface BoardProps {
   numPieces: number;

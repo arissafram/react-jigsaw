@@ -1,4 +1,4 @@
-import { generateJigsawPath, JigsawPathOptions } from './generateJigsawPath';
+import { generateJigsawPath, JigsawPathOptions } from './generate-jigsaw-path';
 
 /**
  * Generates an array of SVG path strings (one for each piece) for use as clipPaths.
