@@ -14,7 +14,7 @@ interface PuzzlePieceProps {
   targetX: number;
   targetY: number;
   snapThreshold: number;
-  svgRef: React.RefObject<SVGSVGElement> | undefined;
+  svgRef: React.RefObject<SVGSVGElement | null>;
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {

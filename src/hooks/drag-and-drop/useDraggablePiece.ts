@@ -14,7 +14,7 @@ export function useDraggablePiece(
   targetX: number,
   targetY: number,
   snapThreshold: number,
-  svgRef: React.RefObject<SVGSVGElement>;
+  svgRef: React.RefObject<SVGSVGElement | null>
 ) {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,

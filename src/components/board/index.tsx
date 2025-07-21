@@ -40,7 +40,7 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const [positions, setPositions] = useState<PiecePosition[]>([]);
 
   // SVG ref for drag coordinate transforms
-  const svgRef = useRef<SVGSVGElement>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
     if (scramble) {
@@ -102,4 +102,4 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
   );
 };
 
-export default Board; 
+export default Board;
