@@ -2,12 +2,19 @@ import React from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
 
-const Board: React.FC = () => {
+interface BoardProps {
+  numPieces?: number;
+}
+
+const Board: React.FC<BoardProps> = (props: BoardProps) => {
+  const { numPieces = 4 } = props;
+
   return (
     <div className={styles.board}>
       <h2>Board Component</h2>
-      <PuzzlePiece />
-      <PuzzlePiece />
+      {Array.from({ length: numPieces }).map((_, i) => (
+        <PuzzlePiece key={i} index={i} />
+      ))}
     </div>
   );
 };

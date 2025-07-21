@@ -1,13 +1,19 @@
 import React from 'react';
 import styles from './styles.module.scss';
 
-const PuzzlePiece: React.FC = () => {
-  return (
-    <div className={styles.puzzlePiece}>
-      <h2>Puzzle Piece Component</h2>
-      {/* Puzzle piece content will go here */}
-    </div>
-  );
+interface PuzzlePieceProps {
+  index?: number;
+}
+
+const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
+    const { index } = props;
+
+    return (
+        <div className={styles.puzzlePiece}>
+        <h2>Puzzle Piece {index !== undefined ? `#${index + 1}` : ''}</h2>
+        {/* Puzzle piece content will go here */}
+        </div>
+    );
 };
 
 export default PuzzlePiece; 

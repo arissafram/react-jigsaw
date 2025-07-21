@@ -6,7 +6,7 @@ const Puzzle: React.FC = () => {
   return (
     <div className={styles.puzzle}>
       <h2>Puzzle Component</h2>
-      <Board />
+      <Board numPieces={4} />
     </div>
   );
 };
