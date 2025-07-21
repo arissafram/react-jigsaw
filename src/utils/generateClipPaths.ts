@@ -1,7 +1,8 @@
-import { generateJigsawPath, JigsawPathOptions } from './generateJigsawPath';
+import { generateJigsawPath, JigsawPathOptions, computeEdgeMap } from './generateJigsawPath';
 
 /**
  * Generates an array of SVG path strings (one for each piece) for use as clipPaths.
+ * Requires a precomputed edgeMap for correct edge matching.
  */
 export function generateClipPaths(options: JigsawPathOptions): string[] {
   const { rows, columns } = options;

@@ -4,87 +4,93 @@ export interface JigsawPathOptions {
   rows: number;
   columns: number;
   tabSize?: number; // size of the jigsaw tab
+  edgeMap: EdgeType[][];
 }
 
-// Helper to get edge type for each piece
 // 0 = flat (border), 1 = outie, -1 = innie
-function getEdgeTypes(row: number, col: number, rows: number, columns: number): [number, number, number, number] {
-  let top = row === 0 ? 0 : undefined;
-  let left = col === 0 ? 0 : undefined;
-  let bottom = row === rows - 1 ? 0 : undefined;
-  let right = col === columns - 1 ? 0 : undefined;
-  if (top === undefined) top = -getEdgeTypes(row - 1, col, rows, columns)[2];
-  if (left === undefined) left = -getEdgeTypes(row, col - 1, rows, columns)[1];
-  if (right === undefined) right = ((row + col) % 2 === 0 ? 1 : -1);
-  if (bottom === undefined) bottom = ((row - col) % 2 === 0 ? 1 : -1);
-  return [top, right, bottom, left];
+export type EdgeType = [number, number, number, number]; // [top, right, bottom, left]
+
+export function computeEdgeMap(rows: number, columns: number): EdgeType[][] {
+  const edgeMap: EdgeType[][] = [];
+  for (let row = 0; row < rows; row++) {
+    edgeMap[row] = [];
+    for (let col = 0; col < columns; col++) {
+      let top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
+      let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
+      let right = col === columns - 1 ? 0 : ((row + col) % 2 === 0 ? 1 : -1);
+      let bottom = row === rows - 1 ? 0 : ((row - col) % 2 === 0 ? 1 : -1);
+      edgeMap[row][col] = [top, right, bottom, left];
+    }
+  }
+  return edgeMap;
 }
 
 /**
  * Generates an SVG path string for a jigsaw puzzle piece at (row, col).
- * Each tab/innie is a single smooth bump (fewer control points, less pronounced).
+ * Each tab/innie is a nearly circular Bézier, centered on the edge.
  */
 export function generateJigsawPath(row: number, col: number, options: JigsawPathOptions): string {
-  const { width, height, rows, columns, tabSize = 16 } = options;
+  const { width, height, rows, columns, tabSize, edgeMap } = options;
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 
-  // Get edge types: [top, right, bottom, left]
-  const [top, right, bottom, left] = getEdgeTypes(row, col, rows, columns);
+  const [top, right, bottom, left] = edgeMap[row][col];
 
   // Tab shape params
-  const tabWidth = pieceWidth / 3;
-  const tabHeight = tabSize;
+  const tabW = pieceWidth / 4;
+  const tabH = pieceHeight / 4;
+  const tabR = Math.min(tabW, tabH); // radius for circular tab
 
-  // Helper for a single tab/innie (horizontal)
-  function tabH(dir: number) {
+  // Helper for a circular tab/innie (horizontal, centered)
+  function tabHorz(dir: number) {
     // dir: 1 = outie, -1 = innie
-    return `c${tabWidth / 2},${-tabHeight * dir} ${tabWidth / 2},${-tabHeight * dir} ${tabWidth},0`;
+    // Move to center, draw a circular tab, then back
+    return [
+      `h${(pieceWidth - tabW) / 2}`,
+      // Circular tab using a single Bézier (approximate a half-circle)
+      `c0,${-tabR * dir} ${tabW},${-tabR * dir} ${tabW},0`,
+      `h${(pieceWidth - tabW) / 2}`
+    ].join(' ');
   }
-  // Helper for a single tab/innie (vertical)
-  function tabV(dir: number) {
-    return `c${tabHeight * dir},${tabWidth / 2} ${tabHeight * dir},${tabWidth / 2} 0,${tabWidth}`;
+  // Helper for a circular tab/innie (vertical, centered)
+  function tabVert(dir: number) {
+    return [
+      `v${(pieceHeight - tabH) / 2}`,
+      `c${tabR * dir},0 ${tabR * dir},${tabH} 0,${tabH}`,
+      `v${(pieceHeight - tabH) / 2}`
+    ].join(' ');
   }
 
-  // Start at top-left
   let d = `M${x},${y}`;
 
   // Top edge
   if (top === 0) {
     d += ` h${pieceWidth}`;
   } else {
-    d += ` h${tabWidth}`;
-    d += ' ' + tabH(top);
-    d += ` h${pieceWidth - 2 * tabWidth}`;
+    d += tabHorz(top);
   }
 
   // Right edge
   if (right === 0) {
     d += ` v${pieceHeight}`;
   } else {
-    d += ` v${tabWidth}`;
-    d += ' ' + tabV(right);
-    d += ` v${pieceHeight - 2 * tabWidth}`;
+    d += tabVert(right);
   }
 
   // Bottom edge
   if (bottom === 0) {
     d += ` h-${pieceWidth}`;
   } else {
-    d += ` h-${-tabWidth}`;
-    d += ' ' + tabH(-bottom);
-    d += ` h-${pieceWidth - 2 * tabWidth}`;
+    d += tabHorz(-bottom);
   }
 
   // Left edge
   if (left === 0) {
     d += ` v-${pieceHeight}`;
   } else {
-    d += ` v-${-tabWidth}`;
-    d += ' ' + tabV(-left);
-    d += ` v-${pieceHeight - 2 * tabWidth}`;
+    d += tabVert(-left);
   }
 
   d += ' Z';
