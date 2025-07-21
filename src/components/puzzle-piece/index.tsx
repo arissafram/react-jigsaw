@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
-import { useDraggablePiece } from '../../hooks/drag-and-drop/useDraggablePiece';
+import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
 interface PuzzlePieceProps {
   index: number;
@@ -22,7 +22,7 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY, targetX, targetY, snapThreshold, svgRef
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDraggablePiece(initialX, initialY, targetX, targetY, snapThreshold, svgRef);
+  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop(initialX, initialY, targetX, targetY, snapThreshold, svgRef);
 
   useEffect(() => {
     // Debug log for each piece

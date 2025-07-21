@@ -8,7 +8,7 @@ export interface DragState {
   offsetY: number;
 }
 
-export function useDraggablePiece(
+export function useDragAndDrop(
   initialX: number,
   initialY: number,
   targetX: number,
