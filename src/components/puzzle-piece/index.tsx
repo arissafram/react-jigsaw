@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
+import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
 interface PuzzlePieceProps {
   index: number;
@@ -8,15 +9,34 @@ interface PuzzlePieceProps {
   boardHeight: number;
   image: string;
   showOutlines: boolean;
+  initialX: number;
+  initialY: number;
+  targetX: number;
+  targetY: number;
+  snapThreshold: number;
+  svgRef: React.RefObject<SVGSVGElement | null>;
 }
 
 const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
-    index, path, boardWidth, boardHeight, image, showOutlines
+    index, path, boardWidth, boardHeight, image, showOutlines, initialX, initialY, targetX, targetY, snapThreshold, svgRef
   } = props;
 
+  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop(initialX, initialY, targetX, targetY, snapThreshold, svgRef);
+
+  useEffect(() => {
+    // Debug log for each piece
+    // eslint-disable-next-line no-console
+    console.log(`Piece ${index}: initial=(${initialX},${initialY}), target=(${targetX},${targetY}), drag=(${dragState.x},${dragState.y}), snapped=${isSnapped}`);
+  }, [index, initialX, initialY, targetX, targetY, dragState.x, dragState.y, isSnapped]);
+
   return (
-    <g className={styles.puzzlePiece}>
+    <g
+      ref={ref}
+      transform={isSnapped ? '' :`translate(${dragState.x},${dragState.y})`}
+      {...eventHandlers}
+      className={styles.puzzlePiece}
+    >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
           <path d={path} />
@@ -31,7 +51,11 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         clipPath={`url(#piece-clip-${index})`}
         preserveAspectRatio="xMidYMid slice"
       />
-      <path d={path} fill="none" stroke="#b8860b" strokeWidth={showOutlines ? 2 : 0} />
+      <path d={path} 
+        fill="none" 
+        stroke={isSnapped ? "" : "#b8860b"}
+        strokeWidth={showOutlines ? 2 : 0} 
+      />
     </g>
   );
 };
