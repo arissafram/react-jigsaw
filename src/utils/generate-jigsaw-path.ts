@@ -7,14 +7,17 @@ export interface JigsawPathOptions {
 }
 
 // Precompute edge types for the whole puzzle
-export function computeEdgeMap(rows: number, columns: number): [number, number, number, number][][] {
+export function computeEdgeMap(
+  rows: number,
+  columns: number,
+): [number, number, number, number][][] {
   const edgeMap: [number, number, number, number][][] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {
       // Right and bottom: checkerboard pattern
-      let right = col === columns - 1 ? 0 : ((row + col) % 2 === 0 ? 1 : -1);
-      let bottom = row === rows - 1 ? 0 : ((row + col) % 2 === 0 ? 1 : -1);
+      let right = col === columns - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
+      let bottom = row === rows - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
       // Left: invert right of left neighbor
       let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
       // Top: invert bottom of top neighbor

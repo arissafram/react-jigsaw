@@ -11,12 +11,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  plugins: [
-    'react',
-    'react-hooks',
-    'jsx-a11y',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', 'react-hooks', 'jsx-a11y', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -35,4 +30,4 @@ module.exports = {
       version: 'detect',
     },
   },
-}; 
+};
