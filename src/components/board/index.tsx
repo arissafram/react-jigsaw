@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
-import { generateJigsawPath, JigsawPathOptions } from '../../utils/generateJigsawPath';
+import { generateJigsawPath, JigsawPathOptions, computeEdgeMap } from '../../utils/generateJigsawPath';
 
 interface BoardProps {
   numPieces: number;
@@ -19,6 +19,9 @@ const BOARD_HEIGHT = 600;
 
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const { numPieces, image, rows, columns, aspectRatio, showOutlines, scramble, pieceSize } = props;
+
+  // Compute edgeMap once for the whole puzzle
+  const edgeMap = computeEdgeMap(rows, columns);
 
   const options: JigsawPathOptions = {
     width: BOARD_WIDTH,
@@ -40,17 +43,11 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
           <PuzzlePiece
             key={`${row}-${col}`}
             index={row * columns + col}
-            path={generateJigsawPath(row, col, options)}
-            rows={rows}
-            columns={columns}
-            row={row}
-            col={col}
+            path={generateJigsawPath(row, col, { ...options, edgeMap })}
             boardWidth={BOARD_WIDTH}
             boardHeight={BOARD_HEIGHT}
-            aspectRatio={aspectRatio}
+            image={image}
             showOutlines={showOutlines}
-            scramble={scramble}
-            pieceSize={pieceSize}
           />
         ))
       )}

@@ -19,7 +19,7 @@ export interface PuzzleProps {
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
     image = DEFAULT_IMAGE,
-    rows = 4,
+    rows = 5,
     columns = 5,
     aspectRatio = '4x6',
     showOutlines = true,
