@@ -3,6 +3,7 @@ export interface JigsawPathOptions {
   height: number;
   rows: number;
   columns: number;
+  edgeMap?: [number, number, number, number][][];
 }
 
 // Precompute edge types for the whole puzzle
