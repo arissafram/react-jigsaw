@@ -6,9 +6,9 @@ import {
   JigsawPathOptions,
   computeEdgeMap,
 } from '../../utils/generate-jigsaw-path';
-import { PiecePosition, shufflePieces } from './helpers/shuffle-pieces';
+import { shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
-import { PuzzleOptions } from '../puzzle';
+import { PuzzleOptions, PiecePosition } from '../../types';
 
 interface BoardProps {
   columns: number;

@@ -1,11 +1,6 @@
-export interface PiecePosition {
-  pieceRow: number;
-  pieceCol: number;
-  x: number;
-  y: number;
-}
+import { PiecePosition } from '@/types';
 
-export function shufflePieces({
+export const shufflePieces = ({
   boardHeight,
   boardWidth,
   columns,
@@ -21,7 +16,7 @@ export function shufflePieces({
   pieceWidth: number;
   rows: number;
   shuffleArea?: 'anywhere' | 'board';
-}): PiecePosition[] {
+}): PiecePosition[] => {
   // Create a list of all solved positions
   const solved: { pieceRow: number; pieceCol: number }[] = [];
   for (let row = 0; row < rows; row++) {
@@ -46,4 +41,4 @@ export function shufflePieces({
     }
     return { pieceRow, pieceCol, x, y };
   });
-}
+};

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-export interface DragState {
+interface DragState {
   isDragging: boolean;
   x: number;
   y: number;
