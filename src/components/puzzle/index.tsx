@@ -21,20 +21,17 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   const { image, options } = props;
 
   return (
-    <div className={styles.puzzle}>
-      <p>settings</p>
-      <Board
-        className={options.board.className}
-        columns={options.board.columns}
-        height={options.board.height}
-        image={image}
-        puzzlePieceOptions={options.puzzlePiece}
-        rows={options.board.rows}
-        showGridOutlines={options.board.showGridOutlines}
-        shuffleArea={options.shuffleArea}
-        width={options.board.width}
-      />
-    </div>
+    <Board
+      className={options.board.className}
+      columns={options.board.columns}
+      height={options.board.height}
+      image={image}
+      puzzlePieceOptions={options.puzzlePiece}
+      rows={options.board.rows}
+      showGridOutlines={options.board.showGridOutlines}
+      shuffleArea={options.shuffleArea}
+      width={options.board.width}
+    />
   );
 };
 
