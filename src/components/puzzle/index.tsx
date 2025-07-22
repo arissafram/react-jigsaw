@@ -8,6 +8,7 @@ export interface PuzzleProps {
   columns: number;
   rows: number;
   shuffle?: boolean;
+  shuffleArea?: 'anywhere' | 'board';
   showGridOutlines?: boolean;
   width?: number;
   height?: number;
@@ -22,6 +23,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     rows,
     columns,
     shuffle = true,
+    shuffleArea = 'board',
     showGridOutlines = true,
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
@@ -34,6 +36,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         rows={rows}
         columns={columns}
         shuffle={shuffle}
+        shuffleArea={shuffleArea}
         showGridOutlines={showGridOutlines}
         width={width}
         height={height}

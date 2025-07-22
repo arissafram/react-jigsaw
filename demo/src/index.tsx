@@ -12,6 +12,7 @@ const App = () => {
         columns={4}
         rows={5}
         shuffle={true}
+        shuffleArea="board"
         width={400}
         height={500}
       />

@@ -13,8 +13,9 @@ interface BoardProps {
   columns: number;
   image: string;
   rows: number;
-  showGridOutlines: boolean;
   shuffle: boolean;
+  shuffleArea: 'anywhere' | 'board';
+  showGridOutlines: boolean;
   width: number;
   height: number;
 }
@@ -22,7 +23,16 @@ interface BoardProps {
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
-  const { columns, image, rows, shuffle = true, showGridOutlines, width, height } = props;
+  const {
+    columns,
+    image,
+    rows,
+    shuffle = true,
+    shuffleArea = 'board',
+    showGridOutlines,
+    width,
+    height,
+  } = props;
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
@@ -56,6 +66,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         pieceHeight,
         pieceWidth,
         rows,
+        shuffleArea,
       });
       setPositions(shuffledPieces);
     } else {
@@ -68,41 +79,43 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       }
       setPositions(ordered);
     }
-  }, [rows, columns, shuffle, pieceWidth, pieceHeight, width, height]);
+  }, [rows, columns, shuffle, pieceWidth, pieceHeight, width, height, shuffleArea]);
 
   return (
-    <svg
-      ref={svgRef}
-      className={styles.board}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-      style={{ background: '#eaf6ff', borderRadius: 10 }}
-    >
-      <GridOutlines
-        columns={columns}
-        jigawOptions={jigawOptions}
-        rows={rows}
-        showGridOutlines={showGridOutlines}
-      />
-      {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
-        <PuzzlePiece
-          boardHeight={height}
-          boardWidth={width}
-          image={image}
-          index={i}
-          initialX={x}
-          initialY={y}
-          key={`${pieceRow}-${pieceCol}`}
-          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
-          showOutlines={false} // placeholder for future piece outlines
-          snapThreshold={SNAP_THRESHOLD}
-          svgRef={svgRef}
-          targetX={(pieceCol * pieceWidth) / 100}
-          targetY={(pieceRow * pieceHeight) / 100}
+    <div id="board">
+      <svg
+        ref={svgRef}
+        className={styles.board}
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ background: '#eaf6ff', borderRadius: 10 }}
+      >
+        <GridOutlines
+          columns={columns}
+          jigawOptions={jigawOptions}
+          rows={rows}
+          showGridOutlines={showGridOutlines}
         />
-      ))}
-    </svg>
+        {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
+          <PuzzlePiece
+            boardHeight={height}
+            boardWidth={width}
+            image={image}
+            index={i}
+            initialX={x}
+            initialY={y}
+            key={`${pieceRow}-${pieceCol}`}
+            path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
+            showOutlines={false} // placeholder for future piece outlines
+            snapThreshold={SNAP_THRESHOLD}
+            svgRef={svgRef}
+            targetX={(pieceCol * pieceWidth) / 100}
+            targetY={(pieceRow * pieceHeight) / 100}
+          />
+        ))}
+      </svg>
+    </div>
   );
 };
 

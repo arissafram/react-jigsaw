@@ -12,6 +12,7 @@ export function shufflePieces({
   pieceHeight,
   pieceWidth,
   rows,
+  shuffleArea = 'board',
 }: {
   boardHeight: number;
   boardWidth: number;
@@ -19,6 +20,7 @@ export function shufflePieces({
   pieceHeight: number;
   pieceWidth: number;
   rows: number;
+  shuffleArea?: 'anywhere' | 'board';
 }): PiecePosition[] {
   // Create a list of all solved positions
   const solved: { pieceRow: number; pieceCol: number }[] = [];
@@ -34,8 +36,14 @@ export function shufflePieces({
   }
   // Assign each a random x/y
   return solved.map(({ pieceRow, pieceCol }) => {
-    const x = Math.random() * (boardWidth - pieceWidth * 0.5) - pieceWidth * 0.25;
-    const y = Math.random() * (boardHeight - pieceHeight * 0.5) - pieceHeight * 0.25;
+    let x, y;
+    if (shuffleArea === 'board') {
+      x = Math.random() * pieceWidth;
+      y = Math.random() * pieceHeight;
+    } else {
+      x = Math.random() * (boardWidth - pieceWidth * 0.5) - pieceWidth * 0.25;
+      y = Math.random() * (boardHeight - pieceHeight * 0.5) - pieceHeight * 0.25;
+    }
     return { pieceRow, pieceCol, x, y };
   });
 }
