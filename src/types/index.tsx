@@ -1,4 +1,5 @@
 type ComputedEdgeMap = [number, number, number, number][][];
+
 export interface JigsawPathOptions {
   width: number;
   height: number;
@@ -6,6 +7,7 @@ export interface JigsawPathOptions {
   columns: number;
   edgeMap: ComputedEdgeMap;
 }
+
 export interface InitialPuzzleOptions {
   board?: {
     className?: string;

@@ -1,7 +1,8 @@
-import Board from '../board';
-import { PuzzleProvider } from '../../contexts/puzzle-context';
-import { PuzzleOptions, InitialPuzzleOptions } from '../../types';
+import Board from '@/components/board';
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
+import { PuzzleProvider } from '@/contexts/puzzle-context';
+import { PuzzleOptions, InitialPuzzleOptions } from '@/types';
+
 import { mergeOptions } from './helpers/merge-options';
 
 import styles from './styles.module.scss';

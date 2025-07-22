@@ -1,11 +1,12 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
-import PuzzlePiece from '../puzzle-piece';
-import { generateJigsawPath, computeEdgeMap } from '../../utils/generate-jigsaw-path';
-import { shufflePieces } from './helpers/shuffle-pieces';
-import GridOutlines from './components';
-import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '../../types';
+import PuzzlePiece from '@/components/puzzle-piece';
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
+import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
+import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
+
+import GridOutlines from './components';
+import { shufflePieces } from './helpers/shuffle-pieces';
 
 import styles from './styles.module.scss';
 

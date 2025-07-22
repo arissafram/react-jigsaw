@@ -1,7 +1,7 @@
 import { RefObject, FC } from 'react';
 
-import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
-import { PuzzleOptions } from '../../types';
+import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
+import { PuzzleOptions } from '@/types';
 
 interface PuzzlePieceProps {
   boardHeight: number;

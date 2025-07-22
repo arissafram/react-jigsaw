@@ -1,4 +1,5 @@
 import { JigsawPathOptions } from '@/types';
+
 import { generateJigsawPath } from './generate-jigsaw-path';
 
 /**
