@@ -1,5 +1,5 @@
 import { RefObject, FC } from 'react';
-import styles from './styles.module.scss';
+
 import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 import { PuzzleOptions } from '../../types';
 

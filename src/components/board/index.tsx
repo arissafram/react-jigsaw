@@ -1,11 +1,13 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
-import styles from './styles.module.scss';
+
 import PuzzlePiece from '../puzzle-piece';
 import { generateJigsawPath, computeEdgeMap } from '../../utils/generate-jigsaw-path';
 import { shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
 import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '../../types';
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
+
+import styles from './styles.module.scss';
 
 interface BoardProps {
   columns: number;
