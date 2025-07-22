@@ -5,4 +5,11 @@
   &:active {
     cursor: grabbing;
   }
+
+  &:focus {
+    outline: none;
+    path {
+      filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor);
+    }
+  }
 }
