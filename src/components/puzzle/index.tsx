@@ -12,6 +12,13 @@ export interface PuzzleProps {
   showGridOutlines?: boolean;
   width?: number;
   height?: number;
+  boardStyle?: React.CSSProperties;
+  puzzleStyle?: React.CSSProperties;
+  puzzlePieceOptions: {
+    strokeColor: string;
+    strokeEnabled: boolean;
+    strokeWidth: number;
+  };
 }
 
 const DEFAULT_WIDTH = 400;
@@ -27,10 +34,13 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     showGridOutlines = true,
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
+    boardStyle,
+    puzzleStyle,
+    puzzlePieceOptions,
   } = props;
   // const { numPieces } = usePuzzleContext();
   return (
-    <div className={styles.puzzle}>
+    <div className={styles.puzzle} style={puzzleStyle}>
       <Board
         image={image}
         rows={rows}
@@ -40,6 +50,8 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         showGridOutlines={showGridOutlines}
         width={width}
         height={height}
+        boardStyle={boardStyle}
+        puzzlePieceOptions={puzzlePieceOptions}
       />
     </div>
   );

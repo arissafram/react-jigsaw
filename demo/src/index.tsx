@@ -15,6 +15,13 @@ const App = () => {
         shuffleArea="board"
         width={400}
         height={500}
+        boardStyle={{ backgroundColor: 'transparent' }}
+        puzzleStyle={{}}
+        puzzlePieceOptions={{
+          strokeColor: 'gold',
+          strokeEnabled: true,
+          strokeWidth: 2,
+        }}
       />
       <p>hello</p>
     </>
