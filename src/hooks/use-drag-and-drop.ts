@@ -85,10 +85,35 @@ export const useDragAndDrop = ({
     window.removeEventListener('pointerup', onPointerUp);
   }
 
+  function movePiece(deltaX: number, deltaY: number) {
+    if (isSnapped) return;
+    setDragState((s) => ({
+      ...s,
+      x: s.x + deltaX,
+      y: s.y + deltaY,
+    }));
+  }
+
+  function snapPiece() {
+    if (isSnapped) return;
+    const dist = Math.hypot(dragState.x - targetX, dragState.y - targetY);
+    if (dist <= snapThreshold) {
+      setIsSnapped(true);
+      onSnap?.();
+      setDragState((s) => ({
+        ...s,
+        x: targetX,
+        y: targetY,
+      }));
+    }
+  }
+
   return {
     ref,
     dragState,
     isSnapped,
+    movePiece,
+    snapPiece,
     eventHandlers: {
       onPointerDown: isSnapped ? undefined : onPointerDown,
       style: { cursor: isSnapped ? 'default' : 'grab' },

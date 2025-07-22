@@ -19,6 +19,9 @@ interface PuzzlePieceProps {
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   onSnap?: () => void;
+  onSnapWithKeyboard?: () => void;
+  registerPieceRef?: (gridKey: string, ref: SVGGElement | null) => void;
+  gridKey: string;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -38,7 +41,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     onSnap,
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
+  const { ref, dragState, isSnapped, eventHandlers, movePiece, snapPiece } = useDragAndDrop({
     initialX,
     initialY,
     snapThreshold,
@@ -47,6 +50,54 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetY,
     onSnap,
   });
+
+  // Register this piece's ref with the parent
+  useEffect(() => {
+    if (props.registerPieceRef) {
+      props.registerPieceRef(props.gridKey, ref.current);
+    }
+
+    return () => {
+      if (props.registerPieceRef) {
+        props.registerPieceRef(props.gridKey, null);
+      }
+    };
+  }, [ref.current, props.registerPieceRef, props.gridKey]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isSnapped) return;
+
+    const step = 10; // 10px movement per key press
+
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        movePiece(0, -step);
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        movePiece(0, step);
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        movePiece(-step, 0);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        movePiece(step, 0);
+        break;
+      case 'Enter':
+      case ' ': {
+        e.preventDefault();
+        snapPiece();
+        // Call the keyboard-specific callback for focus management
+        if (props.onSnapWithKeyboard) {
+          props.onSnapWithKeyboard();
+        }
+        break;
+      }
+    }
+  };
 
   // Bring element to front when dragging starts
   useEffect(() => {
@@ -71,6 +122,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
       className={styles.puzzlePiece}
+      tabIndex={isSnapped ? -1 : 0}
+      onKeyDown={handleKeyDown}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
