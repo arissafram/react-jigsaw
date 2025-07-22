@@ -15,9 +15,9 @@ export interface PuzzleProps {
 
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
-    columns = 5,
+    columns = 3,
     image = DEFAULT_IMAGE,
-    rows = 2,
+    rows = 4,
     scramble = true,
     showOutlines = true,
   } = props;
@@ -32,7 +32,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         showOutlines={showOutlines}
       />
       <pre style={{ textAlign: 'left', background: '#f8f8f8', padding: '1rem', borderRadius: 8 }}>
-        {JSON.stringify({ rows, columns, showOutlines, scramble, }, null, 2)}
+        {JSON.stringify({ rows, columns, showOutlines, scramble }, null, 2)}
       </pre>
     </div>
   );

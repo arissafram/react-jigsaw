@@ -4,17 +4,17 @@ import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
 interface PuzzlePieceProps {
   boardHeight: number;
-boardWidth: number;
-image: string;
-index: number;
-initialX: number;
-initialY: number;
-path: string;
-showOutlines: boolean;
-snapThreshold: number;
-svgRef: RefObject<SVGSVGElement | null>;
-targetX: number;
-targetY: number;
+  boardWidth: number;
+  image: string;
+  index: number;
+  initialX: number;
+  initialY: number;
+  path: string;
+  showOutlines: boolean;
+  snapThreshold: number;
+  svgRef: RefObject<SVGSVGElement | null>;
+  targetX: number;
+  targetY: number;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {

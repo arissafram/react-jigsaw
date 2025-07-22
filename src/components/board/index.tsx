@@ -69,6 +69,19 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
+      {/* Board slot outlines */}
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: columns }).map((_, col) => (
+          <path
+            key={`outline-${row}-${col}`}
+            d={generateJigsawPath(row, col, options)}
+            fill="none"
+            stroke="#bbb"
+            strokeWidth={2}
+            style={{ pointerEvents: 'none' }}
+          />
+        )),
+      )}
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
           boardHeight={BOARD_HEIGHT}
