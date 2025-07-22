@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Board from '../board';
-import { PuzzleProvider, usePuzzleContext } from '../../contexts/puzzle-context';
+import { PuzzleProvider } from '../../contexts/puzzle-context';
 
 export interface PuzzleProps {
   image: string;
   columns: number;
   rows: number;
-  scramble?: boolean;
+  shuffle?: boolean;
   showGridOutlines?: boolean;
   width?: number;
   height?: number;
@@ -21,7 +21,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     image,
     rows,
     columns,
-    scramble = true,
+    shuffle = true,
     showGridOutlines = true,
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,
@@ -33,7 +33,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         image={image}
         rows={rows}
         columns={columns}
-        scramble={scramble}
+        shuffle={shuffle}
         showGridOutlines={showGridOutlines}
         width={width}
         height={height}

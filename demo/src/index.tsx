@@ -5,14 +5,18 @@ const DEMO_IMAGE =
 
 const App = () => {
   return (
-    <Puzzle
-      image={DEMO_IMAGE}
-      showGridOutlines={true}
-      columns={4}
-      rows={5}
-      width={400}
-      height={500}
-    />
+    <>
+      <Puzzle
+        image={DEMO_IMAGE}
+        showGridOutlines={true}
+        columns={4}
+        rows={5}
+        shuffle={true}
+        width={400}
+        height={500}
+      />
+      <p>hello</p>
+    </>
   );
 };
 

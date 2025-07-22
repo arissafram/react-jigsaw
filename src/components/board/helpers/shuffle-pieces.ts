@@ -5,7 +5,7 @@ export interface PiecePosition {
   y: number;
 }
 
-export function scramblePieces(
+export function shufflePieces(
   rows: number,
   columns: number,
   boardWidth: number,

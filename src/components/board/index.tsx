@@ -6,15 +6,15 @@ import {
   JigsawPathOptions,
   computeEdgeMap,
 } from '../../utils/generate-jigsaw-path';
-import { PiecePosition, scramblePieces } from './helpers/scramble-pieces';
+import { PiecePosition, shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
 
 interface BoardProps {
   columns: number;
   image: string;
   rows: number;
-  scramble: boolean;
   showGridOutlines: boolean;
+  shuffle: boolean;
   width: number;
   height: number;
 }
@@ -22,9 +22,9 @@ interface BoardProps {
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
-  const { columns, image, rows, scramble = true, showGridOutlines, width, height } = props;
+  const { columns, image, rows, shuffle = true, showGridOutlines, width, height } = props;
 
-  // Scrambled positions state
+  // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
 
   // SVG ref for drag coordinate transforms
@@ -48,8 +48,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   );
 
   useEffect(() => {
-    if (scramble) {
-      setPositions(scramblePieces(rows, columns, width, height, pieceWidth, pieceHeight));
+    if (shuffle) {
+      setPositions(shufflePieces(rows, columns, width, height, pieceWidth, pieceHeight));
     } else {
       // Ordered positions (grid)
       const ordered: PiecePosition[] = [];
@@ -60,7 +60,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       }
       setPositions(ordered);
     }
-  }, [rows, columns, scramble, pieceWidth, pieceHeight, width, height]);
+  }, [rows, columns, shuffle, pieceWidth, pieceHeight, width, height]);
 
   return (
     <svg
