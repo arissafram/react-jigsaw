@@ -21,3 +21,11 @@ export interface PiecePosition {
   x: number;
   y: number;
 }
+
+export interface JigsawPathOptions {
+  width: number;
+  height: number;
+  rows: number;
+  columns: number;
+  edgeMap?: [number, number, number, number][][];
+}

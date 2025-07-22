@@ -1,4 +1,5 @@
-import { generateJigsawPath, JigsawPathOptions } from '@/utils/generate-jigsaw-path';
+import { JigsawPathOptions } from '@/types';
+import { generateJigsawPath } from '@/utils/generate-jigsaw-path';
 
 interface GridOutlinesProps {
   columns: number;

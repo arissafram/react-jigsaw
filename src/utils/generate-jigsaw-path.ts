@@ -1,19 +1,13 @@
-export interface JigsawPathOptions {
-  width: number;
-  height: number;
-  rows: number;
-  columns: number;
-  edgeMap?: [number, number, number, number][][];
-}
+import { JigsawPathOptions } from '@/types';
 
 // Precompute edge types for the whole puzzle
-export function computeEdgeMap({
+export const computeEdgeMap = ({
   rows,
   columns,
 }: {
   rows: number;
   columns: number;
-}): [number, number, number, number][][] {
+}): [number, number, number, number][][] => {
   const edgeMap: [number, number, number, number][][] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
@@ -29,14 +23,14 @@ export function computeEdgeMap({
     }
   }
   return edgeMap;
-}
+};
 
 /**
  * Generates a rectangular SVG path string for a puzzle piece at (row, col),
  * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
  * Edges alternate so adjoining pieces plug into each other.
  */
-export function generateJigsawPath({
+export const generateJigsawPath = ({
   col,
   row,
   options,
@@ -44,7 +38,7 @@ export function generateJigsawPath({
   col: number;
   row: number;
   options: JigsawPathOptions;
-}): string {
+}): string => {
   const { width, height, rows, columns } = options;
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;
@@ -96,4 +90,4 @@ export function generateJigsawPath({
 
   d += ' Z';
   return d;
-}
+};

@@ -1,14 +1,10 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
-import {
-  generateJigsawPath,
-  JigsawPathOptions,
-  computeEdgeMap,
-} from '../../utils/generate-jigsaw-path';
+import { generateJigsawPath, computeEdgeMap } from '../../utils/generate-jigsaw-path';
 import { shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
-import { PuzzleOptions, PiecePosition } from '../../types';
+import { PuzzleOptions, PiecePosition, JigsawPathOptions } from '../../types';
 
 interface BoardProps {
   columns: number;
