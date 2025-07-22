@@ -1,3 +1,4 @@
+import { RefObject, FC } from 'react';
 import styles from './styles.module.scss';
 import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
@@ -13,10 +14,10 @@ interface PuzzlePieceProps {
   targetX: number;
   targetY: number;
   snapThreshold: number;
-  svgRef: React.RefObject<SVGSVGElement | null>;
+  svgRef: RefObject<SVGSVGElement | null>;
 }
 
-const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
+const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
     index,
     path,
