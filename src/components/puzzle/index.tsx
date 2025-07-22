@@ -7,7 +7,7 @@ import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 
 interface PuzzleProps {
   image: string;
-  options: InitialPuzzleOptions;
+  options?: InitialPuzzleOptions;
 }
 
 interface PuzzleContentProps {
@@ -69,7 +69,7 @@ const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
 
   return (
     <PuzzleProvider rows={mergedOptions.board.rows} columns={mergedOptions.board.columns}>
-      <PuzzleContent image={props.image} options={mergedOptions} />
+      <PuzzleContent {...props} options={mergedOptions} />
     </PuzzleProvider>
   );
 };
