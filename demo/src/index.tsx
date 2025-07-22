@@ -8,20 +8,20 @@ const App = () => {
     <>
       <Puzzle
         image={DEMO_IMAGE}
-        columns={4}
-        rows={5}
-        width={400}
-        height={500}
         options={{
           board: {
-            backgroundColor: 'pink',
+            backgroundColor: 'transparent',
+            columns: 4,
+            height: 500,
+            rows: 5,
+            showGridOutlines: true,
+            width: 400,
           },
           puzzlePiece: {
             strokeColor: 'gold',
             strokeEnabled: true,
             strokeWidth: 2,
           },
-          showGridOutlines: true,
           shuffleArea: 'board',
         }}
       />

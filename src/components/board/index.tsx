@@ -18,13 +18,17 @@ interface BoardProps {
   options: {
     board: {
       backgroundColor: string;
+      columns: number;
+      height: number;
+      rows: number;
+      showGridOutlines: boolean;
+      width: number;
     };
     puzzlePiece: {
       strokeColor: string;
       strokeEnabled: boolean;
       strokeWidth: number;
     };
-    showGridOutlines: boolean;
     shuffleArea: 'anywhere' | 'board';
   };
 }
@@ -87,7 +91,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         columns={columns}
         jigawOptions={jigawOptions}
         rows={rows}
-        showGridOutlines={options.showGridOutlines}
+        showGridOutlines={options.board.showGridOutlines}
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
