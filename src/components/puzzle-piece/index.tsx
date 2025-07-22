@@ -38,7 +38,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     onSnap,
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
+  const { ref, dragState, isSnapped, eventHandlers, movePiece, snapPiece } = useDragAndDrop({
     initialX,
     initialY,
     snapThreshold,
@@ -47,6 +47,37 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetY,
     onSnap,
   });
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isSnapped) return;
+
+    const step = 10; // 10px movement per key press
+
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        movePiece(0, -step);
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        movePiece(0, step);
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        movePiece(-step, 0);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        movePiece(step, 0);
+        break;
+      case 'Enter':
+      case ' ': {
+        e.preventDefault();
+        snapPiece();
+        break;
+      }
+    }
+  };
 
   // Bring element to front when dragging starts
   useEffect(() => {
@@ -72,6 +103,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       {...eventHandlers}
       className={styles.puzzlePiece}
       tabIndex={isSnapped ? -1 : 0}
+      onKeyDown={handleKeyDown}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
