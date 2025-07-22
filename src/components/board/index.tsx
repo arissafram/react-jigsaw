@@ -21,13 +21,7 @@ const BOARD_HEIGHT = 600;
 const SNAP_THRESHOLD = 20;
 
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
-  const {
-    columns,
-    image,
-    rows,
-    scramble = true,
-    showOutlines,
-  } = props;
+  const { columns, image, rows, scramble = true, showOutlines } = props;
 
   // Compute edgeMap once for the whole puzzle
   const edgeMap = computeEdgeMap(rows, columns);
