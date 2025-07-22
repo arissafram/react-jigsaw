@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // Define the shape of the puzzle context state
 interface PuzzleContextState {
@@ -31,11 +31,7 @@ export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProvi
     setColumns,
   };
 
-  return (
-    <PuzzleContext.Provider value={value}>
-      {children}
-    </PuzzleContext.Provider>
-  );
+  return <PuzzleContext.Provider value={value}>{children}</PuzzleContext.Provider>;
 };
 
 export const usePuzzleContext = () => {
@@ -44,4 +40,4 @@ export const usePuzzleContext = () => {
     throw new Error('usePuzzleContext must be used within a PuzzleProvider');
   }
   return context;
-}; 
+};

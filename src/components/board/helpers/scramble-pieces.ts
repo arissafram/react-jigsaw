@@ -5,7 +5,14 @@ export interface PiecePosition {
   y: number;
 }
 
-export function scramblePieces(rows: number, columns: number, boardWidth: number, boardHeight: number, pieceWidth: number, pieceHeight: number): PiecePosition[] {
+export function scramblePieces(
+  rows: number,
+  columns: number,
+  boardWidth: number,
+  boardHeight: number,
+  pieceWidth: number,
+  pieceHeight: number,
+): PiecePosition[] {
   // Create a list of all solved positions
   const solved: { pieceRow: number; pieceCol: number }[] = [];
   for (let row = 0; row < rows; row++) {
@@ -24,4 +31,4 @@ export function scramblePieces(rows: number, columns: number, boardWidth: number
     const y = Math.random() * (boardHeight - pieceHeight * 0.5) - pieceHeight * 0.25;
     return { pieceRow, pieceCol, x, y };
   });
-} 
+}
