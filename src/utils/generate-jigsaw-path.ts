@@ -33,7 +33,15 @@ export function computeEdgeMap(
  * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
  * Edges alternate so adjoining pieces plug into each other.
  */
-export function generateJigsawPath(row: number, col: number, options: JigsawPathOptions): string {
+export function generateJigsawPath({
+  col,
+  row,
+  options,
+}: {
+  col: number;
+  row: number;
+  options: JigsawPathOptions;
+}): string {
   const { width, height, rows, columns } = options;
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;

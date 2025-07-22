@@ -7,6 +7,7 @@ import {
   computeEdgeMap,
 } from '../../utils/generate-jigsaw-path';
 import { PiecePosition, scramblePieces } from './helpers/scramble-pieces';
+import GridOutlines from './components';
 
 interface BoardProps {
   columns: number;
@@ -25,7 +26,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap(rows, columns), [rows, columns]);
-  const options: JigsawPathOptions = useMemo(
+  const jigawOptions: JigsawPathOptions = useMemo(
     () => ({
       columns,
       edgeMap,
@@ -69,20 +70,12 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${width} ${height}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
-      {/* Board slot outlines */}
-      {showGridOutlines &&
-        Array.from({ length: rows }).map((_, row) =>
-          Array.from({ length: columns }).map((_, col) => (
-            <path
-              key={`outline-${row}-${col}`}
-              d={generateJigsawPath(row, col, options)}
-              fill="none"
-              stroke="#bbb"
-              strokeWidth={2}
-              style={{ pointerEvents: 'none' }}
-            />
-          )),
-        )}
+      <GridOutlines
+        columns={columns}
+        jigawOptions={jigawOptions}
+        rows={rows}
+        showGridOutlines={showGridOutlines}
+      />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
           boardHeight={height}
@@ -92,7 +85,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           initialX={x}
           initialY={y}
           key={`${pieceRow}-${pieceCol}`}
-          path={generateJigsawPath(pieceRow, pieceCol, options)}
+          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
           showOutlines={false} // placeholder for future piece outlines
           snapThreshold={SNAP_THRESHOLD}
           svgRef={svgRef}
