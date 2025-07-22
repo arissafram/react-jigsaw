@@ -71,6 +71,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
       className={styles.puzzlePiece}
+      tabIndex={isSnapped ? -1 : 0}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
