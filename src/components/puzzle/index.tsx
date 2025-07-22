@@ -1,46 +1,52 @@
+import React from 'react';
 import styles from './styles.module.scss';
 import Board from '../board';
-import { PuzzleProvider } from '../../contexts/puzzle-context';
-
-const DEFAULT_IMAGE =
-  'https://images.unsplash.com/photo-1611003228941-98852ba62227?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+import { PuzzleProvider, usePuzzleContext } from '../../contexts/puzzle-context';
 
 export interface PuzzleProps {
-  columns: number;
   image: string;
-  rows?: number;
+  columns: number;
+  rows: number;
   scramble?: boolean;
-  showOutlines?: boolean;
+  showGridOutlines?: boolean;
+  width?: number;
+  height?: number;
 }
+
+const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 600;
 
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const {
-    columns = 3,
-    image = DEFAULT_IMAGE,
-    rows = 4,
+    image,
+    rows,
+    columns,
     scramble = true,
-    showOutlines = true,
+    showGridOutlines = true,
+    width = DEFAULT_WIDTH,
+    height = DEFAULT_HEIGHT,
   } = props;
-
+  // const { numPieces } = usePuzzleContext();
   return (
     <div className={styles.puzzle}>
       <Board
-        columns={columns}
         image={image}
         rows={rows}
+        columns={columns}
         scramble={scramble}
-        showOutlines={showOutlines}
+        showGridOutlines={showGridOutlines}
+        width={width}
+        height={height}
       />
       <pre style={{ textAlign: 'left', background: '#f8f8f8', padding: '1rem', borderRadius: 8 }}>
-        {JSON.stringify({ rows, columns, showOutlines, scramble }, null, 2)}
+        {JSON.stringify({ rows, columns, showGridOutlines, scramble, width, height }, null, 2)}
       </pre>
     </div>
   );
 };
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
-  const { rows = 5, columns = 4 } = props;
-
+  const { rows, columns } = props;
   return (
     <PuzzleProvider rows={rows} columns={columns}>
       <PuzzleContent {...props} />

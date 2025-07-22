@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState, useMemo } from 'react';
 import styles from './styles.module.scss';
 import PuzzlePiece from '../puzzle-piece';
 import {
@@ -13,29 +13,31 @@ interface BoardProps {
   image: string;
   rows: number;
   scramble: boolean;
-  showOutlines: boolean;
+  showGridOutlines: boolean;
+  width: number;
+  height: number;
 }
 
-const BOARD_WIDTH = 400;
-const BOARD_HEIGHT = 600;
 const SNAP_THRESHOLD = 20;
 
-const Board: React.FC<BoardProps> = (props: BoardProps) => {
-  const { columns, image, rows, scramble = true, showOutlines } = props;
+const Board: FC<BoardProps> = (props: BoardProps) => {
+  const { columns, image, rows, scramble = true, showGridOutlines, width, height } = props;
 
-  // Compute edgeMap once for the whole puzzle
-  const edgeMap = computeEdgeMap(rows, columns);
+  // Memoize edgeMap and options
+  const edgeMap = useMemo(() => computeEdgeMap(rows, columns), [rows, columns]);
+  const options: JigsawPathOptions = useMemo(
+    () => ({
+      columns,
+      edgeMap,
+      height,
+      rows,
+      width,
+    }),
+    [columns, edgeMap, height, rows, width],
+  );
 
-  const options: JigsawPathOptions = {
-    columns,
-    edgeMap,
-    height: BOARD_HEIGHT,
-    rows,
-    width: BOARD_WIDTH,
-  };
-
-  const pieceWidth = BOARD_WIDTH / columns;
-  const pieceHeight = BOARD_HEIGHT / rows;
+  const pieceWidth = width / columns;
+  const pieceHeight = height / rows;
 
   // Scrambled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
@@ -45,9 +47,7 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
 
   useEffect(() => {
     if (scramble) {
-      setPositions(
-        scramblePieces(rows, columns, BOARD_WIDTH, BOARD_HEIGHT, pieceWidth, pieceHeight),
-      );
+      setPositions(scramblePieces(rows, columns, width, height, pieceWidth, pieceHeight));
     } else {
       // Ordered positions (grid)
       const ordered: PiecePosition[] = [];
@@ -58,41 +58,42 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       }
       setPositions(ordered);
     }
-  }, [rows, columns, scramble, pieceWidth, pieceHeight]);
+  }, [rows, columns, scramble, pieceWidth, pieceHeight, width, height]);
 
   return (
     <svg
       ref={svgRef}
       className={styles.board}
-      width={BOARD_WIDTH}
-      height={BOARD_HEIGHT}
-      viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
       {/* Board slot outlines */}
-      {Array.from({ length: rows }).map((_, row) =>
-        Array.from({ length: columns }).map((_, col) => (
-          <path
-            key={`outline-${row}-${col}`}
-            d={generateJigsawPath(row, col, options)}
-            fill="none"
-            stroke="#bbb"
-            strokeWidth={2}
-            style={{ pointerEvents: 'none' }}
-          />
-        )),
-      )}
+      {showGridOutlines &&
+        Array.from({ length: rows }).map((_, row) =>
+          Array.from({ length: columns }).map((_, col) => (
+            <path
+              key={`outline-${row}-${col}`}
+              d={generateJigsawPath(row, col, options)}
+              fill="none"
+              stroke="#bbb"
+              strokeWidth={2}
+              style={{ pointerEvents: 'none' }}
+            />
+          )),
+        )}
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
-          boardHeight={BOARD_HEIGHT}
-          boardWidth={BOARD_WIDTH}
+          boardHeight={height}
+          boardWidth={width}
           image={image}
           index={i}
           initialX={x}
           initialY={y}
           key={`${pieceRow}-${pieceCol}`}
           path={generateJigsawPath(pieceRow, pieceCol, options)}
-          showOutlines={showOutlines}
+          showOutlines={false} // placeholder for future piece outlines
           snapThreshold={SNAP_THRESHOLD}
           svgRef={svgRef}
           targetX={(pieceCol * pieceWidth) / 100}
