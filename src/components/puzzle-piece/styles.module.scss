@@ -1,0 +1,8 @@
+.puzzlePiece {
+  cursor: grab;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
+}

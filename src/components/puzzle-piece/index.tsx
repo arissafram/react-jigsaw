@@ -1,7 +1,9 @@
-import { RefObject, FC } from 'react';
+import { RefObject, FC, useEffect } from 'react';
 
 import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
 import { PuzzleOptions } from '@/types';
+
+import styles from './styles.module.scss';
 
 interface PuzzlePieceProps {
   boardHeight: number;
@@ -43,11 +45,29 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetY,
   });
 
+  // Bring element to front when dragging starts
+  useEffect(() => {
+    if (dragState.isDragging && ref.current && ref.current.parentNode && !isSnapped) {
+      ref.current.parentNode.appendChild(ref.current);
+    }
+  }, [dragState.isDragging, isSnapped]);
+
+  // Move element to back when snapped and drag ends
+  useEffect(() => {
+    if (!dragState.isDragging && isSnapped && ref.current && ref.current.parentNode) {
+      const parent = ref.current.parentNode;
+      if (parent.firstChild !== ref.current) {
+        parent.insertBefore(ref.current, parent.firstChild);
+      }
+    }
+  }, [dragState.isDragging, isSnapped]);
+
   return (
     <g
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
+      className={styles.puzzlePiece}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
