@@ -1,24 +1,17 @@
 {
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-  },
-  "eslint.format.enable": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "prettier.enable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.enable": true,
   "eslint.enable": true,
   "eslint.run": "onSave",
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.format.enable": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "files.exclude": {
     "node_modules": true,
     "dist": true,
     "build": true,
     "coverage": true
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "files.insertFinalNewline": true
 }

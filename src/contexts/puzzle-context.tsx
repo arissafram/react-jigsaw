@@ -3,18 +3,18 @@ import { createContext, useContext, useState } from 'react';
 // Define the shape of the puzzle context state
 interface PuzzleContextState {
   numPieces: number;
-  rows: number;
   columns: number;
-  setRows: (n: number) => void;
+  rows: number;
   setColumns: (n: number) => void;
+  setRows: (n: number) => void;
 }
 
 const PuzzleContext = createContext<PuzzleContextState | undefined>(undefined);
 
 interface PuzzleProviderProps {
   children: React.ReactNode;
-  rows: number;
   columns: number;
+  rows: number;
 }
 
 export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProviderProps) => {
@@ -24,9 +24,9 @@ export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProvi
   const numPieces = rows * columns;
 
   const value: PuzzleContextState = {
+    columns,
     numPieces,
     rows,
-    columns,
     setRows,
     setColumns,
   };

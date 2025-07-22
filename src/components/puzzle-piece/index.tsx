@@ -1,35 +1,36 @@
+import { RefObject, FC } from 'react';
 import styles from './styles.module.scss';
 import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
 interface PuzzlePieceProps {
-  index: number;
-  path: string;
-  boardWidth: number;
   boardHeight: number;
-  image: string;
-  showOutlines: boolean;
-  initialX: number;
-  initialY: number;
-  targetX: number;
-  targetY: number;
-  snapThreshold: number;
-  svgRef: React.RefObject<SVGSVGElement | null>;
+boardWidth: number;
+image: string;
+index: number;
+initialX: number;
+initialY: number;
+path: string;
+showOutlines: boolean;
+snapThreshold: number;
+svgRef: RefObject<SVGSVGElement | null>;
+targetX: number;
+targetY: number;
 }
 
-const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
+const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const {
-    index,
-    path,
-    boardWidth,
     boardHeight,
+    boardWidth,
     image,
-    showOutlines,
+    index,
     initialX,
     initialY,
-    targetX,
-    targetY,
+    path,
+    showOutlines,
     snapThreshold,
     svgRef,
+    targetX,
+    targetY,
   } = props;
 
   const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop(
