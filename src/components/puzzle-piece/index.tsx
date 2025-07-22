@@ -1,20 +1,21 @@
 import { RefObject, FC } from 'react';
-import styles from './styles.module.scss';
-import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
+
+import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
+import { PuzzleOptions } from '@/types';
 
 interface PuzzlePieceProps {
   boardHeight: number;
-boardWidth: number;
-image: string;
-index: number;
-initialX: number;
-initialY: number;
-path: string;
-showOutlines: boolean;
-snapThreshold: number;
-svgRef: RefObject<SVGSVGElement | null>;
-targetX: number;
-targetY: number;
+  boardWidth: number;
+  image: string;
+  index: number;
+  initialX: number;
+  initialY: number;
+  path: string;
+  snapThreshold: number;
+  svgRef: RefObject<SVGSVGElement | null>;
+  targetX: number;
+  targetY: number;
+  puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -26,28 +27,27 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     initialX,
     initialY,
     path,
-    showOutlines,
     snapThreshold,
     svgRef,
     targetX,
     targetY,
+    puzzlePieceOptions,
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop(
+  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
     initialX,
     initialY,
-    targetX,
-    targetY,
     snapThreshold,
     svgRef,
-  );
+    targetX,
+    targetY,
+  });
 
   return (
     <g
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
-      className={styles.puzzlePiece}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
@@ -66,8 +66,10 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       <path
         d={path}
         fill="none"
-        stroke={isSnapped ? '' : '#b8860b'}
-        strokeWidth={showOutlines ? 2 : 0}
+        stroke={
+          isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
+        }
+        strokeWidth={puzzlePieceOptions.strokeEnabled ? puzzlePieceOptions.strokeWidth : 0}
       />
     </g>
   );

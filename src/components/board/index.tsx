@@ -1,104 +1,107 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState, useMemo } from 'react';
+
+import PuzzlePiece from '@/components/puzzle-piece';
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
+import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
+import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
+
+import GridOutlines from './components';
+import { shufflePieces } from './helpers/shuffle-pieces';
+
 import styles from './styles.module.scss';
-import PuzzlePiece from '../puzzle-piece';
-import {
-  generateJigsawPath,
-  JigsawPathOptions,
-  computeEdgeMap,
-} from '../../utils/generate-jigsaw-path';
-import { PiecePosition, scramblePieces } from './helpers/scramble-pieces';
 
 interface BoardProps {
   columns: number;
+  className: string;
+  height: number;
   image: string;
+  puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
-  scramble: boolean;
-  showOutlines: boolean;
+  showGridOutlines: boolean;
+  shuffleArea: ShuffleArea;
+  width: number;
 }
 
-const BOARD_WIDTH = 400;
-const BOARD_HEIGHT = 600;
 const SNAP_THRESHOLD = 20;
 
-const Board: React.FC<BoardProps> = (props: BoardProps) => {
-  const { columns, image, rows, scramble = true, showOutlines } = props;
-
-  // Compute edgeMap once for the whole puzzle
-  const edgeMap = computeEdgeMap(rows, columns);
-
-  const options: JigsawPathOptions = {
+const Board: FC<BoardProps> = (props: BoardProps) => {
+  const {
+    className,
     columns,
-    edgeMap,
-    height: BOARD_HEIGHT,
+    height,
+    image,
+    puzzlePieceOptions,
     rows,
-    width: BOARD_WIDTH,
-  };
+    showGridOutlines,
+    shuffleArea,
+    width,
+  } = props;
 
-  const pieceWidth = BOARD_WIDTH / columns;
-  const pieceHeight = BOARD_HEIGHT / rows;
-
-  // Scrambled positions state
+  // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
 
   // SVG ref for drag coordinate transforms
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  const pieceWidth = width / columns;
+  const pieceHeight = height / rows;
+
+  // Memoize edgeMap and options
+  const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
+
+  const jigawOptions: JigsawPathOptions = useMemo(
+    () => ({
+      columns,
+      edgeMap,
+      height,
+      rows,
+      width,
+    }),
+    [columns, edgeMap, height, rows, width],
+  );
+
   useEffect(() => {
-    if (scramble) {
-      setPositions(
-        scramblePieces(rows, columns, BOARD_WIDTH, BOARD_HEIGHT, pieceWidth, pieceHeight),
-      );
-    } else {
-      // Ordered positions (grid)
-      const ordered: PiecePosition[] = [];
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < columns; col++) {
-          ordered.push({ pieceRow: row, pieceCol: col, x: col * pieceWidth, y: row * pieceHeight });
-        }
-      }
-      setPositions(ordered);
-    }
-  }, [rows, columns, scramble, pieceWidth, pieceHeight]);
+    const shuffledPieces = shufflePieces({
+      boardWidth: width,
+      boardHeight: height,
+      columns,
+      pieceHeight,
+      pieceWidth,
+      rows,
+      shuffleArea: shuffleArea,
+    });
+    setPositions(shuffledPieces);
+  }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
 
   return (
     <svg
       ref={svgRef}
-      className={styles.board}
-      width={BOARD_WIDTH}
-      height={BOARD_HEIGHT}
-      viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
-      style={{ background: '#eaf6ff', borderRadius: 10 }}
+      className={`${styles.board} ${className ?? DEFAULT_PUZZLE_OPTIONS.board?.className}`}
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
     >
-      {/* Debug: show snap target areas */}
-      {Array.from({ length: rows }).map((_, row) =>
-        Array.from({ length: columns }).map((_, col) => (
-          <rect
-            key={`target-${row}-${col}`}
-            fill="red"
-            height={SNAP_THRESHOLD * 2}
-            opacity={0.15}
-            pointerEvents="none"
-            width={SNAP_THRESHOLD * 2}
-            x={col * pieceWidth + pieceWidth / 2 - SNAP_THRESHOLD}
-            y={row * pieceHeight + pieceHeight / 2 - SNAP_THRESHOLD}
-          />
-        )),
-      )}
+      <GridOutlines
+        columns={columns}
+        jigawOptions={jigawOptions}
+        rows={rows}
+        showGridOutlines={showGridOutlines}
+      />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
-          boardHeight={BOARD_HEIGHT}
-          boardWidth={BOARD_WIDTH}
+          boardHeight={height}
+          boardWidth={width}
           image={image}
           index={i}
           initialX={x}
           initialY={y}
           key={`${pieceRow}-${pieceCol}`}
-          path={generateJigsawPath(pieceRow, pieceCol, options)}
-          showOutlines={showOutlines}
+          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
           snapThreshold={SNAP_THRESHOLD}
           svgRef={svgRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
+          puzzlePieceOptions={puzzlePieceOptions}
         />
       ))}
     </svg>

@@ -1,46 +1,51 @@
-export interface JigsawPathOptions {
-  width: number;
-  height: number;
-  rows: number;
-  columns: number;
-  edgeMap?: [number, number, number, number][][];
-}
+import { JigsawPathOptions } from '@/types';
 
 // Precompute edge types for the whole puzzle
-export function computeEdgeMap(
-  rows: number,
-  columns: number,
-): [number, number, number, number][][] {
-  const edgeMap: [number, number, number, number][][] = [];
+export const computeEdgeMap = ({
+  columns,
+  rows,
+}: {
+  columns: number;
+  rows: number;
+}): JigsawPathOptions['edgeMap'] => {
+  const edgeMap: JigsawPathOptions['edgeMap'] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {
       // Right and bottom: checkerboard pattern
-      let right = col === columns - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
-      let bottom = row === rows - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
+      const right = col === columns - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
+      const bottom = row === rows - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
       // Left: invert right of left neighbor
-      let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
+      const left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
       // Top: invert bottom of top neighbor
-      let top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
+      const top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
       edgeMap[row][col] = [top, right, bottom, left];
     }
   }
   return edgeMap;
-}
+};
 
 /**
  * Generates a rectangular SVG path string for a puzzle piece at (row, col),
  * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
  * Edges alternate so adjoining pieces plug into each other.
  */
-export function generateJigsawPath(row: number, col: number, options: JigsawPathOptions): string {
+export const generateJigsawPath = ({
+  col,
+  row,
+  options,
+}: {
+  col: number;
+  row: number;
+  options: JigsawPathOptions;
+}): string => {
   const { width, height, rows, columns } = options;
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 
-  const edgeMap = computeEdgeMap(rows, columns);
+  const edgeMap = computeEdgeMap({ rows, columns });
   const [top, right, bottom, left] = edgeMap[row][col];
   const knobD = Math.min(pieceWidth, pieceHeight) / 3; // diameter of knob
   const knobR = knobD / 2;
@@ -85,4 +90,4 @@ export function generateJigsawPath(row: number, col: number, options: JigsawPath
 
   d += ' Z';
   return d;
-}
+};
