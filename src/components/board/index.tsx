@@ -13,34 +13,26 @@ interface BoardProps {
   columns: number;
   image: string;
   rows: number;
-  shuffle: boolean;
-  shuffleArea: 'anywhere' | 'board';
-  showGridOutlines: boolean;
   width: number;
   height: number;
-  boardStyle?: React.CSSProperties;
-  puzzlePieceOptions: {
-    strokeColor: string;
-    strokeEnabled: boolean;
-    strokeWidth: number;
+  options: {
+    board: {
+      backgroundColor: string;
+    };
+    puzzlePiece: {
+      strokeColor: string;
+      strokeEnabled: boolean;
+      strokeWidth: number;
+    };
+    showGridOutlines: boolean;
+    shuffleArea: 'anywhere' | 'board';
   };
 }
 
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
-  const {
-    columns,
-    image,
-    rows,
-    shuffle = true,
-    shuffleArea = 'board',
-    showGridOutlines,
-    width,
-    height,
-    boardStyle,
-    puzzlePieceOptions,
-  } = props;
+  const { columns, image, rows, width, height, options } = props;
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
@@ -66,28 +58,17 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   );
 
   useEffect(() => {
-    if (shuffle) {
-      const shuffledPieces = shufflePieces({
-        boardWidth: width,
-        boardHeight: height,
-        columns,
-        pieceHeight,
-        pieceWidth,
-        rows,
-        shuffleArea,
-      });
-      setPositions(shuffledPieces);
-    } else {
-      // Ordered positions (grid)
-      const ordered: PiecePosition[] = [];
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < columns; col++) {
-          ordered.push({ pieceRow: row, pieceCol: col, x: col * pieceWidth, y: row * pieceHeight });
-        }
-      }
-      setPositions(ordered);
-    }
-  }, [rows, columns, shuffle, pieceWidth, pieceHeight, width, height, shuffleArea]);
+    const shuffledPieces = shufflePieces({
+      boardWidth: width,
+      boardHeight: height,
+      columns,
+      pieceHeight,
+      pieceWidth,
+      rows,
+      shuffleArea: options.shuffleArea,
+    });
+    setPositions(shuffledPieces);
+  }, [rows, columns, pieceWidth, pieceHeight, width, height, options.shuffleArea]);
 
   return (
     <svg
@@ -96,13 +77,17 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      style={{ background: '#eaf6ff', borderRadius: 10, ...boardStyle }}
+      style={{
+        background: '#eaf6ff',
+        borderRadius: 10,
+        backgroundColor: options.board.backgroundColor,
+      }}
     >
       <GridOutlines
         columns={columns}
         jigawOptions={jigawOptions}
         rows={rows}
-        showGridOutlines={showGridOutlines}
+        showGridOutlines={options.showGridOutlines}
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
@@ -118,7 +103,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           svgRef={svgRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
-          puzzlePieceOptions={puzzlePieceOptions}
+          puzzlePieceOptions={options.puzzlePiece}
         />
       ))}
     </svg>

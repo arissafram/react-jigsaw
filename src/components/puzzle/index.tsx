@@ -7,17 +7,19 @@ export interface PuzzleProps {
   image: string;
   columns: number;
   rows: number;
-  shuffle?: boolean;
-  shuffleArea?: 'anywhere' | 'board';
-  showGridOutlines?: boolean;
   width?: number;
   height?: number;
-  boardStyle?: React.CSSProperties;
-  puzzleStyle?: React.CSSProperties;
-  puzzlePieceOptions: {
-    strokeColor: string;
-    strokeEnabled: boolean;
-    strokeWidth: number;
+  options: {
+    board: {
+      backgroundColor: string;
+    };
+    puzzlePiece: {
+      strokeColor: string;
+      strokeEnabled: boolean;
+      strokeWidth: number;
+    };
+    showGridOutlines: boolean;
+    shuffleArea: 'anywhere' | 'board';
   };
 }
 
@@ -25,33 +27,17 @@ const DEFAULT_WIDTH = 400;
 const DEFAULT_HEIGHT = 600;
 
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
-  const {
-    image,
-    rows,
-    columns,
-    shuffle = true,
-    shuffleArea = 'board',
-    showGridOutlines = true,
-    width = DEFAULT_WIDTH,
-    height = DEFAULT_HEIGHT,
-    boardStyle,
-    puzzleStyle,
-    puzzlePieceOptions,
-  } = props;
+  const { image, rows, columns, width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, options } = props;
   // const { numPieces } = usePuzzleContext();
   return (
-    <div className={styles.puzzle} style={puzzleStyle}>
+    <div className={styles.puzzle}>
       <Board
         image={image}
         rows={rows}
         columns={columns}
-        shuffle={shuffle}
-        shuffleArea={shuffleArea}
-        showGridOutlines={showGridOutlines}
         width={width}
         height={height}
-        boardStyle={boardStyle}
-        puzzlePieceOptions={puzzlePieceOptions}
+        options={options}
       />
     </div>
   );
