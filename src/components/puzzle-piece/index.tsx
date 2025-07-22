@@ -33,14 +33,14 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetY,
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop(
+  const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
     initialX,
     initialY,
     targetX,
     targetY,
     snapThreshold,
     svgRef,
-  );
+  });
 
   return (
     <g

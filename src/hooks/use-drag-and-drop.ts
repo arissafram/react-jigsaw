@@ -8,14 +8,21 @@ export interface DragState {
   offsetY: number;
 }
 
-export function useDragAndDrop(
-  initialX: number,
-  initialY: number,
-  targetX: number,
-  targetY: number,
-  snapThreshold: number,
-  svgRef: React.RefObject<SVGSVGElement | null>,
-) {
+export function useDragAndDrop({
+  initialX,
+  initialY,
+  targetX,
+  targetY,
+  snapThreshold,
+  svgRef,
+}: {
+  initialX: number;
+  initialY: number;
+  targetX: number;
+  targetY: number;
+  snapThreshold: number;
+  svgRef: React.RefObject<SVGSVGElement | null>;
+}) {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
     x: initialX,
