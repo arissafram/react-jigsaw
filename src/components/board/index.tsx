@@ -69,21 +69,6 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${BOARD_WIDTH} ${BOARD_HEIGHT}`}
       style={{ background: '#eaf6ff', borderRadius: 10 }}
     >
-      {/* Debug: show snap target areas */}
-      {Array.from({ length: rows }).map((_, row) =>
-        Array.from({ length: columns }).map((_, col) => (
-          <rect
-            key={`target-${row}-${col}`}
-            fill="red"
-            height={SNAP_THRESHOLD * 2}
-            opacity={0.15}
-            pointerEvents="none"
-            width={SNAP_THRESHOLD * 2}
-            x={col * pieceWidth + pieceWidth / 2 - SNAP_THRESHOLD}
-            y={row * pieceHeight + pieceHeight / 2 - SNAP_THRESHOLD}
-          />
-        )),
-      )}
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
           boardHeight={BOARD_HEIGHT}

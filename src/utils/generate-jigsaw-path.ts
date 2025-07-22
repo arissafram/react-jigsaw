@@ -16,12 +16,12 @@ export function computeEdgeMap(
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {
       // Right and bottom: checkerboard pattern
-      let right = col === columns - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
-      let bottom = row === rows - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
+      const right = col === columns - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
+      const bottom = row === rows - 1 ? 0 : (row + col) % 2 === 0 ? 1 : -1;
       // Left: invert right of left neighbor
-      let left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
+      const left = col === 0 ? 0 : -edgeMap[row][col - 1][1];
       // Top: invert bottom of top neighbor
-      let top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
+      const top = row === 0 ? 0 : -edgeMap[row - 1][col][2];
       edgeMap[row][col] = [top, right, bottom, left];
     }
   }
