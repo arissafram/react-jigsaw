@@ -1,7 +1,9 @@
-import { RefObject, FC } from 'react';
+import { RefObject, FC, useEffect } from 'react';
 
 import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
 import { PuzzleOptions } from '@/types';
+
+import styles from './styles.module.scss';
 
 interface PuzzlePieceProps {
   boardHeight: number;
@@ -16,6 +18,7 @@ interface PuzzlePieceProps {
   targetX: number;
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
+  onSnap?: () => void;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -32,6 +35,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetX,
     targetY,
     puzzlePieceOptions,
+    onSnap,
   } = props;
 
   const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
@@ -41,13 +45,32 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     svgRef,
     targetX,
     targetY,
+    onSnap,
   });
+
+  // Bring element to front when dragging starts
+  useEffect(() => {
+    if (dragState.isDragging && ref.current && ref.current.parentNode && !isSnapped) {
+      ref.current.parentNode.appendChild(ref.current);
+    }
+  }, [dragState.isDragging, isSnapped]);
+
+  // Move element to back when snapped and drag ends
+  useEffect(() => {
+    if (!dragState.isDragging && isSnapped && ref.current && ref.current.parentNode) {
+      const parent = ref.current.parentNode;
+      if (parent.firstChild !== ref.current) {
+        parent.insertBefore(ref.current, parent.firstChild);
+      }
+    }
+  }, [dragState.isDragging, isSnapped]);
 
   return (
     <g
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
+      className={styles.puzzlePiece}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>
