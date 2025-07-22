@@ -15,6 +15,7 @@ export const useDragAndDrop = ({
   svgRef,
   targetX,
   targetY,
+  onSnap,
 }: {
   initialX: number;
   initialY: number;
@@ -22,6 +23,7 @@ export const useDragAndDrop = ({
   svgRef: React.RefObject<SVGSVGElement | null>;
   targetX: number;
   targetY: number;
+  onSnap?: () => void;
 }) => {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
@@ -74,6 +76,7 @@ export const useDragAndDrop = ({
       const dist = Math.hypot(s.x - targetX, s.y - targetY);
       if (dist <= snapThreshold) {
         setIsSnapped(true);
+        onSnap?.();
         return { ...s, isDragging: false, x: targetX, y: targetY };
       }
       return { ...s, isDragging: false };

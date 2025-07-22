@@ -39,6 +39,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
+  const [snappedPieces, setSnappedPieces] = useState<Set<number>>(new Set());
 
   // SVG ref for drag coordinate transforms
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -71,7 +72,14 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       shuffleArea: shuffleArea,
     });
     setPositions(shuffledPieces);
+    setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
   }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
+
+  const handlePieceSnap = (index: number) => {
+    setSnappedPieces((prev) => new Set([...prev, index]));
+  };
+
+  const isPuzzleComplete = snappedPieces.size === positions.length;
 
   return (
     <svg
@@ -86,6 +94,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         jigawOptions={jigawOptions}
         rows={rows}
         showGridOutlines={showGridOutlines}
+        isPuzzleComplete={isPuzzleComplete}
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
@@ -102,6 +111,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
           puzzlePieceOptions={puzzlePieceOptions}
+          onSnap={() => handlePieceSnap(i)}
         />
       ))}
     </svg>

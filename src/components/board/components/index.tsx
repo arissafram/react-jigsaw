@@ -6,10 +6,11 @@ interface GridOutlinesProps {
   jigawOptions: JigsawPathOptions;
   rows: number;
   showGridOutlines: boolean | undefined;
+  isPuzzleComplete: boolean;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
-  const { columns, jigawOptions, rows, showGridOutlines } = props;
+  const { columns, jigawOptions, rows, showGridOutlines, isPuzzleComplete } = props;
 
   if (!showGridOutlines) return null;
 
@@ -20,7 +21,7 @@ const GridOutlines = (props: GridOutlinesProps) => {
         d={generateJigsawPath({ row, col, options: jigawOptions })}
         fill="none"
         stroke="#bbb"
-        strokeWidth={2}
+        strokeWidth={isPuzzleComplete ? 0 : 2}
         style={{ pointerEvents: 'none' }}
       />
     )),

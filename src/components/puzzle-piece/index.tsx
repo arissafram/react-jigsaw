@@ -18,6 +18,7 @@ interface PuzzlePieceProps {
   targetX: number;
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
+  onSnap?: () => void;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -34,6 +35,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     targetX,
     targetY,
     puzzlePieceOptions,
+    onSnap,
   } = props;
 
   const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
@@ -43,6 +45,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     svgRef,
     targetX,
     targetY,
+    onSnap,
   });
 
   // Bring element to front when dragging starts
