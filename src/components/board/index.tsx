@@ -94,7 +94,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         jigawOptions={jigawOptions}
         rows={rows}
         showGridOutlines={showGridOutlines}
-        isPuzzleComplete={isPuzzleComplete}
+        snappedPieces={snappedPieces}
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece

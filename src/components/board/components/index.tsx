@@ -6,25 +6,30 @@ interface GridOutlinesProps {
   jigawOptions: JigsawPathOptions;
   rows: number;
   showGridOutlines: boolean | undefined;
-  isPuzzleComplete: boolean;
+  snappedPieces: Set<number>;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
-  const { columns, jigawOptions, rows, showGridOutlines, isPuzzleComplete } = props;
+  const { columns, jigawOptions, rows, showGridOutlines, snappedPieces } = props;
 
   if (!showGridOutlines) return null;
 
   return Array.from({ length: rows }).map((_, row) =>
-    Array.from({ length: columns }).map((_, col) => (
-      <path
-        key={`outline-${row}-${col}`}
-        d={generateJigsawPath({ row, col, options: jigawOptions })}
-        fill="none"
-        stroke="#bbb"
-        strokeWidth={isPuzzleComplete ? 0 : 2}
-        style={{ pointerEvents: 'none' }}
-      />
-    )),
+    Array.from({ length: columns }).map((_, col) => {
+      const pieceIndex = row * columns + col;
+      const isSnapped = snappedPieces.has(pieceIndex);
+
+      return (
+        <path
+          key={`outline-${row}-${col}`}
+          d={generateJigsawPath({ row, col, options: jigawOptions })}
+          fill="none"
+          stroke="#bbb"
+          strokeWidth={isSnapped ? 0 : 2}
+          style={{ pointerEvents: 'none' }}
+        />
+      );
+    }),
   );
 };
 
