@@ -1,6 +1,7 @@
 import { RefObject, FC } from 'react';
 import styles from './styles.module.scss';
 import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
+import { PuzzleOptions } from '../puzzle';
 
 interface PuzzlePieceProps {
   boardHeight: number;
@@ -10,16 +11,11 @@ interface PuzzlePieceProps {
   initialX: number;
   initialY: number;
   path: string;
-  showOutlines: boolean;
   snapThreshold: number;
   svgRef: RefObject<SVGSVGElement | null>;
   targetX: number;
   targetY: number;
-  puzzlePieceOptions: {
-    strokeColor: string;
-    strokeEnabled: boolean;
-    strokeWidth: number;
-  };
+  puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {

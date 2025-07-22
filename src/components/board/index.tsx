@@ -8,6 +8,7 @@ import {
 } from '../../utils/generate-jigsaw-path';
 import { PiecePosition, shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
+import { PuzzleOptions } from '../puzzle';
 
 interface BoardProps {
   columns: number;
@@ -15,22 +16,7 @@ interface BoardProps {
   rows: number;
   width: number;
   height: number;
-  options: {
-    board: {
-      backgroundColor: string;
-      columns: number;
-      height: number;
-      rows: number;
-      showGridOutlines: boolean;
-      width: number;
-    };
-    puzzlePiece: {
-      strokeColor: string;
-      strokeEnabled: boolean;
-      strokeWidth: number;
-    };
-    shuffleArea: 'anywhere' | 'board';
-  };
+  options: PuzzleOptions;
 }
 
 const SNAP_THRESHOLD = 20;
@@ -77,15 +63,10 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   return (
     <svg
       ref={svgRef}
-      className={styles.board}
+      className={`${styles.board} ${options.board.className}`}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      style={{
-        background: '#eaf6ff',
-        borderRadius: 10,
-        backgroundColor: options.board.backgroundColor,
-      }}
     >
       <GridOutlines
         columns={columns}

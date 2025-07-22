@@ -3,24 +3,26 @@ import styles from './styles.module.scss';
 import Board from '../board';
 import { PuzzleProvider } from '../../contexts/puzzle-context';
 
+export interface PuzzleOptions {
+  board: {
+    className: string;
+    columns: number;
+    height: number;
+    rows: number;
+    showGridOutlines: boolean;
+    width: number;
+  };
+  puzzlePiece: {
+    strokeColor: string;
+    strokeEnabled: boolean;
+    strokeWidth: number;
+  };
+  shuffleArea: 'anywhere' | 'board';
+}
+
 export interface PuzzleProps {
   image: string;
-  options: {
-    board: {
-      backgroundColor: string;
-      columns: number;
-      height: number;
-      rows: number;
-      showGridOutlines: boolean;
-      width: number;
-    };
-    puzzlePiece: {
-      strokeColor: string;
-      strokeEnabled: boolean;
-      strokeWidth: number;
-    };
-    shuffleArea: 'anywhere' | 'board';
-  };
+  options: PuzzleOptions;
 }
 
 const DEFAULT_WIDTH = 400;
@@ -30,7 +32,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const { image, options } = props;
   // const { numPieces } = usePuzzleContext();
   return (
-    <div className={styles.puzzle}>
+    <div className={options.board.className || styles.puzzle}>
       <Board
         image={image}
         rows={options.board.rows}
