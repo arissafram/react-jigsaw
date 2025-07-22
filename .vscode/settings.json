@@ -12,5 +12,6 @@
     "build": true,
     "coverage": true
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "files.insertFinalNewline": true
 }
