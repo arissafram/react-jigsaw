@@ -2,33 +2,33 @@ import { useRef, useState } from 'react';
 
 interface DragState {
   isDragging: boolean;
-  x: number;
-  y: number;
   offsetX: number;
   offsetY: number;
+  x: number;
+  y: number;
 }
 
 export const useDragAndDrop = ({
   initialX,
   initialY,
-  targetX,
-  targetY,
   snapThreshold,
   svgRef,
+  targetX,
+  targetY,
 }: {
   initialX: number;
   initialY: number;
-  targetX: number;
-  targetY: number;
   snapThreshold: number;
   svgRef: React.RefObject<SVGSVGElement | null>;
+  targetX: number;
+  targetY: number;
 }) => {
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
-    x: initialX,
-    y: initialY,
     offsetX: 0,
     offsetY: 0,
+    x: initialX,
+    y: initialY,
   });
   const [isSnapped, setIsSnapped] = useState(false);
   const ref = useRef<SVGGElement | null>(null);

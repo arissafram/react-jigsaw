@@ -1,3 +1,11 @@
+type ComputedEdgeMap = [number, number, number, number][][];
+export interface JigsawPathOptions {
+  width: number;
+  height: number;
+  rows: number;
+  columns: number;
+  edgeMap: ComputedEdgeMap;
+}
 export interface PuzzleOptions {
   board: {
     className: string;
@@ -20,12 +28,4 @@ export interface PiecePosition {
   pieceCol: number;
   x: number;
   y: number;
-}
-
-export interface JigsawPathOptions {
-  width: number;
-  height: number;
-  rows: number;
-  columns: number;
-  edgeMap?: [number, number, number, number][][];
 }

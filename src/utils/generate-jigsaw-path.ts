@@ -2,13 +2,13 @@ import { JigsawPathOptions } from '@/types';
 
 // Precompute edge types for the whole puzzle
 export const computeEdgeMap = ({
-  rows,
   columns,
+  rows,
 }: {
-  rows: number;
   columns: number;
-}): [number, number, number, number][][] => {
-  const edgeMap: [number, number, number, number][][] = [];
+  rows: number;
+}): JigsawPathOptions['edgeMap'] => {
+  const edgeMap: JigsawPathOptions['edgeMap'] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {

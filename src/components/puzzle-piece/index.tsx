@@ -37,10 +37,10 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   const { ref, dragState, isSnapped, eventHandlers } = useDragAndDrop({
     initialX,
     initialY,
-    targetX,
-    targetY,
     snapThreshold,
     svgRef,
+    targetX,
+    targetY,
   });
 
   return (
@@ -48,7 +48,6 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
       {...eventHandlers}
-      className={styles.puzzlePiece}
     >
       <defs>
         <clipPath id={`piece-clip-${index}`}>

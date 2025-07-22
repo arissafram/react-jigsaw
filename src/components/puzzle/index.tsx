@@ -14,9 +14,9 @@ const DEFAULT_HEIGHT = 600;
 
 const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const { image, options } = props;
-  // const { numPieces } = usePuzzleContext();
+
   return (
-    <div className={options.board.className || styles.puzzle}>
+    <div className={`${styles.puzzle} ${options.board.className}`}>
       <Board
         image={image}
         rows={options.board.rows}
@@ -31,6 +31,7 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const { options } = props;
+
   return (
     <PuzzleProvider rows={options.board.rows} columns={options.board.columns}>
       <PuzzleContent {...props} />

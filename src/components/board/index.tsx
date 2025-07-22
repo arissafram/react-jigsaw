@@ -8,17 +8,17 @@ import { PuzzleOptions, PiecePosition, JigsawPathOptions } from '../../types';
 
 interface BoardProps {
   columns: number;
+  height: number;
   image: string;
+  options: PuzzleOptions;
   rows: number;
   width: number;
-  height: number;
-  options: PuzzleOptions;
 }
 
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
-  const { columns, image, rows, width, height, options } = props;
+  const { columns, height, image, options, rows, width } = props;
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
