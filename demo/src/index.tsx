@@ -8,7 +8,7 @@ const DEMO_IMAGE =
 const App = () => {
   return (
     <>
-      <Puzzle image={DEMO_IMAGE} options={{ board: { columns: 2, rows: 2 } }} />
+      <Puzzle image={DEMO_IMAGE} options={{ board: { columns: 3, rows: 3 } }} />
       <p>hello</p>
     </>
   );

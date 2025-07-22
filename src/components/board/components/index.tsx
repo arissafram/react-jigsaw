@@ -6,7 +6,7 @@ interface GridOutlinesProps {
   jigawOptions: JigsawPathOptions;
   rows: number;
   showGridOutlines: boolean | undefined;
-  snappedPieces: Set<number>;
+  snappedPieces: Set<string>;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
@@ -16,8 +16,8 @@ const GridOutlines = (props: GridOutlinesProps) => {
 
   return Array.from({ length: rows }).map((_, row) =>
     Array.from({ length: columns }).map((_, col) => {
-      const pieceIndex = row * columns + col;
-      const isSnapped = snappedPieces.has(pieceIndex);
+      const gridKey = `${row}-${col}`;
+      const isSnapped = snappedPieces.has(gridKey);
 
       return (
         <path

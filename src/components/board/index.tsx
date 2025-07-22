@@ -39,7 +39,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
-  const [snappedPieces, setSnappedPieces] = useState<Set<number>>(new Set());
+  const [snappedPieces, setSnappedPieces] = useState<Set<string>>(new Set());
 
   // SVG ref for drag coordinate transforms
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -76,10 +76,10 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
 
   const handlePieceSnap = (index: number) => {
-    setSnappedPieces((prev) => new Set([...prev, index]));
+    const { pieceRow, pieceCol } = positions[index];
+    const gridKey = `${pieceRow}-${pieceCol}`;
+    setSnappedPieces((prev) => new Set([...prev, gridKey]));
   };
-
-  const isPuzzleComplete = snappedPieces.size === positions.length;
 
   return (
     <svg
