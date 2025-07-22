@@ -9,14 +9,11 @@ import {
 import { PiecePosition, scramblePieces } from './helpers/scramble-pieces';
 
 interface BoardProps {
-  numPieces: number;
+  columns: number;
   image: string;
   rows: number;
-  columns: number;
-  aspectRatio: string;
-  showOutlines: boolean;
   scramble: boolean;
-  pieceSize: 's' | 'm' | 'l';
+  showOutlines: boolean;
 }
 
 const BOARD_WIDTH = 400;
@@ -25,25 +22,22 @@ const SNAP_THRESHOLD = 20;
 
 const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const {
-    numPieces,
+    columns,
     image,
     rows,
-    columns,
-    aspectRatio,
-    showOutlines,
     scramble = true,
-    pieceSize,
+    showOutlines,
   } = props;
 
   // Compute edgeMap once for the whole puzzle
   const edgeMap = computeEdgeMap(rows, columns);
 
   const options: JigsawPathOptions = {
-    width: BOARD_WIDTH,
-    height: BOARD_HEIGHT,
-    rows,
     columns,
     edgeMap,
+    height: BOARD_HEIGHT,
+    rows,
+    width: BOARD_WIDTH,
   };
 
   const pieceWidth = BOARD_WIDTH / columns;
@@ -86,31 +80,31 @@ const Board: React.FC<BoardProps> = (props: BoardProps) => {
         Array.from({ length: columns }).map((_, col) => (
           <rect
             key={`target-${row}-${col}`}
-            x={col * pieceWidth + pieceWidth / 2 - SNAP_THRESHOLD}
-            y={row * pieceHeight + pieceHeight / 2 - SNAP_THRESHOLD}
-            width={SNAP_THRESHOLD * 2}
-            height={SNAP_THRESHOLD * 2}
             fill="red"
+            height={SNAP_THRESHOLD * 2}
             opacity={0.15}
             pointerEvents="none"
+            width={SNAP_THRESHOLD * 2}
+            x={col * pieceWidth + pieceWidth / 2 - SNAP_THRESHOLD}
+            y={row * pieceHeight + pieceHeight / 2 - SNAP_THRESHOLD}
           />
         )),
       )}
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
-          key={`${pieceRow}-${pieceCol}`}
-          index={i}
-          path={generateJigsawPath(pieceRow, pieceCol, options)}
-          boardWidth={BOARD_WIDTH}
           boardHeight={BOARD_HEIGHT}
+          boardWidth={BOARD_WIDTH}
           image={image}
-          showOutlines={showOutlines}
+          index={i}
           initialX={x}
           initialY={y}
-          targetX={(pieceCol * pieceWidth) / 100}
-          targetY={(pieceRow * pieceHeight) / 100}
+          key={`${pieceRow}-${pieceCol}`}
+          path={generateJigsawPath(pieceRow, pieceCol, options)}
+          showOutlines={showOutlines}
           snapThreshold={SNAP_THRESHOLD}
           svgRef={svgRef}
+          targetX={(pieceCol * pieceWidth) / 100}
+          targetY={(pieceRow * pieceHeight) / 100}
         />
       ))}
     </svg>
