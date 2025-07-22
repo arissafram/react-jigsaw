@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from './styles.module.scss';
 import { useDragAndDrop } from '../../hooks/use-drag-and-drop';
 
@@ -42,13 +41,7 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     svgRef,
   );
 
-  useEffect(() => {
-    // Debug log for each piece
-    // eslint-disable-next-line no-console
-    console.log(
-      `Piece ${index}: initial=(${initialX},${initialY}), target=(${targetX},${targetY}), drag=(${dragState.x},${dragState.y}), snapped=${isSnapped}`,
-    );
-  }, [index, initialX, initialY, targetX, targetY, dragState.x, dragState.y, isSnapped]);
+  console.log('hi');
 
   return (
     <g

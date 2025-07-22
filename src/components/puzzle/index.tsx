@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './styles.module.scss';
 import Board from '../board';
 import { PuzzleProvider, usePuzzleContext } from '../../contexts/puzzle-context';
@@ -25,8 +24,8 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
     aspectRatio = '4x6',
     showOutlines = true,
     onComplete = () => console.log('complete'),
-    scramble = true, 
-    pieceSize = 's'
+    scramble = true,
+    pieceSize = 's',
   } = props;
   const { numPieces } = usePuzzleContext();
 
