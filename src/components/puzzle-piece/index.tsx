@@ -41,7 +41,7 @@ const PuzzlePiece: React.FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     svgRef,
   );
 
-  console.log('hi');
+  console.log('hello')
 
   return (
     <g
