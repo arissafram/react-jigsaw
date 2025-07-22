@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Puzzle
       image={DEMO_IMAGE}
-      showGridOutlines={false}
+      showGridOutlines={true}
       columns={4}
       rows={5}
       width={400}

@@ -24,8 +24,18 @@ const SNAP_THRESHOLD = 20;
 const Board: FC<BoardProps> = (props: BoardProps) => {
   const { columns, image, rows, scramble = true, showGridOutlines, width, height } = props;
 
+  // Scrambled positions state
+  const [positions, setPositions] = useState<PiecePosition[]>([]);
+
+  // SVG ref for drag coordinate transforms
+  const svgRef = useRef<SVGSVGElement | null>(null);
+
+  const pieceWidth = width / columns;
+  const pieceHeight = height / rows;
+
   // Memoize edgeMap and options
-  const edgeMap = useMemo(() => computeEdgeMap(rows, columns), [rows, columns]);
+  const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
+
   const jigawOptions: JigsawPathOptions = useMemo(
     () => ({
       columns,
@@ -36,15 +46,6 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }),
     [columns, edgeMap, height, rows, width],
   );
-
-  const pieceWidth = width / columns;
-  const pieceHeight = height / rows;
-
-  // Scrambled positions state
-  const [positions, setPositions] = useState<PiecePosition[]>([]);
-
-  // SVG ref for drag coordinate transforms
-  const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
     if (scramble) {

@@ -38,9 +38,6 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
         width={width}
         height={height}
       />
-      <pre style={{ textAlign: 'left', background: '#f8f8f8', padding: '1rem', borderRadius: 8 }}>
-        {JSON.stringify({ rows, columns, showGridOutlines, scramble, width, height }, null, 2)}
-      </pre>
     </div>
   );
 };

@@ -7,10 +7,13 @@ export interface JigsawPathOptions {
 }
 
 // Precompute edge types for the whole puzzle
-export function computeEdgeMap(
-  rows: number,
-  columns: number,
-): [number, number, number, number][][] {
+export function computeEdgeMap({
+  rows,
+  columns,
+}: {
+  rows: number;
+  columns: number;
+}): [number, number, number, number][][] {
   const edgeMap: [number, number, number, number][][] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
@@ -48,7 +51,7 @@ export function generateJigsawPath({
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 
-  const edgeMap = computeEdgeMap(rows, columns);
+  const edgeMap = computeEdgeMap({ rows, columns });
   const [top, right, bottom, left] = edgeMap[row][col];
   const knobD = Math.min(pieceWidth, pieceHeight) / 3; // diameter of knob
   const knobR = knobD / 2;

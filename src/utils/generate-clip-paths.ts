@@ -9,7 +9,7 @@ export function generateClipPaths(options: JigsawPathOptions): string[] {
   const paths: string[] = [];
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
-      paths.push(generateJigsawPath(row, col, options));
+      paths.push(generateJigsawPath({ row, col, options }));
     }
   }
   return paths;
