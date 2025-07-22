@@ -19,6 +19,9 @@ interface PuzzlePieceProps {
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   onSnap?: () => void;
+  onSnapWithKeyboard?: () => void;
+  registerPieceRef?: (gridKey: string, ref: SVGGElement | null) => void;
+  gridKey: string;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -48,6 +51,19 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     onSnap,
   });
 
+  // Register this piece's ref with the parent
+  useEffect(() => {
+    if (props.registerPieceRef) {
+      props.registerPieceRef(props.gridKey, ref.current);
+    }
+
+    return () => {
+      if (props.registerPieceRef) {
+        props.registerPieceRef(props.gridKey, null);
+      }
+    };
+  }, [ref.current, props.registerPieceRef, props.gridKey]);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSnapped) return;
 
@@ -74,6 +90,10 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       case ' ': {
         e.preventDefault();
         snapPiece();
+        // Call the keyboard-specific callback for focus management
+        if (props.onSnapWithKeyboard) {
+          props.onSnapWithKeyboard();
+        }
         break;
       }
     }

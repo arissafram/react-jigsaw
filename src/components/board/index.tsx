@@ -44,6 +44,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // SVG ref for drag coordinate transforms
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  // Refs to track puzzle pieces by their stable ID
+  const pieceRefs = useRef<Map<string, SVGGElement>>(new Map());
+
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;
 
@@ -81,6 +84,31 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     setSnappedPieces((prev) => new Set([...prev, gridKey]));
   };
 
+  const handleSnapWithKeyboard = (currentIndex: number) => {
+    // Find any unsnapped piece (doesn't matter which one)
+    const unsnappedPiece = positions.find((pos, idx) => {
+      const gridKey = `${pos.pieceRow}-${pos.pieceCol}`;
+      // Exclude the current piece that just snapped
+      return idx !== currentIndex && !snappedPieces.has(gridKey);
+    });
+
+    if (unsnappedPiece) {
+      const gridKey = `${unsnappedPiece.pieceRow}-${unsnappedPiece.pieceCol}`;
+      const pieceRef = pieceRefs.current.get(gridKey);
+      if (pieceRef) {
+        pieceRef.focus();
+      }
+    }
+  };
+
+  const registerPieceRef = (gridKey: string, ref: SVGGElement | null) => {
+    if (ref) {
+      pieceRefs.current.set(gridKey, ref);
+    } else {
+      pieceRefs.current.delete(gridKey);
+    }
+  };
+
   return (
     <svg
       ref={svgRef}
@@ -112,6 +140,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           targetY={(pieceRow * pieceHeight) / 100}
           puzzlePieceOptions={puzzlePieceOptions}
           onSnap={() => handlePieceSnap(i)}
+          onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
+          registerPieceRef={registerPieceRef}
+          gridKey={`${pieceRow}-${pieceCol}`}
         />
       ))}
     </svg>
