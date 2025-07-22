@@ -49,7 +49,15 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   useEffect(() => {
     if (shuffle) {
-      setPositions(shufflePieces(rows, columns, width, height, pieceWidth, pieceHeight));
+      const shuffledPieces = shufflePieces({
+        boardWidth: width,
+        boardHeight: height,
+        columns,
+        pieceHeight,
+        pieceWidth,
+        rows,
+      });
+      setPositions(shuffledPieces);
     } else {
       // Ordered positions (grid)
       const ordered: PiecePosition[] = [];

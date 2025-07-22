@@ -5,14 +5,21 @@ export interface PiecePosition {
   y: number;
 }
 
-export function shufflePieces(
-  rows: number,
-  columns: number,
-  boardWidth: number,
-  boardHeight: number,
-  pieceWidth: number,
-  pieceHeight: number,
-): PiecePosition[] {
+export function shufflePieces({
+  boardHeight,
+  boardWidth,
+  columns,
+  pieceHeight,
+  pieceWidth,
+  rows,
+}: {
+  boardHeight: number;
+  boardWidth: number;
+  columns: number;
+  pieceHeight: number;
+  pieceWidth: number;
+  rows: number;
+}): PiecePosition[] {
   // Create a list of all solved positions
   const solved: { pieceRow: number; pieceCol: number }[] = [];
   for (let row = 0; row < rows; row++) {
