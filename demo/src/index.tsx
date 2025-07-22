@@ -8,25 +8,7 @@ const DEMO_IMAGE =
 const App = () => {
   return (
     <>
-      <Puzzle
-        image={DEMO_IMAGE}
-        options={{
-          board: {
-            className: 'test',
-            columns: 4,
-            height: 500,
-            rows: 5,
-            showGridOutlines: true,
-            width: 400,
-          },
-          puzzlePiece: {
-            strokeColor: 'gold',
-            strokeEnabled: true,
-            strokeWidth: 2,
-          },
-          shuffleArea: 'board',
-        }}
-      />
+      <Puzzle image={DEMO_IMAGE} />
       <p>hello</p>
     </>
   );

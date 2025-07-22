@@ -6,6 +6,23 @@ export interface JigsawPathOptions {
   columns: number;
   edgeMap: ComputedEdgeMap;
 }
+export interface InitialPuzzleOptions {
+  board?: {
+    className?: string;
+    columns?: number;
+    height?: number;
+    rows?: number;
+    showGridOutlines?: boolean;
+    width?: number;
+  };
+  puzzlePiece?: {
+    strokeColor?: string;
+    strokeEnabled?: boolean;
+    strokeWidth?: number;
+  };
+  shuffleArea?: ShuffleArea;
+}
+
 export interface PuzzleOptions {
   board: {
     className: string;
@@ -20,7 +37,7 @@ export interface PuzzleOptions {
     strokeEnabled: boolean;
     strokeWidth: number;
   };
-  shuffleArea: 'anywhere' | 'board';
+  shuffleArea: ShuffleArea;
 }
 
 export interface PiecePosition {
@@ -29,3 +46,5 @@ export interface PiecePosition {
   x: number;
   y: number;
 }
+
+export type ShuffleArea = 'anywhere' | 'board';

@@ -4,21 +4,35 @@ import PuzzlePiece from '../puzzle-piece';
 import { generateJigsawPath, computeEdgeMap } from '../../utils/generate-jigsaw-path';
 import { shufflePieces } from './helpers/shuffle-pieces';
 import GridOutlines from './components';
-import { PuzzleOptions, PiecePosition, JigsawPathOptions } from '../../types';
+import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '../../types';
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 
 interface BoardProps {
   columns: number;
+  className: string;
   height: number;
   image: string;
-  options: PuzzleOptions;
+  puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
+  showGridOutlines: boolean;
+  shuffleArea: ShuffleArea;
   width: number;
 }
 
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
-  const { columns, height, image, options, rows, width } = props;
+  const {
+    className,
+    columns,
+    height,
+    image,
+    puzzlePieceOptions,
+    rows,
+    showGridOutlines,
+    shuffleArea,
+    width,
+  } = props;
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
@@ -51,15 +65,15 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       pieceHeight,
       pieceWidth,
       rows,
-      shuffleArea: options.shuffleArea,
+      shuffleArea: shuffleArea,
     });
     setPositions(shuffledPieces);
-  }, [rows, columns, pieceWidth, pieceHeight, width, height, options.shuffleArea]);
+  }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
 
   return (
     <svg
       ref={svgRef}
-      className={`${styles.board} ${options.board.className}`}
+      className={`${styles.board} ${className ?? DEFAULT_PUZZLE_OPTIONS.board?.className}`}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
@@ -68,7 +82,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         columns={columns}
         jigawOptions={jigawOptions}
         rows={rows}
-        showGridOutlines={options.board.showGridOutlines}
+        showGridOutlines={showGridOutlines}
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
@@ -84,7 +98,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           svgRef={svgRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
-          puzzlePieceOptions={options.puzzlePiece}
+          puzzlePieceOptions={puzzlePieceOptions}
         />
       ))}
     </svg>

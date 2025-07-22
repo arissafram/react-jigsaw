@@ -1,0 +1,18 @@
+import { PuzzleOptions } from '@/types';
+
+export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
+  board: {
+    className: '',
+    columns: 4,
+    height: 500,
+    rows: 5,
+    showGridOutlines: true,
+    width: 400,
+  },
+  puzzlePiece: {
+    strokeColor: 'gold',
+    strokeEnabled: true,
+    strokeWidth: 2,
+  },
+  shuffleArea: 'board',
+};

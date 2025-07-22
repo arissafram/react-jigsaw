@@ -2,28 +2,62 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Board from '../board';
 import { PuzzleProvider } from '../../contexts/puzzle-context';
-import { PuzzleOptions } from '../../types';
+import { PuzzleOptions, InitialPuzzleOptions } from '../../types';
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 
 interface PuzzleProps {
+  image: string;
+  options: InitialPuzzleOptions;
+}
+
+interface PuzzleContentProps {
   image: string;
   options: PuzzleOptions;
 }
 
-const DEFAULT_WIDTH = 400;
-const DEFAULT_HEIGHT = 600;
+// Type-safe deep merge utility
+function mergeOptions(
+  defaults: typeof DEFAULT_PUZZLE_OPTIONS,
+  options?: InitialPuzzleOptions,
+): typeof DEFAULT_PUZZLE_OPTIONS {
+  if (!options) return defaults;
 
-const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
+  return {
+    board: {
+      className: options.board?.className ?? defaults.board.className,
+      columns: options.board?.columns ?? defaults.board.columns,
+      height: options.board?.height ?? defaults.board.height,
+      rows: options.board?.rows ?? defaults.board.rows,
+      showGridOutlines: options.board?.showGridOutlines ?? defaults.board.showGridOutlines,
+      width: options.board?.width ?? defaults.board.width,
+    },
+    puzzlePiece: {
+      strokeColor: options.puzzlePiece?.strokeColor ?? defaults.puzzlePiece.strokeColor,
+      strokeEnabled: options.puzzlePiece?.strokeEnabled ?? defaults.puzzlePiece.strokeEnabled,
+      strokeWidth: options.puzzlePiece?.strokeWidth ?? defaults.puzzlePiece.strokeWidth,
+    },
+    shuffleArea: options.shuffleArea ?? defaults.shuffleArea,
+  };
+}
+
+const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
   const { image, options } = props;
 
+  // const mergedOptions = mergeOptions(DEFAULT_PUZZLE_OPTIONS, options);
+
   return (
-    <div className={`${styles.puzzle} ${options.board.className}`}>
+    <div className={styles.puzzle}>
+      <p>settings</p>
       <Board
-        image={image}
-        rows={options.board.rows}
+        className={options.board.className}
         columns={options.board.columns}
-        width={options.board.width || DEFAULT_WIDTH}
-        height={options.board.height || DEFAULT_HEIGHT}
-        options={options}
+        height={options.board.height}
+        image={image}
+        puzzlePieceOptions={options.puzzlePiece}
+        rows={options.board.rows}
+        showGridOutlines={options.board.showGridOutlines}
+        shuffleArea={options.shuffleArea}
+        width={options.board.width}
       />
     </div>
   );
@@ -31,10 +65,11 @@ const PuzzleContent: React.FC<PuzzleProps> = (props: PuzzleProps) => {
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const { options } = props;
+  const mergedOptions: PuzzleOptions = mergeOptions(DEFAULT_PUZZLE_OPTIONS, options);
 
   return (
-    <PuzzleProvider rows={options.board.rows} columns={options.board.columns}>
-      <PuzzleContent {...props} />
+    <PuzzleProvider rows={mergedOptions.board.rows} columns={mergedOptions.board.columns}>
+      <PuzzleContent image={props.image} options={mergedOptions} />
     </PuzzleProvider>
   );
 };

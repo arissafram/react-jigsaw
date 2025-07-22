@@ -5,7 +5,7 @@ interface GridOutlinesProps {
   columns: number;
   jigawOptions: JigsawPathOptions;
   rows: number;
-  showGridOutlines: boolean;
+  showGridOutlines: boolean | undefined;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
