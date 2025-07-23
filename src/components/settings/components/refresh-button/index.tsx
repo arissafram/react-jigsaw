@@ -1,27 +1,14 @@
 import { FC } from 'react';
 
+import styles from './styles.module.scss';
+
 interface RefreshButtonProps {
   onRefresh: () => void;
 }
 
 export const RefreshButton: FC<RefreshButtonProps> = ({ onRefresh }) => {
   return (
-    <button
-      onClick={onRefresh}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '32px',
-        height: '32px',
-        border: '1px solid #ccc',
-        borderRadius: '4px',
-        background: '#fff',
-        cursor: 'pointer',
-        padding: '4px',
-      }}
-      title="Refresh puzzle"
-    >
+    <button className={styles.refreshButton} onClick={onRefresh} title="Refresh puzzle">
       <svg
         width="20"
         height="20"

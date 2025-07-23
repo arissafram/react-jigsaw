@@ -1,5 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 
+import styles from './styles.module.scss';
+
 interface RowsAndColumnsProps {
   currentRows: number;
   currentColumns: number;
@@ -52,37 +54,16 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <form className={styles.rowsAndColumns} onSubmit={handleSubmit}>
       <label>
         Rows:
-        <input
-          type="text"
-          value={rows}
-          onChange={handleRowsChange}
-          placeholder="2-10"
-          style={{ width: '40px', marginLeft: '4px' }}
-        />
+        <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
       </label>
       <label>
         Cols:
-        <input
-          type="text"
-          value={columns}
-          onChange={handleColumnsChange}
-          placeholder="2-10"
-          style={{ width: '40px', marginLeft: '4px' }}
-        />
+        <input type="text" value={columns} onChange={handleColumnsChange} placeholder="2-10" />
       </label>
-      <input
-        type="submit"
-        value="OK"
-        disabled={!isValid}
-        style={{
-          marginLeft: '8px',
-          opacity: isValid ? 1 : 0.5,
-          cursor: isValid ? 'pointer' : 'not-allowed',
-        }}
-      />
+      <input type="submit" value="Ok" disabled={!isValid} />
     </form>
   );
 };

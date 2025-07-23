@@ -1,10 +1,11 @@
 .settingsContainer {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: #f9f9f9;
+  padding: 16px 0 0 0;
+
+  .rightContainer {
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    justify-content: flex-end;
+  }
 }

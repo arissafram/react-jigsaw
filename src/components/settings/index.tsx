@@ -26,8 +26,10 @@ const Settings: FC<SettingsProps> = ({
         currentColumns={currentColumns}
         onGridChange={onGridChange}
       />
-      <Timer isRunning={timerIsRunning} />
-      <RefreshButton onRefresh={onRefresh} />
+      <div className={styles.rightContainer}>
+        <Timer isRunning={timerIsRunning} />
+        <RefreshButton onRefresh={onRefresh} />
+      </div>
     </div>
   );
 };

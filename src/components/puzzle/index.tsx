@@ -56,7 +56,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   return (
     <div
       className={styles.puzzle}
-      style={{ width: `${options.board.width}px`, height: `${options.board.height}px` }}
+      style={{ width: `${options.board.width}px`, minHeight: `${options.board.height}px` }}
     >
       <Board
         key={`${rows}-${columns}`}

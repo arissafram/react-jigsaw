@@ -1,5 +1,7 @@
 import { FC, useState, useEffect, useRef } from 'react';
 
+import styles from './styles.module.scss';
+
 interface TimerProps {
   isRunning: boolean;
   onTimeUpdate?: (seconds: number) => void;
@@ -48,23 +50,5 @@ export const Timer: FC<TimerProps> = ({ isRunning, onTimeUpdate }) => {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: '60px',
-        padding: '4px 8px',
-        border: '1px solid #ddd',
-        borderRadius: '4px',
-        background: '#fff',
-        fontFamily: 'monospace',
-        fontSize: '14px',
-        fontWeight: 'bold',
-      }}
-    >
-      {formatTime(seconds)}
-    </div>
-  );
+  return <div className={styles.timer}>{formatTime(seconds)}</div>;
 };
