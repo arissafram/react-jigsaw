@@ -22,6 +22,25 @@ export interface InitialPuzzleOptions {
     strokeEnabled?: boolean;
     strokeWidth?: number;
   };
+  puzzle?: {
+    className?: string;
+    settings?: {
+      className?: string;
+      enabled?: boolean;
+      timer?: {
+        className?: string;
+        enabled?: boolean;
+      };
+      refreshButton?: {
+        className?: string;
+        enabled?: boolean;
+      };
+      rowsAndColumns?: {
+        className?: string;
+        enabled?: boolean;
+      };
+    };
+  };
   shuffleArea?: ShuffleArea;
 }
 
@@ -32,6 +51,7 @@ export interface PuzzleOptions {
     height: number;
     rows: number;
     showGridOutlines: boolean;
+    shuffleArea: ShuffleArea;
     width: number;
   };
   puzzlePiece: {
@@ -39,7 +59,25 @@ export interface PuzzleOptions {
     strokeEnabled: boolean;
     strokeWidth: number;
   };
-  shuffleArea: ShuffleArea;
+  puzzle: {
+    className: string;
+    settings: {
+      className: string;
+      enabled: boolean;
+      timer: {
+        className: string;
+        enabled: boolean;
+      };
+      refreshButton: {
+        className: string;
+        enabled: boolean;
+      };
+      rowsAndColumns: {
+        className: string;
+        enabled: boolean;
+      };
+    };
+  };
 }
 
 export interface PiecePosition {

@@ -67,7 +67,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
         showGridOutlines={options.board.showGridOutlines}
-        shuffleArea={options.shuffleArea}
+        shuffleArea={options.board.shuffleArea}
         width={options.board.width}
         onPuzzleComplete={handlePuzzleComplete}
       />
