@@ -1,11 +1,10 @@
 import Board from '@/components/board';
+import Settings from '@/components/settings';
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
-import { PuzzleProvider } from '@/contexts/puzzle-context';
+import { PuzzleProvider, usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions, InitialPuzzleOptions } from '@/types';
 
 import { mergeOptions } from './helpers/merge-options';
-
-import styles from './styles.module.scss';
 
 interface PuzzleProps {
   image: string;
@@ -19,19 +18,28 @@ interface PuzzleContentProps {
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
   const { image, options } = props;
+  const { rows, columns, setRows, setColumns } = usePuzzleContext();
+
+  const handleGridChange = (newRows: number, newColumns: number) => {
+    setRows(newRows);
+    setColumns(newColumns);
+  };
 
   return (
-    <Board
-      className={options.board.className}
-      columns={options.board.columns}
-      height={options.board.height}
-      image={image}
-      puzzlePieceOptions={options.puzzlePiece}
-      rows={options.board.rows}
-      showGridOutlines={options.board.showGridOutlines}
-      shuffleArea={options.shuffleArea}
-      width={options.board.width}
-    />
+    <>
+      <Board
+        className={options.board.className}
+        columns={columns}
+        height={options.board.height}
+        image={image}
+        puzzlePieceOptions={options.puzzlePiece}
+        rows={rows}
+        showGridOutlines={options.board.showGridOutlines}
+        shuffleArea={options.shuffleArea}
+        width={options.board.width}
+      />
+      <Settings currentRows={rows} currentColumns={columns} onGridChange={handleGridChange} />
+    </>
   );
 };
 
