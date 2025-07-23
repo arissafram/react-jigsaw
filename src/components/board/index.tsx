@@ -5,7 +5,7 @@ import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
 import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
-import GridOutlines from './components';
+import GridOutlines from './components/grid-outlines';
 import { shufflePieces } from './helpers/shuffle-pieces';
 
 import styles from './styles.module.scss';
