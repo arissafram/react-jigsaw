@@ -3,12 +3,14 @@ import { FC, useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 
 interface RowsAndColumnsProps {
+  className?: string;
   currentRows: number;
   currentColumns: number;
   onGridChange: (rows: number, columns: number) => void;
 }
 
 export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
+  className,
   currentRows,
   currentColumns,
   onGridChange,
@@ -54,7 +56,7 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   };
 
   return (
-    <form className={styles.rowsAndColumns} onSubmit={handleSubmit}>
+    <form className={`${styles.rowsAndColumns} ${className}`} onSubmit={handleSubmit}>
       <label>
         Rows:
         <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />

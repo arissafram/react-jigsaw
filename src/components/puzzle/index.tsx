@@ -77,6 +77,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         onGridChange={handleGridChange}
         onRefresh={handleRefresh}
         timerIsRunning={timerIsRunning}
+        settings={options.puzzle.settings}
       />
     </div>
   );

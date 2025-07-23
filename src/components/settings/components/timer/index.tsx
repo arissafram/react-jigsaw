@@ -3,11 +3,12 @@ import { FC, useState, useEffect, useRef } from 'react';
 import styles from './styles.module.scss';
 
 interface TimerProps {
+  className?: string;
   isRunning: boolean;
   onTimeUpdate?: (seconds: number) => void;
 }
 
-export const Timer: FC<TimerProps> = ({ isRunning, onTimeUpdate }) => {
+export const Timer: FC<TimerProps> = ({ className, isRunning, onTimeUpdate }) => {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -50,5 +51,5 @@ export const Timer: FC<TimerProps> = ({ isRunning, onTimeUpdate }) => {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  return <div className={styles.timer}>{formatTime(seconds)}</div>;
+  return <div className={`${styles.timer} ${className}`}>{formatTime(seconds)}</div>;
 };

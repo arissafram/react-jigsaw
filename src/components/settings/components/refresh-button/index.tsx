@@ -3,12 +3,17 @@ import { FC } from 'react';
 import styles from './styles.module.scss';
 
 interface RefreshButtonProps {
+  className?: string;
   onRefresh: () => void;
 }
 
-export const RefreshButton: FC<RefreshButtonProps> = ({ onRefresh }) => {
+export const RefreshButton: FC<RefreshButtonProps> = ({ className, onRefresh }) => {
   return (
-    <button className={styles.refreshButton} onClick={onRefresh} title="Refresh puzzle">
+    <button
+      className={`${styles.refreshButton} ${className}`}
+      onClick={onRefresh}
+      title="Refresh puzzle"
+    >
       <svg
         width="20"
         height="20"
