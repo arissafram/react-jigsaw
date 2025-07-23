@@ -19,6 +19,7 @@ const GridOutlines = (props: GridOutlinesProps) => {
       const gridKey = `${row}-${col}`;
       const isSnapped = snappedPieces.has(gridKey);
 
+      // TODO: use a class here
       return (
         <path
           key={`outline-${row}-${col}`}

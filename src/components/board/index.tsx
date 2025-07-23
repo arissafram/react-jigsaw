@@ -11,16 +11,16 @@ import { shufflePieces } from './helpers/shuffle-pieces';
 import styles from './styles.module.scss';
 
 interface BoardProps {
-  columns: number;
   className: string;
+  columns: number;
   height: number;
   image: string;
+  onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
   showGridOutlines: boolean;
   shuffleArea: ShuffleArea;
   width: number;
-  onPuzzleComplete?: () => void;
 }
 
 const SNAP_THRESHOLD = 20;
@@ -31,16 +31,18 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     columns,
     height,
     image,
+    onPuzzleComplete,
     puzzlePieceOptions,
     rows,
     showGridOutlines,
     shuffleArea,
     width,
-    onPuzzleComplete,
   } = props;
 
   // Shuffled positions state
   const [positions, setPositions] = useState<PiecePosition[]>([]);
+
+  // Track which pieces are attached to the grid
   const [snappedPieces, setSnappedPieces] = useState<Set<string>>(new Set());
 
   // SVG ref for drag coordinate transforms
@@ -84,7 +86,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // Check for puzzle completion
   useEffect(() => {
     const totalPieces = rows * columns;
-    if (snappedPieces.size === totalPieces && totalPieces > 0) {
+    if (snappedPieces.size === totalPieces) {
       onPuzzleComplete?.();
     }
   }, [snappedPieces.size, rows, columns, onPuzzleComplete]);
