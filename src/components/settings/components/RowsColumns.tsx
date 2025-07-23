@@ -44,14 +44,15 @@ export const RowsColumns: FC<RowsColumnsProps> = ({
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (isValid) {
       onGridChange(parseInt(rows), parseInt(columns));
     }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       <label>
         Rows:
         <input
@@ -62,7 +63,6 @@ export const RowsColumns: FC<RowsColumnsProps> = ({
           style={{ width: '40px', marginLeft: '4px' }}
         />
       </label>
-
       <label>
         Cols:
         <input
@@ -73,18 +73,16 @@ export const RowsColumns: FC<RowsColumnsProps> = ({
           style={{ width: '40px', marginLeft: '4px' }}
         />
       </label>
-
-      <button
-        onClick={handleSubmit}
+      <input
+        type="submit"
+        value="OK"
         disabled={!isValid}
         style={{
           marginLeft: '8px',
           opacity: isValid ? 1 : 0.5,
           cursor: isValid ? 'pointer' : 'not-allowed',
         }}
-      >
-        OK
-      </button>
-    </div>
+      />
+    </form>
   );
 };
