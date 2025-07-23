@@ -28,6 +28,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   return (
     <>
       <Board
+        key={`${rows}-${columns}`}
         className={options.board.className}
         columns={columns}
         height={options.board.height}

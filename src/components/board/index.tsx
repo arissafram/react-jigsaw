@@ -76,6 +76,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     });
     setPositions(shuffledPieces);
     setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
+    pieceRefs.current.clear(); // Clear piece refs when grid changes
   }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
 
   const handlePieceSnap = (index: number) => {
