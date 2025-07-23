@@ -25,6 +25,12 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     setColumns(newColumns);
   };
 
+  const handleRefresh = () => {
+    // Force a re-render by updating the key - this will shuffle the pieces
+    setRows(rows);
+    setColumns(columns);
+  };
+
   return (
     <>
       <Board
@@ -39,7 +45,12 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         shuffleArea={options.shuffleArea}
         width={options.board.width}
       />
-      <Settings currentRows={rows} currentColumns={columns} onGridChange={handleGridChange} />
+      <Settings
+        currentRows={rows}
+        currentColumns={columns}
+        onGridChange={handleGridChange}
+        onRefresh={handleRefresh}
+      />
     </>
   );
 };

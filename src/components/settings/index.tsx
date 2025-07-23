@@ -1,14 +1,16 @@
 import { FC } from 'react';
 import { RowsAndColumns } from './components/rows-and-columns';
+import { RefreshButton } from './components/refresh-button';
 import styles from './styles.module.scss';
 
 interface SettingsProps {
   currentRows: number;
   currentColumns: number;
   onGridChange: (rows: number, columns: number) => void;
+  onRefresh: () => void;
 }
 
-const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange }) => {
+const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange, onRefresh }) => {
   return (
     <div className={styles.settingsContainer}>
       <RowsAndColumns
@@ -16,7 +18,8 @@ const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange
         currentColumns={currentColumns}
         onGridChange={onGridChange}
       />
-      {/* Timer, Reset button will go here later */}
+      <RefreshButton onRefresh={onRefresh} />
+      {/* Timer will go here later */}
     </div>
   );
 };
