@@ -20,6 +20,7 @@ interface BoardProps {
   showGridOutlines: boolean;
   shuffleArea: ShuffleArea;
   width: number;
+  onPuzzleComplete?: () => void;
 }
 
 const SNAP_THRESHOLD = 20;
@@ -35,6 +36,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     showGridOutlines,
     shuffleArea,
     width,
+    onPuzzleComplete,
   } = props;
 
   // Shuffled positions state
@@ -78,6 +80,14 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when grid changes
   }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
+
+  // Check for puzzle completion
+  useEffect(() => {
+    const totalPieces = rows * columns;
+    if (snappedPieces.size === totalPieces && totalPieces > 0) {
+      onPuzzleComplete?.();
+    }
+  }, [snappedPieces.size, rows, columns, onPuzzleComplete]);
 
   const handlePieceSnap = (index: number) => {
     const { pieceRow, pieceCol } = positions[index];

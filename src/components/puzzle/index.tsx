@@ -47,6 +47,10 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     }, 10);
   };
 
+  const handlePuzzleComplete = () => {
+    setTimerIsRunning(false);
+  };
+
   return (
     <>
       <Board
@@ -60,6 +64,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         showGridOutlines={options.board.showGridOutlines}
         shuffleArea={options.shuffleArea}
         width={options.board.width}
+        onPuzzleComplete={handlePuzzleComplete}
       />
       <Settings
         currentRows={rows}
