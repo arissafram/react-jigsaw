@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Board from '@/components/board';
 import Settings from '@/components/settings';
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
@@ -19,10 +20,14 @@ interface PuzzleContentProps {
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
   const { image, options } = props;
   const { rows, columns, setRows, setColumns } = usePuzzleContext();
+  const [timerIsRunning, setTimerIsRunning] = useState(true);
 
   const handleGridChange = (newRows: number, newColumns: number) => {
     setRows(newRows);
     setColumns(newColumns);
+    // Restart timer when grid changes
+    setTimerIsRunning(false);
+    setTimeout(() => setTimerIsRunning(true), 10);
   };
 
   const handleRefresh = () => {
@@ -32,11 +37,14 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     // Trigger state change to force re-render
     setRows(0);
     setColumns(0);
+    // Restart timer when refreshing
+    setTimerIsRunning(false);
     // Use setTimeout to ensure the state change is processed
     setTimeout(() => {
       setRows(currentRows);
       setColumns(currentColumns);
-    }, 0);
+      setTimerIsRunning(true);
+    }, 10);
   };
 
   return (
@@ -58,6 +66,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         currentColumns={columns}
         onGridChange={handleGridChange}
         onRefresh={handleRefresh}
+        timerIsRunning={timerIsRunning}
       />
     </>
   );

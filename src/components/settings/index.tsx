@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { RowsAndColumns } from './components/rows-and-columns';
+import { Timer } from './components/timer';
 import { RefreshButton } from './components/refresh-button';
 import styles from './styles.module.scss';
 
@@ -8,9 +9,16 @@ interface SettingsProps {
   currentColumns: number;
   onGridChange: (rows: number, columns: number) => void;
   onRefresh: () => void;
+  timerIsRunning: boolean;
 }
 
-const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange, onRefresh }) => {
+const Settings: FC<SettingsProps> = ({
+  currentRows,
+  currentColumns,
+  onGridChange,
+  onRefresh,
+  timerIsRunning,
+}) => {
   return (
     <div className={styles.settingsContainer}>
       <RowsAndColumns
@@ -18,8 +26,8 @@ const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange
         currentColumns={currentColumns}
         onGridChange={onGridChange}
       />
+      <Timer isRunning={timerIsRunning} />
       <RefreshButton onRefresh={onRefresh} />
-      {/* Timer will go here later */}
     </div>
   );
 };
