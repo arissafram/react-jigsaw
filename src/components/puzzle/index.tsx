@@ -26,9 +26,17 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   };
 
   const handleRefresh = () => {
-    // Force a re-render by updating the key - this will shuffle the pieces
-    setRows(rows);
-    setColumns(columns);
+    // Force Board re-render by temporarily changing then restoring values
+    const currentRows = rows;
+    const currentColumns = columns;
+    // Trigger state change to force re-render
+    setRows(0);
+    setColumns(0);
+    // Use setTimeout to ensure the state change is processed
+    setTimeout(() => {
+      setRows(currentRows);
+      setColumns(currentColumns);
+    }, 0);
   };
 
   return (
