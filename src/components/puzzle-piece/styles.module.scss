@@ -1,15 +1,21 @@
 .puzzlePiece {
+  position: absolute;
   cursor: grab;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
+  transition: opacity 0.2s ease;
 
   &:active {
     cursor: grabbing;
   }
 
-  &:focus {
-    outline: none;
-    path {
-      filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 12px currentColor);
-    }
+  &.snapped {
+    cursor: default;
+    pointer-events: none;
   }
 }

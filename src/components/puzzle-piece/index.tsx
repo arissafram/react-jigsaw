@@ -1,6 +1,6 @@
 import { RefObject, FC, useEffect } from 'react';
 
-import { useDragAndDrop } from '@/hooks/use-drag-and-drop';
+import { useSvgDrag } from '@/hooks/use-svg-drag';
 import { PuzzleOptions } from '@/types';
 
 import styles from './styles.module.scss';
@@ -41,7 +41,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     onSnap,
   } = props;
 
-  const { ref, dragState, isSnapped, eventHandlers, movePiece, snapPiece } = useDragAndDrop({
+  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useSvgDrag({
     initialX,
     initialY,
     snapThreshold,
@@ -72,24 +72,24 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     switch (e.key) {
       case 'ArrowUp':
         e.preventDefault();
-        movePiece(0, -step);
+        moveBy(0, -step);
         break;
       case 'ArrowDown':
         e.preventDefault();
-        movePiece(0, step);
+        moveBy(0, step);
         break;
       case 'ArrowLeft':
         e.preventDefault();
-        movePiece(-step, 0);
+        moveBy(-step, 0);
         break;
       case 'ArrowRight':
         e.preventDefault();
-        movePiece(step, 0);
+        moveBy(step, 0);
         break;
       case 'Enter':
       case ' ': {
         e.preventDefault();
-        snapPiece();
+        trySnap();
         // Call the keyboard-specific callback for focus management
         if (props.onSnapWithKeyboard) {
           props.onSnapWithKeyboard();
@@ -120,7 +120,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     <g
       ref={ref}
       transform={isSnapped ? '' : `translate(${dragState.x},${dragState.y})`}
-      {...eventHandlers}
+      {...handlers}
       className={styles.puzzlePiece}
       tabIndex={isSnapped ? -1 : 0}
       onKeyDown={handleKeyDown}
