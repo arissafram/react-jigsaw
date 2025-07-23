@@ -1,12 +1,12 @@
 import { FC, useState, useEffect } from 'react';
 
-interface RowsColumnsProps {
+interface RowsAndColumnsProps {
   currentRows: number;
   currentColumns: number;
   onGridChange: (rows: number, columns: number) => void;
 }
 
-export const RowsColumns: FC<RowsColumnsProps> = ({
+export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   currentRows,
   currentColumns,
   onGridChange,

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { RowsColumns } from './components/RowsColumns';
+import { RowsAndColumns } from './components/rows-and-columns';
 import styles from './styles.module.scss';
 
 interface SettingsProps {
@@ -11,7 +11,7 @@ interface SettingsProps {
 const Settings: FC<SettingsProps> = ({ currentRows, currentColumns, onGridChange }) => {
   return (
     <div className={styles.settingsContainer}>
-      <RowsColumns
+      <RowsAndColumns
         currentRows={currentRows}
         currentColumns={currentColumns}
         onGridChange={onGridChange}
