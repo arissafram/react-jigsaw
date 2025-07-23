@@ -54,11 +54,7 @@ export interface PuzzleOptions {
     shuffleArea: ShuffleArea;
     width: number;
   };
-  puzzlePiece: {
-    strokeColor: string;
-    strokeEnabled: boolean;
-    strokeWidth: number;
-  };
+  onComplete?: () => void;
   puzzle: {
     className: string;
     settings: {
@@ -77,6 +73,11 @@ export interface PuzzleOptions {
         enabled: boolean;
       };
     };
+  };
+  puzzlePiece: {
+    strokeColor: string;
+    strokeEnabled: boolean;
+    strokeWidth: number;
   };
 }
 
