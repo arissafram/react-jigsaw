@@ -7,6 +7,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     height: 500,
     rows: 5,
     showGridOutlines: true,
+    shuffleArea: 'board',
     width: 400,
   },
   puzzlePiece: {
@@ -14,5 +15,23 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     strokeEnabled: true,
     strokeWidth: 2,
   },
-  shuffleArea: 'board',
+  puzzle: {
+    className: '',
+    settings: {
+      className: '',
+      enabled: false,
+      timer: {
+        className: '',
+        enabled: false,
+      },
+      refreshButton: {
+        className: '',
+        enabled: false,
+      },
+      rowsAndColumns: {
+        className: '',
+        enabled: false,
+      },
+    },
+  },
 };
