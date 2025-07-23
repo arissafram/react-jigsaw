@@ -12,15 +12,17 @@ import styles from './styles.module.scss';
 interface PuzzleProps {
   image: string;
   options?: InitialPuzzleOptions;
+  onComplete?: () => void;
 }
 
 interface PuzzleContentProps {
   image: string;
   options: PuzzleOptions;
+  onComplete?: () => void;
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, options } = props;
+  const { image, options, onComplete } = props;
   const { rows, columns, setRows, setColumns } = usePuzzleContext();
   const [timerIsRunning, setTimerIsRunning] = useState(true);
 
@@ -51,6 +53,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   const handlePuzzleComplete = () => {
     setTimerIsRunning(false);
+    onComplete?.();
   };
 
   return (
