@@ -7,6 +7,8 @@ import { PuzzleOptions, InitialPuzzleOptions } from '@/types';
 
 import { mergeOptions } from './helpers/merge-options';
 
+import styles from './styles.module.scss';
+
 interface PuzzleProps {
   image: string;
   options?: InitialPuzzleOptions;
@@ -52,7 +54,10 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   };
 
   return (
-    <>
+    <div
+      className={styles.puzzle}
+      style={{ width: `${options.board.width}px`, height: `${options.board.height}px` }}
+    >
       <Board
         key={`${rows}-${columns}`}
         className={options.board.className}
@@ -73,7 +78,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         onRefresh={handleRefresh}
         timerIsRunning={timerIsRunning}
       />
-    </>
+    </div>
   );
 };
 
