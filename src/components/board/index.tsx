@@ -1,7 +1,6 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
 import PuzzlePiece from '@/components/puzzle-piece';
-import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
 import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
@@ -125,7 +124,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   return (
     <svg
       ref={svgRef}
-      className={`${styles.board} ${className ?? DEFAULT_PUZZLE_OPTIONS.board?.className}`}
+      className={`${styles.board} ${className}`}
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
@@ -139,23 +138,23 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       />
       {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
+          key={`${pieceRow}-${pieceCol}`}
           boardHeight={height}
           boardWidth={width}
+          gridKey={`${pieceRow}-${pieceCol}`}
           image={image}
           index={i}
           initialX={x}
           initialY={y}
-          key={`${pieceRow}-${pieceCol}`}
+          onSnap={() => handlePieceSnap(i)}
+          onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
           path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
+          puzzlePieceOptions={puzzlePieceOptions}
+          registerPieceRef={registerPieceRef}
           snapThreshold={SNAP_THRESHOLD}
           svgRef={svgRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
-          puzzlePieceOptions={puzzlePieceOptions}
-          onSnap={() => handlePieceSnap(i)}
-          onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
-          registerPieceRef={registerPieceRef}
-          gridKey={`${pieceRow}-${pieceCol}`}
         />
       ))}
     </svg>
