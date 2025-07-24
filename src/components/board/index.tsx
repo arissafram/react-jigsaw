@@ -69,13 +69,10 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   useEffect(() => {
     const shuffledPieces = shufflePieces({
-      boardWidth: width,
-      boardHeight: height,
       columns,
       pieceHeight,
       pieceWidth,
       rows,
-      shuffleArea: shuffleArea,
     });
     setPositions(shuffledPieces);
     setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled

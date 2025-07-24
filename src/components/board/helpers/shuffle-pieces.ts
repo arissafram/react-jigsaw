@@ -16,21 +16,15 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 };
 
 export const shufflePieces = ({
-  boardHeight,
-  boardWidth,
   columns,
   pieceHeight,
   pieceWidth,
   rows,
-  shuffleArea = 'board',
 }: {
-  boardHeight: number;
-  boardWidth: number;
   columns: number;
   pieceHeight: number;
   pieceWidth: number;
   rows: number;
-  shuffleArea?: 'anywhere' | 'board';
 }): PiecePosition[] => {
   // Create a list of all positions. Array.from as opposed to double loops
   // because it's faster than nested loops and pre-allocates memory
@@ -43,15 +37,13 @@ export const shufflePieces = ({
   const shuffledPositions = getShuffledArray(positions);
 
   // Assign each a random x/y
-  return shuffledPositions.map(({ pieceRow, pieceCol }) => {
-    let x, y;
-    if (shuffleArea === 'board') {
-      x = Math.random() * pieceWidth;
-      y = Math.random() * pieceHeight;
-    } else {
-      x = Math.random() * (boardWidth - pieceWidth * 0.5) - pieceWidth * 0.25;
-      y = Math.random() * (boardHeight - pieceHeight * 0.5) - pieceHeight * 0.25;
-    }
+  return shuffledPositions.map(({ pieceRow, pieceCol }, i) => {
+    const height = i % 2 !== 0 ? -pieceHeight : pieceHeight;
+    const width = i % 2 !== 0 ? -pieceWidth : pieceWidth;
+
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+
     return { pieceRow, pieceCol, x, y };
   });
 };
