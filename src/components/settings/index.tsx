@@ -8,7 +8,7 @@ import { PuzzleOptions } from '@/types';
 interface SettingsProps {
   currentRows: number;
   currentColumns: number;
-  onGridChange: (rows: number, columns: number) => void;
+  onBoardSlotChange: (rows: number, columns: number) => void;
   onRefresh: () => void;
   settings: PuzzleOptions['puzzle']['settings'];
   timerIsRunning: boolean;
@@ -17,7 +17,7 @@ interface SettingsProps {
 const Settings: FC<SettingsProps> = ({
   currentRows,
   currentColumns,
-  onGridChange,
+  onBoardSlotChange,
   onRefresh,
   settings,
   timerIsRunning,
@@ -33,7 +33,7 @@ const Settings: FC<SettingsProps> = ({
           className={rowsAndColumns.className}
           currentRows={currentRows}
           currentColumns={currentColumns}
-          onGridChange={onGridChange}
+          onBoardSlotChange={onBoardSlotChange}
         />
       )}
       {(timer.enabled || refreshButton.enabled) && (

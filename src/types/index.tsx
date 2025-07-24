@@ -1,6 +1,6 @@
 type ComputedEdgeMap = [number, number, number, number][][];
 
-export interface JigsawPathOptions {
+export interface BoardPathOptions {
   boardHeight: number;
   boardWidth: number;
   columns: number;
@@ -14,7 +14,7 @@ export interface InitialPuzzleOptions {
     columns?: number;
     height?: number;
     rows?: number;
-    showGridOutlines?: boolean;
+    showBoardSlotOutlines?: boolean;
     width?: number;
   };
   puzzlePiece?: {
@@ -49,7 +49,7 @@ export interface PuzzleOptions {
     columns: number;
     height: number;
     rows: number;
-    showGridOutlines: boolean;
+    showBoardSlotOutlines: boolean;
     width: number;
   };
   onComplete?: () => void;
@@ -79,12 +79,12 @@ export interface PuzzleOptions {
   };
 }
 
-export interface GridSlot {
+export interface BoardSlot {
   pieceRow: number;
   pieceCol: number;
 }
 
-export interface PiecePosition extends GridSlot {
+export interface PiecePosition extends BoardSlot {
   x: number;
   y: number;
 }

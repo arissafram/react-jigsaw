@@ -1,4 +1,4 @@
-import { JigsawPathOptions } from '@/types';
+import { BoardPathOptions } from '@/types';
 
 // Precompute edge types for the whole puzzle
 export const computeEdgeMap = ({
@@ -7,8 +7,8 @@ export const computeEdgeMap = ({
 }: {
   columns: number;
   rows: number;
-}): JigsawPathOptions['edgeMap'] => {
-  const edgeMap: JigsawPathOptions['edgeMap'] = [];
+}): BoardPathOptions['edgeMap'] => {
+  const edgeMap: BoardPathOptions['edgeMap'] = [];
   for (let row = 0; row < rows; row++) {
     edgeMap[row] = [];
     for (let col = 0; col < columns; col++) {
@@ -30,14 +30,14 @@ export const computeEdgeMap = ({
  * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
  * Edges alternate so adjoining pieces plug into each other.
  */
-export const generateJigsawPath = ({
+export const generateBoardPath = ({
   col,
   row,
   options,
 }: {
   col: number;
   row: number;
-  options: JigsawPathOptions;
+  options: BoardPathOptions;
 }): string => {
   const { boardWidth, boardHeight, rows, columns } = options;
   const pieceWidth = boardWidth / columns;

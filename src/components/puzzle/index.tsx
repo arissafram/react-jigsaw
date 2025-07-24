@@ -26,10 +26,10 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   const { rows, columns, setRows, setColumns } = usePuzzleContext();
   const [timerIsRunning, setTimerIsRunning] = useState(true);
 
-  const handleGridChange = (newRows: number, newColumns: number) => {
+  const handleBoardSlotChange = (newRows: number, newColumns: number) => {
     setRows(newRows);
     setColumns(newColumns);
-    // Restart timer when grid changes
+    // Restart timer when board changes
     setTimerIsRunning(false);
     setTimeout(() => setTimerIsRunning(true), 10);
   };
@@ -73,13 +73,13 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         image={image}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
-        showGridOutlines={options.board.showGridOutlines}
+        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         onPuzzleComplete={handlePuzzleComplete}
       />
       <Settings
         currentRows={rows}
         currentColumns={columns}
-        onGridChange={handleGridChange}
+        onBoardSlotChange={handleBoardSlotChange}
         onRefresh={handleRefresh}
         timerIsRunning={timerIsRunning}
         settings={options.puzzle.settings}

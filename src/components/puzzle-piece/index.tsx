@@ -20,8 +20,8 @@ interface PuzzlePieceProps {
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   onSnap?: () => void;
   onSnapWithKeyboard?: () => void;
-  registerPieceRef?: (gridKey: string, ref: SVGGElement | null) => void;
-  gridKey: string;
+  registerPieceRef?: (boardSlotKey: string, ref: SVGGElement | null) => void;
+  boardSlotKey: string;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
@@ -54,15 +54,15 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
   // Register this piece's ref with the parent
   useEffect(() => {
     if (props.registerPieceRef) {
-      props.registerPieceRef(props.gridKey, ref.current);
+      props.registerPieceRef(props.boardSlotKey, ref.current);
     }
 
     return () => {
       if (props.registerPieceRef) {
-        props.registerPieceRef(props.gridKey, null);
+        props.registerPieceRef(props.boardSlotKey, null);
       }
     };
-  }, [ref.current, props.registerPieceRef, props.gridKey]);
+  }, [ref.current, props.registerPieceRef, props.boardSlotKey]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSnapped) return;

@@ -14,7 +14,8 @@ export const mergeOptions = (
       columns: options.board?.columns ?? defaults.board.columns,
       height: options.board?.height ?? defaults.board.height,
       rows: options.board?.rows ?? defaults.board.rows,
-      showGridOutlines: options.board?.showGridOutlines ?? defaults.board.showGridOutlines,
+      showBoardSlotOutlines:
+        options.board?.showBoardSlotOutlines ?? defaults.board.showBoardSlotOutlines,
       width: options.board?.width ?? defaults.board.width,
     },
     puzzlePiece: {

@@ -1,4 +1,4 @@
-import { GridSlot, PiecePosition } from '@/types';
+import { BoardSlot, PiecePosition } from '@/types';
 
 // Fisher-Yates shuffle algorithm - returns a new shuffled array
 const getShuffledArray = <T>(array: T[]): T[] => {
@@ -18,17 +18,17 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 export const shufflePieces = ({
   boardHeight,
   boardWidth,
-  gridSlots,
+  boardSlots,
 }: {
   boardHeight: number;
   boardWidth: number;
-  gridSlots: GridSlot[];
+  boardSlots: BoardSlot[];
 }): PiecePosition[] => {
-  // Shuffle the grid slots
-  const shuffledGridSlots = getShuffledArray(gridSlots);
+  // Shuffle the board slots
+  const shuffledBoardSlots = getShuffledArray(boardSlots);
 
   // Assign each piece a random scatter position
-  return shuffledGridSlots.map(({ pieceRow, pieceCol }, i) => {
+  return shuffledBoardSlots.map(({ pieceRow, pieceCol }, i) => {
     // Alternate between positive and negative dimensions
     const pieceHeight = i % 2 !== 0 ? -boardHeight : boardHeight;
     const pieceWidth = i % 2 !== 0 ? -boardWidth : boardWidth;
