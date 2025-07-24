@@ -17,13 +17,13 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 
 export const shufflePieces = ({
   columns,
-  pieceHeight,
-  pieceWidth,
+  height,
+  width,
   rows,
 }: {
   columns: number;
-  pieceHeight: number;
-  pieceWidth: number;
+  height: number;
+  width: number;
   rows: number;
 }): PiecePosition[] => {
   // Create a list of all positions. Array.from as opposed to double loops
@@ -38,11 +38,11 @@ export const shufflePieces = ({
 
   // Assign each a random x/y
   return shuffledPositions.map(({ pieceRow, pieceCol }, i) => {
-    const height = i % 2 !== 0 ? -pieceHeight : pieceHeight;
-    const width = i % 2 !== 0 ? -pieceWidth : pieceWidth;
+    const pieceHeight = i % 2 !== 0 ? -height : height;
+    const pieceWidth = i % 2 !== 0 ? -width : width;
 
-    const x = Math.random() * width;
-    const y = Math.random() * height;
+    const x = Math.random() * pieceWidth;
+    const y = Math.random() * pieceHeight;
 
     return { pieceRow, pieceCol, x, y };
   });
