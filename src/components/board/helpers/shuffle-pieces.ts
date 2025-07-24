@@ -36,13 +36,16 @@ export const shufflePieces = ({
   // Shuffle the positions
   const shuffledPositions = getShuffledArray(positions);
 
-  // Assign each a random x/y
+  // Assign each piece a random scatter position
   return shuffledPositions.map(({ pieceRow, pieceCol }, i) => {
+    // Alternate between positive and negative dimensions
     const pieceHeight = i % 2 !== 0 ? -height : height;
     const pieceWidth = i % 2 !== 0 ? -width : width;
 
-    const x = Math.random() * pieceWidth;
-    const y = Math.random() * pieceHeight;
+    // Create random offset: Math.random() - 0.5 gives range -0.5 to +0.5
+    // Multiply by half the piece size to scatter within area
+    const x = (Math.random() - 0.5) * pieceWidth * 0.5;
+    const y = (Math.random() - 0.5) * pieceHeight * 0.5;
 
     return { pieceRow, pieceCol, x, y };
   });
