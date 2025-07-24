@@ -57,6 +57,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
 
+  // Memoize boardPathOptions to avoid unnecessary recalculations and re-renders
+  // Only recompute when board dimensions, columns, rows, or edgeMap change
   const boardPathOptions: BoardPathOptions = useMemo(
     () => ({
       boardHeight,
@@ -65,7 +67,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       edgeMap,
       rows,
     }),
-    [boardWidth, boardHeight, columns, edgeMap, rows],
+    [boardHeight, boardWidth, columns, edgeMap, rows],
   );
 
   // Generate board slots once and memoize them
