@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
 import PuzzlePiece from '@/components/puzzle-piece';
-import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
+import { JigsawPathOptions, PiecePosition, PuzzleOptions } from '@/types';
 import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
 import GridOutlines from './components/grid-outlines';
@@ -18,7 +18,6 @@ interface BoardProps {
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
   showGridOutlines: boolean;
-  shuffleArea: ShuffleArea;
   width: number;
 }
 
@@ -34,7 +33,6 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     puzzlePieceOptions,
     rows,
     showGridOutlines,
-    shuffleArea,
     width,
   } = props;
 
@@ -77,7 +75,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     setPositions(shuffledPieces);
     setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when grid changes
-  }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
+  }, [rows, columns, pieceWidth, pieceHeight, width, height]);
 
   // Check for puzzle completion
   useEffect(() => {

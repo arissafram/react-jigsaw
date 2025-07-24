@@ -7,7 +7,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     height: 500,
     rows: 5,
     showGridOutlines: true,
-    shuffleArea: 'board',
     width: 400,
   },
   puzzlePiece: {

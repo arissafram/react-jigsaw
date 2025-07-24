@@ -41,7 +41,6 @@ export interface InitialPuzzleOptions {
       };
     };
   };
-  shuffleArea?: ShuffleArea;
 }
 
 export interface PuzzleOptions {
@@ -51,7 +50,6 @@ export interface PuzzleOptions {
     height: number;
     rows: number;
     showGridOutlines: boolean;
-    shuffleArea: ShuffleArea;
     width: number;
   };
   onComplete?: () => void;
@@ -87,5 +85,3 @@ export interface PiecePosition {
   x: number;
   y: number;
 }
-
-export type ShuffleArea = 'anywhere' | 'board';
