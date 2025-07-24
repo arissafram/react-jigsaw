@@ -1,11 +1,11 @@
 type ComputedEdgeMap = [number, number, number, number][][];
 
 export interface JigsawPathOptions {
-  width: number;
-  height: number;
-  rows: number;
+  boardHeight: number;
+  boardWidth: number;
   columns: number;
   edgeMap: ComputedEdgeMap;
+  rows: number;
 }
 
 export interface InitialPuzzleOptions {

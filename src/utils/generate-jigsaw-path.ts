@@ -39,9 +39,9 @@ export const generateJigsawPath = ({
   row: number;
   options: JigsawPathOptions;
 }): string => {
-  const { width, height, rows, columns } = options;
-  const pieceWidth = width / columns;
-  const pieceHeight = height / rows;
+  const { boardWidth, boardHeight, rows, columns } = options;
+  const pieceWidth = boardWidth / columns;
+  const pieceHeight = boardHeight / rows;
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 

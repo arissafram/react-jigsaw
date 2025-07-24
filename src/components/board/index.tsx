@@ -15,13 +15,13 @@ import styles from './styles.module.scss';
 interface BoardProps {
   className: string;
   columns: number;
-  height: number;
+  boardHeight: number;
+  boardWidth: number;
   image: string;
   onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
   showGridOutlines: boolean;
-  width: number;
 }
 
 const SNAP_THRESHOLD = 20;
@@ -30,14 +30,17 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   const {
     className,
     columns,
-    height,
+    boardHeight,
+    boardWidth,
     image,
     onPuzzleComplete,
     puzzlePieceOptions,
     rows,
     showGridOutlines,
-    width,
   } = props;
+
+  const pieceHeight = boardHeight / rows;
+  const pieceWidth = boardWidth / columns;
 
   // Shuffled pieces with random positions
   const [shuffledPieces, setShuffledPieces] = useState<PiecePosition[]>([]);
@@ -51,21 +54,18 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // Refs to track puzzle pieces by their stable ID
   const pieceRefs = useRef<PieceRefs>(new Map());
 
-  const pieceWidth = width / columns;
-  const pieceHeight = height / rows;
-
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
 
   const jigawOptions: JigsawPathOptions = useMemo(
     () => ({
+      boardHeight,
+      boardWidth,
       columns,
       edgeMap,
-      height,
       rows,
-      width,
     }),
-    [columns, edgeMap, height, rows, width],
+    [boardWidth, boardHeight, columns, edgeMap, rows],
   );
 
   // Generate grid slots once and memoize them
@@ -73,14 +73,14 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   useEffect(() => {
     const newShuffledPieces = shufflePieces({
-      height,
-      width,
+      boardHeight,
+      boardWidth,
       positions: gridSlots,
     });
     setShuffledPieces(newShuffledPieces);
     setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when grid changes
-  }, [gridSlots, pieceWidth, pieceHeight, width, height]);
+  }, [boardHeight, boardWidth, gridSlots, pieceWidth, pieceHeight]);
 
   // Check for puzzle completion
   useEffect(() => {
@@ -125,9 +125,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     <svg
       ref={boardRef}
       className={`${styles.board} ${className}`}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      height={boardHeight}
+      width={boardWidth}
+      viewBox={`0 0 ${boardWidth} ${boardHeight}`}
     >
       <GridOutlines
         jigawOptions={jigawOptions}
@@ -138,8 +138,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       {shuffledPieces.map(({ pieceRow, pieceCol, x, y }, i) => (
         <PuzzlePiece
           key={`${pieceRow}-${pieceCol}`}
-          boardHeight={height}
-          boardWidth={width}
+          boardHeight={boardHeight}
+          boardWidth={boardWidth}
           gridKey={`${pieceRow}-${pieceCol}`}
           image={image}
           index={i}

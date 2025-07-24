@@ -59,18 +59,21 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   return (
     <div
       className={styles.puzzle}
-      style={{ width: `${options.board.width}px`, minHeight: `${options.board.height}px` }}
+      style={{
+        width: `${options.board.width}px`,
+        minHeight: `${options.board.height}px`,
+      }}
     >
       <Board
         key={`${rows}-${columns}`}
+        boardHeight={options.board.height}
+        boardWidth={options.board.width}
         className={options.board.className}
         columns={columns}
-        height={options.board.height}
         image={image}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
         showGridOutlines={options.board.showGridOutlines}
-        width={options.board.width}
         onPuzzleComplete={handlePuzzleComplete}
       />
       <Settings
