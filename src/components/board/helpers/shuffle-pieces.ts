@@ -1,5 +1,20 @@
 import { PiecePosition } from '@/types';
 
+// Fisher-Yates shuffle algorithm - returns a new shuffled array
+const getShuffledArray = <T>(array: T[]): T[] => {
+  // Create a copy to avoid mutating the original array
+  const shuffled = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    // Pick random index from 0 to i
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    // Swap current item with random item
+    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+  }
+
+  return shuffled;
+};
+
 export const shufflePieces = ({
   boardHeight,
   boardWidth,
@@ -17,20 +32,18 @@ export const shufflePieces = ({
   rows: number;
   shuffleArea?: 'anywhere' | 'board';
 }): PiecePosition[] => {
-  // Create a list of all solved positions
-  const solved: { pieceRow: number; pieceCol: number }[] = [];
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < columns; col++) {
-      solved.push({ pieceRow: row, pieceCol: col });
-    }
-  }
-  // Shuffle the solved positions
-  for (let i = solved.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [solved[i], solved[j]] = [solved[j], solved[i]];
-  }
+  // Create a list of all positions. Array.from as opposed to double loops
+  // because it's faster than nested loops and pre-allocates memory
+  const positions = Array.from({ length: rows * columns }, (_, i) => ({
+    pieceRow: Math.floor(i / columns),
+    pieceCol: i % columns,
+  }));
+
+  // Shuffle the positions
+  const shuffledPositions = getShuffledArray(positions);
+
   // Assign each a random x/y
-  return solved.map(({ pieceRow, pieceCol }) => {
+  return shuffledPositions.map(({ pieceRow, pieceCol }) => {
     let x, y;
     if (shuffleArea === 'board') {
       x = Math.random() * pieceWidth;
