@@ -91,20 +91,20 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   }, [snappedPieceIds.size, rows, columns, onPuzzleComplete]);
 
   // Mark a piece as snapped to the board when it's placed correctly
-  const handlePieceSnap = (index: number) => {
-    const { pieceRow, pieceCol } = shuffledPieces[index];
+  const handlePieceSnap = (pieceIndex: number) => {
+    const { pieceRow, pieceCol } = shuffledPieces[pieceIndex];
     const boardSlotKey = `${pieceRow}-${pieceCol}`;
     // Add the piece to the set of snapped pieces
     setSnappedPieceIds((prev) => new Set([...prev, boardSlotKey]));
   };
 
   // Focus the next unsnapped piece for keyboard navigation after a piece snaps
-  const handleSnapWithKeyboard = (currentIndex: number) => {
+  const handleSnapWithKeyboard = (currentPieceIndex: number) => {
     // Find any unsnapped piece (doesn't matter which one)
     const unsnappedPiece = shuffledPieces.find((pos, idx) => {
       const boardSlotKey = `${pos.pieceRow}-${pos.pieceCol}`;
       // Exclude the current piece that just snapped
-      return idx !== currentIndex && !snappedPieceIds.has(boardSlotKey);
+      return idx !== currentPieceIndex && !snappedPieceIds.has(boardSlotKey);
     });
 
     if (unsnappedPiece) {
@@ -142,18 +142,18 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
         showBoardSlotOutlines={showBoardSlotOutlines}
         snappedPieceIds={snappedPieceIds}
       />
-      {shuffledPieces.map(({ pieceRow, pieceCol, x, y }, i) => (
+      {shuffledPieces.map(({ pieceRow, pieceCol, x, y }, pieceIndex) => (
         <PuzzlePiece
           key={`${pieceRow}-${pieceCol}`}
           boardHeight={boardHeight}
           boardWidth={boardWidth}
           boardSlotKey={`${pieceRow}-${pieceCol}`}
           image={image}
-          index={i}
+          pieceIndex={pieceIndex}
           initialX={x}
           initialY={y}
-          onSnap={() => handlePieceSnap(i)}
-          onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
+          onSnap={() => handlePieceSnap(pieceIndex)}
+          onSnapWithKeyboard={() => handleSnapWithKeyboard(pieceIndex)}
           path={generateBoardPath({ col: pieceCol, row: pieceRow, options: boardPathOptions })}
           puzzlePieceOptions={puzzlePieceOptions}
           registerPieceRef={registerPieceRef}

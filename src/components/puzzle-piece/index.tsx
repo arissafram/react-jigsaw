@@ -9,7 +9,7 @@ interface PuzzlePieceProps {
   boardHeight: number;
   boardWidth: number;
   image: string;
-  index: number;
+  pieceIndex: number;
   initialX: number;
   initialY: number;
   path: string;
@@ -29,7 +29,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     boardHeight,
     boardWidth,
     image,
-    index,
+    pieceIndex,
     initialX,
     initialY,
     path,
@@ -126,7 +126,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       onKeyDown={handleKeyDown}
     >
       <defs>
-        <clipPath id={`piece-clip-${index}`}>
+        <clipPath id={`piece-clip-${pieceIndex}`}>
           <path d={path} />
         </clipPath>
       </defs>
@@ -136,7 +136,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         y={0}
         width={boardWidth}
         height={boardHeight}
-        clipPath={`url(#piece-clip-${index})`}
+        clipPath={`url(#piece-clip-${pieceIndex})`}
         preserveAspectRatio="xMidYMid slice"
       />
       <path
