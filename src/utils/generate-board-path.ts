@@ -43,9 +43,20 @@ export const computeEdgeMap = ({
 };
 
 /**
- * Generates a rectangular SVG path string for a puzzle piece at (row, col),
- * with perfect semicircular half-circle knobs/innies (1/3 of the shorter side) on non-border edges.
- * Edges alternate so adjoining pieces plug into each other.
+ * Generates an SVG path string for a single puzzle piece at (row, col) on the board.
+ *
+ * The path describes the outline of the piece, including flat edges (for borders) and semicircular knobs (outies) or holes (innies) on non-border edges.
+ * The size of each knob/innie is 1/3 of the shorter side of the piece, creating the classic jigsaw look.
+ *
+ * The function uses the edge map to determine the type of edge for each side:
+ *   - 0 = flat (border)
+ *   - 1 = outie (protruding tab)
+ *   - -1 = innie (indentation)
+ *
+ * The edge map ensures that adjacent pieces have matching edges, so all pieces fit together visually and physically.
+ * The resulting path can be used for rendering, clipping, or hit-testing the puzzle piece in SVG.
+ *
+ * Example: For a piece at (row, col), the path will have the correct combination of flat, outie, and innie edges based on its position and the edge map.
  */
 export const generateBoardPath = ({
   col,
