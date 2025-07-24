@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 
-import { useSvgDrag } from '@/hooks/use-svg-drag';
-import { PuzzleOptions, SVGRef } from '@/types';
+import { useMovePieces } from '@/hooks/use-move-pieces';
+import { PuzzleOptions, BoardRef } from '@/types';
 
 import styles from './styles.module.scss';
 
@@ -14,7 +14,7 @@ interface PuzzlePieceProps {
   initialY: number;
   path: string;
   snapThreshold: number;
-  svgRef: SVGRef;
+  boardRef: BoardRef;
   targetX: number;
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
@@ -34,18 +34,18 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
     initialY,
     path,
     snapThreshold,
-    svgRef,
+    boardRef,
     targetX,
     targetY,
     puzzlePieceOptions,
     onSnap,
   } = props;
 
-  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useSvgDrag({
+  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
     initialX,
     initialY,
     snapThreshold,
-    svgRef,
+    boardRef,
     targetX,
     targetY,
     onSnap,

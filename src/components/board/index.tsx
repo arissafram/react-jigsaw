@@ -45,8 +45,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // Track which pieces are snapped to the grid
   const [snappedPieceIds, setSnappedPieceIds] = useState<SnappedPieceIds>(new Set());
 
-  // SVG ref for drag coordinate transforms
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  // Board ref for drag coordinate transforms
+  const boardRef = useRef<SVGSVGElement | null>(null);
 
   // Refs to track puzzle pieces by their stable ID
   const pieceRefs = useRef<PieceRefs>(new Map());
@@ -123,7 +123,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   return (
     <svg
-      ref={svgRef}
+      ref={boardRef}
       className={`${styles.board} ${className}`}
       width={width}
       height={height}
@@ -151,7 +151,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           puzzlePieceOptions={puzzlePieceOptions}
           registerPieceRef={registerPieceRef}
           snapThreshold={SNAP_THRESHOLD}
-          svgRef={svgRef}
+          boardRef={boardRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
         />

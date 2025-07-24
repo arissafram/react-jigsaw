@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { SVGRef } from '@/types';
+import { BoardRef } from '@/types';
 
 interface DragState {
   isDragging: boolean;
@@ -7,25 +7,25 @@ interface DragState {
   y: number;
 }
 
-interface UseSvgDragOptions {
+interface UseMovePiecesOptions {
   initialX: number;
   initialY: number;
-  svgRef: SVGRef;
+  boardRef: BoardRef;
   targetX: number;
   targetY: number;
   snapThreshold: number;
   onSnap?: () => void;
 }
 
-export function useSvgDrag({
+export function useMovePieces({
   initialX,
   initialY,
-  svgRef,
+  boardRef,
   targetX,
   targetY,
   snapThreshold,
   onSnap,
-}: UseSvgDragOptions) {
+}: UseMovePiecesOptions) {
   const elementRef = useRef<SVGGElement>(null);
   const [dragState, setDragState] = useState<DragState>({
     isDragging: false,
@@ -45,15 +45,15 @@ export function useSvgDrag({
   // Convert screen coordinates to SVG coordinates
   const screenToSvgCoords = useCallback(
     (clientX: number, clientY: number) => {
-      const svg = svgRef.current;
-      if (!svg) return { x: clientX, y: clientY };
-      const pt = svg.createSVGPoint();
+      const board = boardRef.current;
+      if (!board) return { x: clientX, y: clientY };
+      const pt = board.createSVGPoint();
       pt.x = clientX;
       pt.y = clientY;
-      const svgCoords = pt.matrixTransform(svg.getScreenCTM()?.inverse());
+      const svgCoords = pt.matrixTransform(board.getScreenCTM()?.inverse());
       return { x: svgCoords.x, y: svgCoords.y };
     },
-    [svgRef],
+    [boardRef],
   );
 
   // Check if should snap to target

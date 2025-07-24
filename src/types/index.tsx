@@ -91,4 +91,4 @@ export interface PiecePosition extends GridSlot {
 
 export type SnappedPieceIds = Set<string>;
 
-export type SVGRef = React.RefObject<SVGSVGElement | null>;
+export type BoardRef = React.RefObject<SVGSVGElement | null>;
