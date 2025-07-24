@@ -16,20 +16,21 @@ const GridOutlines = (props: GridOutlinesProps) => {
 
   if (!showGridOutlines) return null;
 
-  return Array.from({ length: rows }).map((_, row) =>
-    Array.from({ length: columns }).map((_, col) => {
-      const gridKey = `${row}-${col}`;
-      const isSnapped = snappedPieces.has(gridKey);
+  // Create all grid outlines in a single Array.from instead of nested loops
+  return Array.from({ length: rows * columns }, (_, i) => {
+    const row = Math.floor(i / columns);
+    const col = i % columns;
+    const gridKey = `${row}-${col}`;
+    const isSnapped = snappedPieces.has(gridKey);
 
-      return (
-        <path
-          key={`outline-${row}-${col}`}
-          className={`${styles.gridOutline} ${isSnapped ? styles.snapped : ''}`}
-          d={generateJigsawPath({ row, col, options: jigawOptions })}
-        />
-      );
-    }),
-  );
+    return (
+      <path
+        key={`outline-${row}-${col}`}
+        className={`${styles.gridOutline} ${isSnapped ? styles.snapped : ''}`}
+        d={generateJigsawPath({ row, col, options: jigawOptions })}
+      />
+    );
+  });
 };
 
 export default GridOutlines;
