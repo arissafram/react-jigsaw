@@ -18,17 +18,17 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 export const shufflePieces = ({
   boardHeight,
   boardWidth,
-  positions,
+  gridSlots,
 }: {
   boardHeight: number;
   boardWidth: number;
-  positions: GridSlot[];
+  gridSlots: GridSlot[];
 }): PiecePosition[] => {
-  // Shuffle the positions
-  const shuffledPositions = getShuffledArray(positions);
+  // Shuffle the grid slots
+  const shuffledGridSlots = getShuffledArray(gridSlots);
 
   // Assign each piece a random scatter position
-  return shuffledPositions.map(({ pieceRow, pieceCol }, i) => {
+  return shuffledGridSlots.map(({ pieceRow, pieceCol }, i) => {
     // Alternate between positive and negative dimensions
     const pieceHeight = i % 2 !== 0 ? -boardHeight : boardHeight;
     const pieceWidth = i % 2 !== 0 ? -boardWidth : boardWidth;

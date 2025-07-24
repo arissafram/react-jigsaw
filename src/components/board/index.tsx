@@ -75,7 +75,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     const newShuffledPieces = shufflePieces({
       boardHeight,
       boardWidth,
-      positions: gridSlots,
+      gridSlots,
     });
     setShuffledPieces(newShuffledPieces);
     setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
