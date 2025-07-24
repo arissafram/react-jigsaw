@@ -4,14 +4,14 @@ import { generateJigsawPath } from '@/utils/generate-jigsaw-path';
 import styles from './styles.module.scss';
 
 interface GridOutlinesProps {
-  jigawOptions: JigsawPathOptions;
+  jigsawOptions: JigsawPathOptions;
   gridSlots: GridSlot[];
   showGridOutlines: boolean | undefined;
   snappedPieceIds: SnappedPieceIds;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
-  const { jigawOptions, gridSlots, showGridOutlines, snappedPieceIds } = props;
+  const { jigsawOptions, gridSlots, showGridOutlines, snappedPieceIds } = props;
 
   if (!showGridOutlines) return null;
 
@@ -23,7 +23,7 @@ const GridOutlines = (props: GridOutlinesProps) => {
       <path
         key={`outline-${row}-${col}`}
         className={`${styles.gridOutline} ${isSnapped ? styles.snapped : ''}`}
-        d={generateJigsawPath({ row, col, options: jigawOptions })}
+        d={generateJigsawPath({ row, col, options: jigsawOptions })}
       />
     );
   });

@@ -57,7 +57,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
 
-  const jigawOptions: JigsawPathOptions = useMemo(
+  const jigsawOptions: JigsawPathOptions = useMemo(
     () => ({
       boardHeight,
       boardWidth,
@@ -137,7 +137,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}
     >
       <GridOutlines
-        jigawOptions={jigawOptions}
+        jigsawOptions={jigsawOptions}
         gridSlots={gridSlots}
         showGridOutlines={showGridOutlines}
         snappedPieceIds={snappedPieceIds}
@@ -154,7 +154,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           initialY={y}
           onSnap={() => handlePieceSnap(i)}
           onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
-          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
+          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigsawOptions })}
           puzzlePieceOptions={puzzlePieceOptions}
           registerPieceRef={registerPieceRef}
           snapThreshold={SNAP_THRESHOLD}
