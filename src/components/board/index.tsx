@@ -5,6 +5,7 @@ import { JigsawPathOptions, PiecePosition, PuzzleOptions } from '@/types';
 import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
 import GridOutlines from './components/grid-outlines';
+import { generatePositions } from './helpers/generate-positions';
 import { shufflePieces } from './helpers/shuffle-pieces';
 
 import styles from './styles.module.scss';
@@ -65,17 +66,19 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     [columns, edgeMap, height, rows, width],
   );
 
+  // Generate positions once and memoize them
+  const gridPositions = useMemo(() => generatePositions(rows, columns), [rows, columns]);
+
   useEffect(() => {
     const shuffledPieces = shufflePieces({
-      columns,
       height,
-      rows,
       width,
+      positions: gridPositions,
     });
     setPositions(shuffledPieces);
     setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when grid changes
-  }, [rows, columns, pieceWidth, pieceHeight, width, height]);
+  }, [gridPositions, pieceWidth, pieceHeight, width, height]);
 
   // Check for puzzle completion
   useEffect(() => {
@@ -125,9 +128,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       viewBox={`0 0 ${width} ${height}`}
     >
       <GridOutlines
-        columns={columns}
         jigawOptions={jigawOptions}
-        rows={rows}
+        positions={gridPositions}
         showGridOutlines={showGridOutlines}
         snappedPieces={snappedPieces}
       />

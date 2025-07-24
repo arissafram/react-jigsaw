@@ -8,7 +8,7 @@ const App = () => {
     <Puzzle
       image={DEMO_IMAGE}
       options={{
-        board: { columns: 7, rows: 2 },
+        board: { columns: 4, rows: 4 },
         puzzle: {
           settings: {
             enabled: true,

@@ -16,23 +16,14 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 };
 
 export const shufflePieces = ({
-  columns,
   height,
   width,
-  rows,
+  positions,
 }: {
-  columns: number;
   height: number;
   width: number;
-  rows: number;
+  positions: Array<{ pieceRow: number; pieceCol: number }>;
 }): PiecePosition[] => {
-  // Create a list of all positions. Array.from as opposed to double loops
-  // because it's faster than nested loops and pre-allocates memory
-  const positions = Array.from({ length: rows * columns }, (_, i) => ({
-    pieceRow: Math.floor(i / columns),
-    pieceCol: i % columns,
-  }));
-
   // Shuffle the positions
   const shuffledPositions = getShuffledArray(positions);
 

@@ -4,22 +4,18 @@ import { generateJigsawPath } from '@/utils/generate-jigsaw-path';
 import styles from './styles.module.scss';
 
 interface GridOutlinesProps {
-  columns: number;
   jigawOptions: JigsawPathOptions;
-  rows: number;
+  positions: Array<{ pieceRow: number; pieceCol: number }>;
   showGridOutlines: boolean | undefined;
   snappedPieces: Set<string>;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
-  const { columns, jigawOptions, rows, showGridOutlines, snappedPieces } = props;
+  const { jigawOptions, positions, showGridOutlines, snappedPieces } = props;
 
   if (!showGridOutlines) return null;
 
-  // Create all grid outlines in a single Array.from instead of nested loops
-  return Array.from({ length: rows * columns }, (_, i) => {
-    const row = Math.floor(i / columns);
-    const col = i % columns;
+  return positions.map(({ pieceRow: row, pieceCol: col }) => {
     const gridKey = `${row}-${col}`;
     const isSnapped = snappedPieces.has(gridKey);
 
