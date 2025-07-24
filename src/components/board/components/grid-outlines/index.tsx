@@ -5,19 +5,19 @@ import styles from './styles.module.scss';
 
 interface GridOutlinesProps {
   jigawOptions: JigsawPathOptions;
-  positions: Array<{ pieceRow: number; pieceCol: number }>;
+  gridSlots: Array<{ pieceRow: number; pieceCol: number }>;
   showGridOutlines: boolean | undefined;
-  snappedPieces: Set<string>;
+  snappedPieceIds: Set<string>;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {
-  const { jigawOptions, positions, showGridOutlines, snappedPieces } = props;
+  const { jigawOptions, gridSlots, showGridOutlines, snappedPieceIds } = props;
 
   if (!showGridOutlines) return null;
 
-  return positions.map(({ pieceRow: row, pieceCol: col }) => {
+  return gridSlots.map(({ pieceRow: row, pieceCol: col }) => {
     const gridKey = `${row}-${col}`;
-    const isSnapped = snappedPieces.has(gridKey);
+    const isSnapped = snappedPieceIds.has(gridKey);
 
     return (
       <path
