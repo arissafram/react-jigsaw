@@ -1,5 +1,5 @@
 import { BoardPathOptions, BoardSlot, SnappedPieceIds } from '@/types';
-import { generateBoardPath } from '@/utils/generate-board-path';
+import { generateBoardPath } from '@/components/board/helpers/generate-board-path';
 
 import styles from './styles.module.scss';
 

@@ -4,7 +4,7 @@ import PuzzlePiece from '@/components/puzzle-piece';
 
 type PieceRefs = Map<string, SVGGElement>;
 import { BoardPathOptions, PiecePosition, PuzzleOptions, SnappedPieceIds } from '@/types';
-import { generateBoardPath, computeEdgeMap } from '@/utils/generate-board-path';
+import { generateBoardPath, computeEdgeMap } from '@/components/board/helpers/generate-board-path';
 
 import BoardOutlines from './components/board-outlines';
 import { generateBoardSlots } from './helpers/generate-board-slots';
