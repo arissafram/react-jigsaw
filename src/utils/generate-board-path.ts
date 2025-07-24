@@ -67,13 +67,13 @@ export const generateBoardPath = ({
   row: number;
   options: BoardPathOptions;
 }): string => {
-  const { boardWidth, boardHeight, rows, columns } = options;
+  const { boardWidth, boardHeight, rows, columns, edgeMap } = options;
   const pieceWidth = boardWidth / columns;
   const pieceHeight = boardHeight / rows;
   const x = col * pieceWidth;
   const y = row * pieceHeight;
 
-  const edgeMap = computeEdgeMap({ rows, columns });
+  // Use the precomputed edgeMap from options
   const [top, right, bottom, left] = edgeMap[row][col];
   const knobD = Math.min(pieceWidth, pieceHeight) / 3; // diameter of knob
   const knobR = knobD / 2;
