@@ -1,7 +1,9 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
 import PuzzlePiece from '@/components/puzzle-piece';
-import { JigsawPathOptions, PiecePosition, PuzzleOptions } from '@/types';
+
+type PieceRefs = Map<string, SVGGElement>;
+import { JigsawPathOptions, PiecePosition, PuzzleOptions, SnappedPieceIds } from '@/types';
 import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
 import GridOutlines from './components/grid-outlines';
@@ -41,13 +43,13 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   const [shuffledPieces, setShuffledPieces] = useState<PiecePosition[]>([]);
 
   // Track which pieces are snapped to the grid
-  const [snappedPieceIds, setSnappedPieceIds] = useState<Set<string>>(new Set());
+  const [snappedPieceIds, setSnappedPieceIds] = useState<SnappedPieceIds>(new Set());
 
   // SVG ref for drag coordinate transforms
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   // Refs to track puzzle pieces by their stable ID
-  const pieceRefs = useRef<Map<string, SVGGElement>>(new Map());
+  const pieceRefs = useRef<PieceRefs>(new Map());
 
   const pieceWidth = width / columns;
   const pieceHeight = height / rows;

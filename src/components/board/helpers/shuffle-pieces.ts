@@ -1,4 +1,4 @@
-import { PiecePosition } from '@/types';
+import { GridSlot, PiecePosition } from '@/types';
 
 // Fisher-Yates shuffle algorithm - returns a new shuffled array
 const getShuffledArray = <T>(array: T[]): T[] => {
@@ -22,7 +22,7 @@ export const shufflePieces = ({
 }: {
   height: number;
   width: number;
-  positions: Array<{ pieceRow: number; pieceCol: number }>;
+  positions: GridSlot[];
 }): PiecePosition[] => {
   // Shuffle the positions
   const shuffledPositions = getShuffledArray(positions);

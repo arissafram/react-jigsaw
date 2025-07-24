@@ -1,7 +1,7 @@
-import { RefObject, FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import { useSvgDrag } from '@/hooks/use-svg-drag';
-import { PuzzleOptions } from '@/types';
+import { PuzzleOptions, SVGRef } from '@/types';
 
 import styles from './styles.module.scss';
 
@@ -14,7 +14,7 @@ interface PuzzlePieceProps {
   initialY: number;
   path: string;
   snapThreshold: number;
-  svgRef: RefObject<SVGSVGElement | null>;
+  svgRef: SVGRef;
   targetX: number;
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];

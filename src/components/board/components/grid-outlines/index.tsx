@@ -1,13 +1,13 @@
-import { JigsawPathOptions } from '@/types';
+import { GridSlot, JigsawPathOptions, SnappedPieceIds } from '@/types';
 import { generateJigsawPath } from '@/utils/generate-jigsaw-path';
 
 import styles from './styles.module.scss';
 
 interface GridOutlinesProps {
   jigawOptions: JigsawPathOptions;
-  gridSlots: Array<{ pieceRow: number; pieceCol: number }>;
+  gridSlots: GridSlot[];
   showGridOutlines: boolean | undefined;
-  snappedPieceIds: Set<string>;
+  snappedPieceIds: SnappedPieceIds;
 }
 
 const GridOutlines = (props: GridOutlinesProps) => {

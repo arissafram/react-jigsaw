@@ -79,9 +79,16 @@ export interface PuzzleOptions {
   };
 }
 
-export interface PiecePosition {
+export interface GridSlot {
   pieceRow: number;
   pieceCol: number;
+}
+
+export interface PiecePosition extends GridSlot {
   x: number;
   y: number;
 }
+
+export type SnappedPieceIds = Set<string>;
+
+export type SVGRef = React.RefObject<SVGSVGElement | null>;

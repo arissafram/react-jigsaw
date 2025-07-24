@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
+import { SVGRef } from '@/types';
 
 interface DragState {
   isDragging: boolean;
@@ -9,7 +10,7 @@ interface DragState {
 interface UseSvgDragOptions {
   initialX: number;
   initialY: number;
-  svgRef: React.RefObject<SVGSVGElement | null>;
+  svgRef: SVGRef;
   targetX: number;
   targetY: number;
   snapThreshold: number;
