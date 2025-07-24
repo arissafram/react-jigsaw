@@ -1,6 +1,8 @@
 import { JigsawPathOptions } from '@/types';
 import { generateJigsawPath } from '@/utils/generate-jigsaw-path';
 
+import styles from './styles.module.scss';
+
 interface GridOutlinesProps {
   columns: number;
   jigawOptions: JigsawPathOptions;
@@ -19,15 +21,11 @@ const GridOutlines = (props: GridOutlinesProps) => {
       const gridKey = `${row}-${col}`;
       const isSnapped = snappedPieces.has(gridKey);
 
-      // TODO: use a class here
       return (
         <path
           key={`outline-${row}-${col}`}
+          className={`${styles.gridOutline} ${isSnapped ? styles.snapped : ''}`}
           d={generateJigsawPath({ row, col, options: jigawOptions })}
-          fill="none"
-          stroke="#bbb"
-          strokeWidth={isSnapped ? 0 : 2}
-          style={{ pointerEvents: 'none' }}
         />
       );
     }),

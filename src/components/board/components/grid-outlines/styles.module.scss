@@ -1,0 +1,10 @@
+.gridOutline {
+  fill: none;
+  stroke: #bbb;
+  stroke-width: 2;
+  pointer-events: none;
+
+  &.snapped {
+    stroke-width: 0;
+  }
+}
