@@ -90,12 +90,15 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }
   }, [snappedPieceIds.size, rows, columns, onPuzzleComplete]);
 
+  // Mark a piece as snapped to the grid when it's placed correctly
   const handlePieceSnap = (index: number) => {
     const { pieceRow, pieceCol } = shuffledPieces[index];
     const gridKey = `${pieceRow}-${pieceCol}`;
+    // Add the piece to the set of snapped pieces
     setSnappedPieceIds((prev) => new Set([...prev, gridKey]));
   };
 
+  // Focus the next unsnapped piece for keyboard navigation after a piece snaps
   const handleSnapWithKeyboard = (currentIndex: number) => {
     // Find any unsnapped piece (doesn't matter which one)
     const unsnappedPiece = shuffledPieces.find((pos, idx) => {
@@ -106,6 +109,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
     if (unsnappedPiece) {
       const gridKey = `${unsnappedPiece.pieceRow}-${unsnappedPiece.pieceCol}`;
+      // Get the DOM reference and focus the next unsnapped piece
       const pieceRef = pieceRefs.current.get(gridKey);
       if (pieceRef) {
         pieceRef.focus();
@@ -113,10 +117,13 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }
   };
 
+  // Register/unregister puzzle piece refs for keyboard navigation and programmatic control
   const registerPieceRef = (gridKey: string, ref: SVGGElement | null) => {
     if (ref) {
+      // Store the DOM reference when piece mounts
       pieceRefs.current.set(gridKey, ref);
     } else {
+      // Remove the DOM reference when piece unmounts
       pieceRefs.current.delete(gridKey);
     }
   };
