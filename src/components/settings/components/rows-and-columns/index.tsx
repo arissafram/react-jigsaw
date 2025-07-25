@@ -55,8 +55,8 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
       localStorage.setItem(
         'react-jigsaw',
         JSON.stringify({
-          rows: parseInt(rows),
-          columns: parseInt(columns),
+          rows: parseFloat(rows),
+          columns: parseFloat(columns),
         }),
       );
       onBoardSlotChange(parseInt(rows), parseInt(columns));
