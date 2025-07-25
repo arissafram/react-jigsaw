@@ -34,3 +34,5 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     },
   },
 };
+
+export const REACT_JIGSAW_STORAGE_KEY = 'react-jigsaw';
