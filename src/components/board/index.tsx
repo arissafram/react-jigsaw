@@ -22,9 +22,8 @@ interface BoardProps {
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
   showBoardSlotOutlines: boolean;
+  snapThreshold: number;
 }
-
-const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
   const {
@@ -37,6 +36,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     puzzlePieceOptions,
     rows,
     showBoardSlotOutlines,
+    snapThreshold,
   } = props;
 
   const pieceHeight = boardHeight / rows;
@@ -159,7 +159,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           path={generateBoardPath({ col: pieceCol, row: pieceRow, options: boardPathOptions })}
           puzzlePieceOptions={puzzlePieceOptions}
           registerPieceRef={registerPieceRef}
-          snapThreshold={SNAP_THRESHOLD}
+          snapThreshold={snapThreshold}
           boardRef={boardRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}

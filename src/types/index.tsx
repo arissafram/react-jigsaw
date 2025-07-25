@@ -22,6 +22,7 @@ export interface InitialPuzzleOptions {
     height?: number;
     rows?: number;
     showBoardSlotOutlines?: boolean;
+    snapThreshold?: number;
     width?: number;
   };
   puzzlePiece?: {
@@ -62,6 +63,7 @@ export interface PuzzleOptions {
     height: number;
     rows: number;
     showBoardSlotOutlines: boolean;
+    snapThreshold: number;
     width: number;
   };
   onComplete?: () => void;

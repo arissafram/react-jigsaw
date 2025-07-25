@@ -7,6 +7,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     height: 500,
     rows: 5,
     showBoardSlotOutlines: true,
+    snapThreshold: 20,
     width: 400,
   },
   puzzlePiece: {

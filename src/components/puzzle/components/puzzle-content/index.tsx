@@ -53,6 +53,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         image={image}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
+        snapThreshold={options.board.snapThreshold}
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         onPuzzleComplete={handlePuzzleComplete}
       />
