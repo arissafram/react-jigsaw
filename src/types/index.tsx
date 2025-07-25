@@ -1,11 +1,18 @@
 type ComputedEdgeMap = [number, number, number, number][][];
 
-export interface JigsawPathOptions {
-  width: number;
-  height: number;
-  rows: number;
+export type BoardRef = React.RefObject<SVGSVGElement | null>;
+
+export interface BoardPathOptions {
+  boardHeight: number;
+  boardWidth: number;
   columns: number;
   edgeMap: ComputedEdgeMap;
+  rows: number;
+}
+
+export interface BoardSlot {
+  pieceCol: number;
+  pieceRow: number;
 }
 
 export interface InitialPuzzleOptions {
@@ -14,7 +21,7 @@ export interface InitialPuzzleOptions {
     columns?: number;
     height?: number;
     rows?: number;
-    showGridOutlines?: boolean;
+    showBoardSlotOutlines?: boolean;
     width?: number;
   };
   puzzlePiece?: {
@@ -41,7 +48,11 @@ export interface InitialPuzzleOptions {
       };
     };
   };
-  shuffleArea?: ShuffleArea;
+}
+
+export interface PiecePosition extends BoardSlot {
+  x: number;
+  y: number;
 }
 
 export interface PuzzleOptions {
@@ -50,8 +61,7 @@ export interface PuzzleOptions {
     columns: number;
     height: number;
     rows: number;
-    showGridOutlines: boolean;
-    shuffleArea: ShuffleArea;
+    showBoardSlotOutlines: boolean;
     width: number;
   };
   onComplete?: () => void;
@@ -81,11 +91,4 @@ export interface PuzzleOptions {
   };
 }
 
-export interface PiecePosition {
-  pieceRow: number;
-  pieceCol: number;
-  x: number;
-  y: number;
-}
-
-export type ShuffleArea = 'anywhere' | 'board';
+export type SnappedPieceIds = Set<string>;

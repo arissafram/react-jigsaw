@@ -6,14 +6,14 @@ interface RowsAndColumnsProps {
   className?: string;
   currentRows: number;
   currentColumns: number;
-  onGridChange: (rows: number, columns: number) => void;
+  onBoardSlotChange: (rows: number, columns: number) => void;
 }
 
 export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   className,
   currentRows,
   currentColumns,
-  onGridChange,
+  onBoardSlotChange,
 }) => {
   const [rows, setRows] = useState(currentRows.toString());
   const [columns, setColumns] = useState(currentColumns.toString());
@@ -51,7 +51,7 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isValid) {
-      onGridChange(parseInt(rows), parseInt(columns));
+      onBoardSlotChange(parseInt(rows), parseInt(columns));
     }
   };
 

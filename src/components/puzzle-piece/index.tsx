@@ -1,51 +1,54 @@
-import { RefObject, FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
-import { useSvgDrag } from '@/hooks/use-svg-drag';
-import { PuzzleOptions } from '@/types';
+import { useMovePieces } from '@/hooks/use-move-pieces';
+import { PuzzleOptions, BoardRef } from '@/types';
 
 import styles from './styles.module.scss';
+
+const STEP_SIZE = 10;
 
 interface PuzzlePieceProps {
   boardHeight: number;
   boardWidth: number;
   image: string;
-  index: number;
+  pieceIndex: number;
   initialX: number;
   initialY: number;
   path: string;
   snapThreshold: number;
-  svgRef: RefObject<SVGSVGElement | null>;
+  boardRef: BoardRef;
   targetX: number;
   targetY: number;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   onSnap?: () => void;
   onSnapWithKeyboard?: () => void;
-  registerPieceRef?: (gridKey: string, ref: SVGGElement | null) => void;
-  gridKey: string;
+  registerPieceRef?: (boardSlotKey: string, ref: SVGGElement | null) => void;
+  boardSlotKey: string;
 }
 
-const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
-  const {
-    boardHeight,
-    boardWidth,
-    image,
-    index,
+const PuzzlePiece: FC<PuzzlePieceProps> = ({
+  boardHeight,
+  boardWidth,
+  image,
+  pieceIndex,
+  initialX,
+  initialY,
+  path,
+  snapThreshold,
+  boardRef,
+  targetX,
+  targetY,
+  puzzlePieceOptions,
+  onSnap,
+  onSnapWithKeyboard,
+  registerPieceRef,
+  boardSlotKey,
+}) => {
+  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
     initialX,
     initialY,
-    path,
     snapThreshold,
-    svgRef,
-    targetX,
-    targetY,
-    puzzlePieceOptions,
-    onSnap,
-  } = props;
-
-  const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useSvgDrag({
-    initialX,
-    initialY,
-    snapThreshold,
-    svgRef,
+    boardRef,
     targetX,
     targetY,
     onSnap,
@@ -53,21 +56,21 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
 
   // Register this piece's ref with the parent
   useEffect(() => {
-    if (props.registerPieceRef) {
-      props.registerPieceRef(props.gridKey, ref.current);
+    if (registerPieceRef) {
+      registerPieceRef(boardSlotKey, ref.current);
     }
 
     return () => {
-      if (props.registerPieceRef) {
-        props.registerPieceRef(props.gridKey, null);
+      if (registerPieceRef) {
+        registerPieceRef(boardSlotKey, null);
       }
     };
-  }, [ref.current, props.registerPieceRef, props.gridKey]);
+  }, [ref.current, registerPieceRef, boardSlotKey]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSnapped) return;
 
-    const step = 10; // 10px movement per key press
+    const step = STEP_SIZE; // 10px movement per key press
 
     switch (e.key) {
       case 'ArrowUp':
@@ -91,8 +94,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         e.preventDefault();
         trySnap();
         // Call the keyboard-specific callback for focus management
-        if (props.onSnapWithKeyboard) {
-          props.onSnapWithKeyboard();
+        if (onSnapWithKeyboard) {
+          onSnapWithKeyboard();
         }
         break;
       }
@@ -126,7 +129,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
       onKeyDown={handleKeyDown}
     >
       <defs>
-        <clipPath id={`piece-clip-${index}`}>
+        <clipPath id={`piece-clip-${pieceIndex}`}>
           <path d={path} />
         </clipPath>
       </defs>
@@ -136,7 +139,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         y={0}
         width={boardWidth}
         height={boardHeight}
-        clipPath={`url(#piece-clip-${index})`}
+        clipPath={`url(#piece-clip-${pieceIndex})`}
         preserveAspectRatio="xMidYMid slice"
       />
       <path

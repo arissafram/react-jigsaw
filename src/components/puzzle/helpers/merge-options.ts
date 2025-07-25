@@ -1,7 +1,16 @@
 import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { InitialPuzzleOptions } from '@/types';
 
-// Type-safe deep merge utility
+/**
+ * Merges default puzzle options with user-provided options, ensuring type safety and proper merging.
+ *
+ * This function recursively merges the properties of the two objects, with user-provided values taking precedence.
+ * It handles nested objects and arrays, ensuring that the merged result is a valid PuzzleOptions object.
+ *
+ * @param defaults - The default puzzle options to use as the base
+ * @param options - The user-provided puzzle options to merge with the defaults
+ * @returns A new PuzzleOptions object with the merged properties
+ */
 export const mergeOptions = (
   defaults: typeof DEFAULT_PUZZLE_OPTIONS,
   options?: InitialPuzzleOptions,
@@ -14,8 +23,8 @@ export const mergeOptions = (
       columns: options.board?.columns ?? defaults.board.columns,
       height: options.board?.height ?? defaults.board.height,
       rows: options.board?.rows ?? defaults.board.rows,
-      showGridOutlines: options.board?.showGridOutlines ?? defaults.board.showGridOutlines,
-      shuffleArea: options.shuffleArea ?? defaults.board.shuffleArea,
+      showBoardSlotOutlines:
+        options.board?.showBoardSlotOutlines ?? defaults.board.showBoardSlotOutlines,
       width: options.board?.width ?? defaults.board.width,
     },
     puzzlePiece: {

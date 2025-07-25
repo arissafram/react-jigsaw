@@ -1,17 +1,17 @@
-import { JigsawPathOptions } from '@/types';
+import { BoardPathOptions } from '@/types';
 
-import { generateJigsawPath } from './generate-jigsaw-path';
+import { generateBoardPath } from './generate-board-path';
 
 /**
  * Generates an array of SVG path strings (one for each piece) for use as clipPaths.
  * Requires a precomputed edgeMap for correct edge matching.
  */
-export const generateClipPaths = (options: JigsawPathOptions): string[] => {
+export const generateBoardClipPaths = (options: BoardPathOptions): string[] => {
   const { rows, columns } = options;
   const paths: string[] = [];
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < columns; col++) {
-      paths.push(generateJigsawPath({ row, col, options }));
+      paths.push(generateBoardPath({ row, col, options }));
     }
   }
   return paths;

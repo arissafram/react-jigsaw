@@ -1,159 +1,168 @@
 import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
 import PuzzlePiece from '@/components/puzzle-piece';
-import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
-import { JigsawPathOptions, PiecePosition, PuzzleOptions, ShuffleArea } from '@/types';
-import { generateJigsawPath, computeEdgeMap } from '@/utils/generate-jigsaw-path';
 
-import GridOutlines from './components';
+import { BoardPathOptions, PiecePosition, PuzzleOptions, SnappedPieceIds } from '@/types';
+import { generateBoardPath, computeEdgeMap } from '@/components/board/helpers/generate-board-path';
+
+import BoardOutlines from './components/board-outlines';
+import { generateBoardSlots } from './helpers/generate-board-slots';
 import { shufflePieces } from './helpers/shuffle-pieces';
 
 import styles from './styles.module.scss';
 
+type PieceRefs = Map<string, SVGGElement>;
 interface BoardProps {
-  columns: number;
+  boardHeight: number;
+  boardWidth: number;
   className: string;
-  height: number;
+  columns: number;
   image: string;
+  onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
-  showGridOutlines: boolean;
-  shuffleArea: ShuffleArea;
-  width: number;
-  onPuzzleComplete?: () => void;
+  showBoardSlotOutlines: boolean;
 }
 
 const SNAP_THRESHOLD = 20;
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
   const {
+    boardHeight,
+    boardWidth,
     className,
     columns,
-    height,
     image,
+    onPuzzleComplete,
     puzzlePieceOptions,
     rows,
-    showGridOutlines,
-    shuffleArea,
-    width,
-    onPuzzleComplete,
+    showBoardSlotOutlines,
   } = props;
 
-  // Shuffled positions state
-  const [positions, setPositions] = useState<PiecePosition[]>([]);
-  const [snappedPieces, setSnappedPieces] = useState<Set<string>>(new Set());
+  const pieceHeight = boardHeight / rows;
+  const pieceWidth = boardWidth / columns;
 
-  // SVG ref for drag coordinate transforms
-  const svgRef = useRef<SVGSVGElement | null>(null);
+  // Shuffled pieces with random positions
+  const [shuffledPieces, setShuffledPieces] = useState<PiecePosition[]>([]);
+
+  // Track which pieces are snapped to the board
+  const [snappedPieceIds, setSnappedPieceIds] = useState<SnappedPieceIds>(new Set());
+
+  // Board ref for drag coordinate transforms
+  const boardRef = useRef<SVGSVGElement | null>(null);
 
   // Refs to track puzzle pieces by their stable ID
-  const pieceRefs = useRef<Map<string, SVGGElement>>(new Map());
-
-  const pieceWidth = width / columns;
-  const pieceHeight = height / rows;
+  const pieceRefs = useRef<PieceRefs>(new Map());
 
   // Memoize edgeMap and options
   const edgeMap = useMemo(() => computeEdgeMap({ rows, columns }), [rows, columns]);
 
-  const jigawOptions: JigsawPathOptions = useMemo(
+  // Memoize boardPathOptions to avoid unnecessary recalculations and re-renders
+  // Only recompute when board dimensions, columns, rows, or edgeMap change
+  const boardPathOptions: BoardPathOptions = useMemo(
     () => ({
+      boardHeight,
+      boardWidth,
       columns,
       edgeMap,
-      height,
       rows,
-      width,
     }),
-    [columns, edgeMap, height, rows, width],
+    [boardHeight, boardWidth, columns, edgeMap, rows],
   );
 
+  // Generate board slots once and memoize them
+  const boardSlots = useMemo(() => generateBoardSlots(rows, columns), [rows, columns]);
+
   useEffect(() => {
-    const shuffledPieces = shufflePieces({
-      boardWidth: width,
-      boardHeight: height,
-      columns,
-      pieceHeight,
-      pieceWidth,
-      rows,
-      shuffleArea: shuffleArea,
+    const newShuffledPieces = shufflePieces({
+      boardHeight,
+      boardWidth,
+      boardSlots,
     });
-    setPositions(shuffledPieces);
-    setSnappedPieces(new Set()); // Reset snapped pieces when puzzle is reshuffled
-    pieceRefs.current.clear(); // Clear piece refs when grid changes
-  }, [rows, columns, pieceWidth, pieceHeight, width, height, shuffleArea]);
+    setShuffledPieces(newShuffledPieces);
+    setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
+    pieceRefs.current.clear(); // Clear piece refs when board changes
+  }, [boardHeight, boardSlots, boardWidth, pieceWidth, pieceHeight]);
 
   // Check for puzzle completion
   useEffect(() => {
     const totalPieces = rows * columns;
-    if (snappedPieces.size === totalPieces && totalPieces > 0) {
+    if (snappedPieceIds.size === totalPieces) {
       onPuzzleComplete?.();
     }
-  }, [snappedPieces.size, rows, columns, onPuzzleComplete]);
+  }, [snappedPieceIds.size, rows, columns, onPuzzleComplete]);
 
-  const handlePieceSnap = (index: number) => {
-    const { pieceRow, pieceCol } = positions[index];
-    const gridKey = `${pieceRow}-${pieceCol}`;
-    setSnappedPieces((prev) => new Set([...prev, gridKey]));
+  // Mark a piece as snapped to the board when it's placed correctly
+  const handlePieceSnap = (pieceIndex: number) => {
+    const { pieceRow, pieceCol } = shuffledPieces[pieceIndex];
+    const boardSlotKey = `${pieceRow}-${pieceCol}`;
+    // Add the piece to the set of snapped pieces
+    setSnappedPieceIds((prev) => new Set([...prev, boardSlotKey]));
   };
 
-  const handleSnapWithKeyboard = (currentIndex: number) => {
+  // Focus the next unsnapped piece for keyboard navigation after a piece snaps
+  const handleSnapWithKeyboard = (currentPieceIndex: number) => {
     // Find any unsnapped piece (doesn't matter which one)
-    const unsnappedPiece = positions.find((pos, idx) => {
-      const gridKey = `${pos.pieceRow}-${pos.pieceCol}`;
+    const unsnappedPiece = shuffledPieces.find((pos, idx) => {
+      const boardSlotKey = `${pos.pieceRow}-${pos.pieceCol}`;
       // Exclude the current piece that just snapped
-      return idx !== currentIndex && !snappedPieces.has(gridKey);
+      return idx !== currentPieceIndex && !snappedPieceIds.has(boardSlotKey);
     });
 
     if (unsnappedPiece) {
-      const gridKey = `${unsnappedPiece.pieceRow}-${unsnappedPiece.pieceCol}`;
-      const pieceRef = pieceRefs.current.get(gridKey);
+      const boardSlotKey = `${unsnappedPiece.pieceRow}-${unsnappedPiece.pieceCol}`;
+      // Get the DOM reference and focus the next unsnapped piece
+      const pieceRef = pieceRefs.current.get(boardSlotKey);
       if (pieceRef) {
         pieceRef.focus();
       }
     }
   };
 
-  const registerPieceRef = (gridKey: string, ref: SVGGElement | null) => {
+  // Register/unregister puzzle piece refs for keyboard navigation and programmatic control
+  const registerPieceRef = (boardSlotKey: string, ref: SVGGElement | null) => {
     if (ref) {
-      pieceRefs.current.set(gridKey, ref);
+      // Store the DOM reference when piece mounts
+      pieceRefs.current.set(boardSlotKey, ref);
     } else {
-      pieceRefs.current.delete(gridKey);
+      // Remove the DOM reference when piece unmounts
+      pieceRefs.current.delete(boardSlotKey);
     }
   };
 
   return (
     <svg
-      ref={svgRef}
-      className={`${styles.board} ${className ?? DEFAULT_PUZZLE_OPTIONS.board?.className}`}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      ref={boardRef}
+      className={`${styles.board} ${className}`}
+      height={boardHeight}
+      width={boardWidth}
+      viewBox={`0 0 ${boardWidth} ${boardHeight}`}
     >
-      <GridOutlines
-        columns={columns}
-        jigawOptions={jigawOptions}
-        rows={rows}
-        showGridOutlines={showGridOutlines}
-        snappedPieces={snappedPieces}
+      <BoardOutlines
+        boardPathOptions={boardPathOptions}
+        boardSlots={boardSlots}
+        showBoardSlotOutlines={showBoardSlotOutlines}
+        snappedPieceIds={snappedPieceIds}
       />
-      {positions.map(({ pieceRow, pieceCol, x, y }, i) => (
+      {shuffledPieces.map(({ pieceRow, pieceCol, x, y }, pieceIndex) => (
         <PuzzlePiece
-          boardHeight={height}
-          boardWidth={width}
+          key={`${pieceRow}-${pieceCol}`}
+          boardHeight={boardHeight}
+          boardWidth={boardWidth}
+          boardSlotKey={`${pieceRow}-${pieceCol}`}
           image={image}
-          index={i}
+          pieceIndex={pieceIndex}
           initialX={x}
           initialY={y}
-          key={`${pieceRow}-${pieceCol}`}
-          path={generateJigsawPath({ col: pieceCol, row: pieceRow, options: jigawOptions })}
+          onSnap={() => handlePieceSnap(pieceIndex)}
+          onSnapWithKeyboard={() => handleSnapWithKeyboard(pieceIndex)}
+          path={generateBoardPath({ col: pieceCol, row: pieceRow, options: boardPathOptions })}
+          puzzlePieceOptions={puzzlePieceOptions}
+          registerPieceRef={registerPieceRef}
           snapThreshold={SNAP_THRESHOLD}
-          svgRef={svgRef}
+          boardRef={boardRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
-          puzzlePieceOptions={puzzlePieceOptions}
-          onSnap={() => handlePieceSnap(i)}
-          onSnapWithKeyboard={() => handleSnapWithKeyboard(i)}
-          registerPieceRef={registerPieceRef}
-          gridKey={`${pieceRow}-${pieceCol}`}
         />
       ))}
     </svg>
