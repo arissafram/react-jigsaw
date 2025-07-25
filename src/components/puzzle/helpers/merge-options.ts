@@ -25,6 +25,7 @@ export const mergeOptions = (
       rows: options.board?.rows ?? defaults.board.rows,
       showBoardSlotOutlines:
         options.board?.showBoardSlotOutlines ?? defaults.board.showBoardSlotOutlines,
+      snapThreshold: options.board?.snapThreshold ?? defaults.board.snapThreshold,
       width: options.board?.width ?? defaults.board.width,
     },
     puzzlePiece: {
