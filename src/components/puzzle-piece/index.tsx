@@ -92,9 +92,9 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
       case 'Enter':
       case ' ': {
         e.preventDefault();
-        trySnap();
-        // Call the keyboard-specific callback for focus management
-        if (onSnapWithKeyboard) {
+        const snapSuccess = trySnap();
+        // Only call the keyboard-specific callback if snap was successful
+        if (snapSuccess && onSnapWithKeyboard) {
           onSnapWithKeyboard();
         }
         break;

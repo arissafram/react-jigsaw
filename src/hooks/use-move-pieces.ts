@@ -207,8 +207,8 @@ export function useMovePieces({
 
   // Try to snap to the target position (for keyboard Enter/Space)
   const trySnap = useCallback(() => {
-    if (isSnapped) return;
-    checkSnap(dragState.x, dragState.y);
+    if (isSnapped) return false;
+    return checkSnap(dragState.x, dragState.y);
   }, [isSnapped, dragState.x, dragState.y, checkSnap]);
 
   return {
