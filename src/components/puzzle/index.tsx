@@ -25,30 +25,19 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   const { image, options, onComplete } = props;
   const { rows, columns, setRows, setColumns } = usePuzzleContext();
   const [timerIsRunning, setTimerIsRunning] = useState(true);
+  const [refreshCount, setRefreshCount] = useState(0);
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
     setRows(newRows);
     setColumns(newColumns);
-    // Restart timer when board changes
     setTimerIsRunning(false);
     setTimeout(() => setTimerIsRunning(true), 10);
   };
 
   const handleRefresh = () => {
-    // Force Board re-render by temporarily changing then restoring values
-    const currentRows = rows;
-    const currentColumns = columns;
-    // Trigger state change to force re-render
-    setRows(0);
-    setColumns(0);
-    // Restart timer when refreshing
     setTimerIsRunning(false);
-    // Use setTimeout to ensure the state change is processed
-    setTimeout(() => {
-      setRows(currentRows);
-      setColumns(currentColumns);
-      setTimerIsRunning(true);
-    }, 10);
+    setRefreshCount((c) => c + 1);
+    setTimerIsRunning(true);
   };
 
   const handlePuzzleComplete = () => {
@@ -65,7 +54,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
       }}
     >
       <Board
-        key={`${rows}-${columns}`}
+        key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
         boardWidth={options.board.width}
         className={options.board.className}
