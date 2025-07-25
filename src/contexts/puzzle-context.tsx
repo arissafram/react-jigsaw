@@ -4,9 +4,9 @@ import { createContext, useContext, useState } from 'react';
 interface PuzzleContextState {
   columns: number;
   numPieces: number;
+  refreshCount: number;
   rows: number;
   timerIsRunning: boolean;
-  refreshCount: number;
   setBoardGrid: (rows: number, columns: number) => void;
   refreshBoard: () => void;
   setTimerIsRunning: (running: boolean) => void;
@@ -46,9 +46,9 @@ export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProvi
   const value: PuzzleContextState = {
     columns,
     numPieces,
+    refreshCount,
     rows,
     timerIsRunning,
-    refreshCount,
     setBoardGrid,
     refreshBoard,
     setTimerIsRunning,

@@ -1,6 +1,9 @@
 import { BoardSlot, PiecePosition } from '@/types';
 
-// Fisher-Yates shuffle algorithm - returns a new shuffled array
+/**
+ * Returns a new array with the elements shuffled in random order using the Fisher-Yates algorithm.
+ * Used to randomize the order of board slots or other arrays without mutating the original.
+ */
 const getShuffledArray = <T>(array: T[]): T[] => {
   // Create a copy to avoid mutating the original array
   const shuffled = [...array];
@@ -15,6 +18,17 @@ const getShuffledArray = <T>(array: T[]): T[] => {
   return shuffled;
 };
 
+/**
+ * Shuffles the board slots and assigns each piece a random initial position around the board.
+ *
+ * This is used to scatter puzzle pieces at the start of the game, so they don't start in their solved positions.
+ * Each piece is given a random offset within a reasonable area around its slot.
+ *
+ * @param boardHeight - The height of the board
+ * @param boardWidth - The width of the board
+ * @param boardSlots - The array of board slots to shuffle
+ * @returns An array of PiecePosition objects with randomized x/y positions
+ */
 export const shufflePieces = ({
   boardHeight,
   boardWidth,

@@ -2,7 +2,6 @@ import { FC, useEffect, useRef, useState, useMemo } from 'react';
 
 import PuzzlePiece from '@/components/puzzle-piece';
 
-type PieceRefs = Map<string, SVGGElement>;
 import { BoardPathOptions, PiecePosition, PuzzleOptions, SnappedPieceIds } from '@/types';
 import { generateBoardPath, computeEdgeMap } from '@/components/board/helpers/generate-board-path';
 
@@ -12,6 +11,7 @@ import { shufflePieces } from './helpers/shuffle-pieces';
 
 import styles from './styles.module.scss';
 
+type PieceRefs = Map<string, SVGGElement>;
 interface BoardProps {
   boardHeight: number;
   boardWidth: number;

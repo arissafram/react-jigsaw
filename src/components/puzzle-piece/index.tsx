@@ -5,6 +5,8 @@ import { PuzzleOptions, BoardRef } from '@/types';
 
 import styles from './styles.module.scss';
 
+const STEP_SIZE = 10;
+
 interface PuzzlePieceProps {
   boardHeight: number;
   boardWidth: number;
@@ -24,23 +26,24 @@ interface PuzzlePieceProps {
   boardSlotKey: string;
 }
 
-const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
-  const {
-    boardHeight,
-    boardWidth,
-    image,
-    pieceIndex,
-    initialX,
-    initialY,
-    path,
-    snapThreshold,
-    boardRef,
-    targetX,
-    targetY,
-    puzzlePieceOptions,
-    onSnap,
-  } = props;
-
+const PuzzlePiece: FC<PuzzlePieceProps> = ({
+  boardHeight,
+  boardWidth,
+  image,
+  pieceIndex,
+  initialX,
+  initialY,
+  path,
+  snapThreshold,
+  boardRef,
+  targetX,
+  targetY,
+  puzzlePieceOptions,
+  onSnap,
+  onSnapWithKeyboard,
+  registerPieceRef,
+  boardSlotKey,
+}) => {
   const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
     initialX,
     initialY,
@@ -53,21 +56,21 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
 
   // Register this piece's ref with the parent
   useEffect(() => {
-    if (props.registerPieceRef) {
-      props.registerPieceRef(props.boardSlotKey, ref.current);
+    if (registerPieceRef) {
+      registerPieceRef(boardSlotKey, ref.current);
     }
 
     return () => {
-      if (props.registerPieceRef) {
-        props.registerPieceRef(props.boardSlotKey, null);
+      if (registerPieceRef) {
+        registerPieceRef(boardSlotKey, null);
       }
     };
-  }, [ref.current, props.registerPieceRef, props.boardSlotKey]);
+  }, [ref.current, registerPieceRef, boardSlotKey]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSnapped) return;
 
-    const step = 10; // 10px movement per key press
+    const step = STEP_SIZE; // 10px movement per key press
 
     switch (e.key) {
       case 'ArrowUp':
@@ -91,8 +94,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = (props: PuzzlePieceProps) => {
         e.preventDefault();
         trySnap();
         // Call the keyboard-specific callback for focus management
-        if (props.onSnapWithKeyboard) {
-          props.onSnapWithKeyboard();
+        if (onSnapWithKeyboard) {
+          onSnapWithKeyboard();
         }
         break;
       }
