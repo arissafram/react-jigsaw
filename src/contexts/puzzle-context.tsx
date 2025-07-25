@@ -5,8 +5,11 @@ interface PuzzleContextState {
   columns: number;
   numPieces: number;
   rows: number;
-  setColumns: (n: number) => void;
-  setRows: (n: number) => void;
+  timerIsRunning: boolean;
+  refreshCount: number;
+  setBoardGrid: (rows: number, columns: number) => void;
+  refreshBoard: () => void;
+  setTimerIsRunning: (running: boolean) => void;
 }
 
 const PuzzleContext = createContext<PuzzleContextState | undefined>(undefined);
@@ -21,14 +24,34 @@ export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProvi
   const { children, columns: initialColumns, rows: initialRows } = props;
   const [columns, setColumns] = useState(initialColumns);
   const [rows, setRows] = useState(initialRows);
+  const [timerIsRunning, setTimerIsRunning] = useState(true);
+  const [refreshCount, setRefreshCount] = useState(0);
   const numPieces = rows * columns;
+
+  const setBoardGrid = (newRows: number, newColumns: number) => {
+    setRows(newRows);
+    setColumns(newColumns);
+    setTimerIsRunning(false);
+    setTimeout(() => setTimerIsRunning(true), 10);
+  };
+
+  const refreshBoard = () => {
+    setTimerIsRunning(false);
+    setRefreshCount((c) => c + 1);
+
+    // 10ms workaround to ensure the timer is running after the board is refreshed
+    setTimeout(() => setTimerIsRunning(true), 10);
+  };
 
   const value: PuzzleContextState = {
     columns,
     numPieces,
     rows,
-    setRows,
-    setColumns,
+    timerIsRunning,
+    refreshCount,
+    setBoardGrid,
+    refreshBoard,
+    setTimerIsRunning,
   };
 
   return <PuzzleContext.Provider value={value}>{children}</PuzzleContext.Provider>;

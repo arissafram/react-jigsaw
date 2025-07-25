@@ -23,21 +23,22 @@ interface PuzzleContentProps {
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
   const { image, options, onComplete } = props;
-  const { rows, columns, setRows, setColumns } = usePuzzleContext();
-  const [timerIsRunning, setTimerIsRunning] = useState(true);
-  const [refreshCount, setRefreshCount] = useState(0);
+  const {
+    rows,
+    columns,
+    setBoardGrid,
+    refreshBoard,
+    timerIsRunning,
+    refreshCount,
+    setTimerIsRunning,
+  } = usePuzzleContext();
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
-    setRows(newRows);
-    setColumns(newColumns);
-    setTimerIsRunning(false);
-    setTimeout(() => setTimerIsRunning(true), 10);
+    setBoardGrid(newRows, newColumns);
   };
 
   const handleRefresh = () => {
-    setTimerIsRunning(false);
-    setRefreshCount((c) => c + 1);
-    setTimerIsRunning(true);
+    refreshBoard();
   };
 
   const handlePuzzleComplete = () => {
