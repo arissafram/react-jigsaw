@@ -51,6 +51,14 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isValid) {
+      // Save to localStorage
+      localStorage.setItem(
+        'react-jigsaw',
+        JSON.stringify({
+          rows: parseFloat(rows),
+          columns: parseFloat(columns),
+        }),
+      );
       onBoardSlotChange(parseInt(rows), parseInt(columns));
     }
   };

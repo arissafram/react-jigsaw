@@ -1,3 +1,4 @@
+import { REACT_JIGSAW_STORAGE_KEY } from '@/constants';
 import { createContext, useContext, useState } from 'react';
 
 // Define the shape of the puzzle context state
@@ -20,10 +21,25 @@ interface PuzzleProviderProps {
   rows: number;
 }
 
+// On first mount, check localStorage for saved values
+const getInitialBoardConfig = () => {
+  if (typeof window !== 'undefined') {
+    const boardConfig = localStorage.getItem(REACT_JIGSAW_STORAGE_KEY);
+    if (boardConfig) {
+      const parsed = JSON.parse(boardConfig);
+      if (typeof parsed.rows === 'number' && typeof parsed.columns === 'number') {
+        return { rows: parsed.rows, columns: parsed.columns };
+      }
+    }
+  }
+  return {};
+};
+
 export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProviderProps) => {
-  const { children, columns: initialColumns, rows: initialRows } = props;
-  const [columns, setColumns] = useState(initialColumns);
-  const [rows, setRows] = useState(initialRows);
+  const { rows: rowsFromStorage, columns: columnsFromStorage } = getInitialBoardConfig();
+
+  const [columns, setColumns] = useState(columnsFromStorage ?? props.columns);
+  const [rows, setRows] = useState(rowsFromStorage ?? props.rows);
   const [timerIsRunning, setTimerIsRunning] = useState(true);
   const [refreshCount, setRefreshCount] = useState(0);
   const numPieces = rows * columns;
@@ -54,7 +70,7 @@ export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProvi
     setTimerIsRunning,
   };
 
-  return <PuzzleContext.Provider value={value}>{children}</PuzzleContext.Provider>;
+  return <PuzzleContext.Provider value={value}>{props.children}</PuzzleContext.Provider>;
 };
 
 export const usePuzzleContext = () => {
