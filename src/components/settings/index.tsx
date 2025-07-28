@@ -44,6 +44,7 @@ const Settings: FC<SettingsProps> = ({
           )}
         </div>
       )}
+      {rowsAndColumns.enabled && <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>}
     </div>
   );
 };
