@@ -11,8 +11,6 @@ const App = () => {
   const [imageSource, setImageSource] = useState(DEMO_IMAGE);
 
   const handleRefresh = () => {
-    console.log('Custom refresh logic executed!');
-    // Switch to the funny dog image on refresh
     setImageSource(DEMO_IMAGE_2);
   };
 
