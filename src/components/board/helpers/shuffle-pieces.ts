@@ -7,12 +7,17 @@ import { BoardSlot, PiecePosition } from '@/types';
  * @param array - The array to shuffle
  * @returns A new shuffled array (original array is not modified)
  */
-const shuffleArray = <T>(array: T[]): T[] => {
+const getShuffledArray = <T>(array: T[]): T[] => {
+  // Create a copy to avoid mutating the original array
   const shuffled = [...array];
+
   for (let i = shuffled.length - 1; i > 0; i--) {
+    // Pick random index from 0 to i
     const randomIndex = Math.floor(Math.random() * (i + 1));
+    // Swap current item with random item
     [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
   }
+
   return shuffled;
 };
 
@@ -48,7 +53,7 @@ export const shufflePieces = ({
   scatterArea?: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
-  const shuffledBoardSlots = shuffleArray(boardSlots);
+  const shuffledBoardSlots = getShuffledArray(boardSlots);
 
   // Calculate the expanded scattering area
   const expandedWidth = boardWidth + scatterArea * 2;
