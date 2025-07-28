@@ -10,8 +10,6 @@ import { BoardSlot, PiecePosition } from '@/types';
  *
  * @param containerWidth - The width of the container area
  * @param containerHeight - The height of the container area
- * @param boardOffsetX - The board's X offset from the container
- * @param boardOffsetY - The board's Y offset from the container
  * @param rows - Number of rows in the grid
  * @param columns - Number of columns in the grid
  * @param boardSlots - The array of board slots to shuffle
@@ -20,16 +18,12 @@ import { BoardSlot, PiecePosition } from '@/types';
 export const shufflePieces = ({
   containerWidth,
   containerHeight,
-  boardOffsetX,
-  boardOffsetY,
   rows,
   columns,
   boardSlots,
 }: {
   containerWidth: number;
   containerHeight: number;
-  boardOffsetX: number;
-  boardOffsetY: number;
   rows: number;
   columns: number;
   boardSlots: BoardSlot[];
@@ -45,11 +39,10 @@ export const shufflePieces = ({
   }
 
   // Calculate the safe area for piece placement (50px from container borders)
-  const borderMargin = 0;
-  const minX = borderMargin;
-  const maxX = containerWidth - borderMargin;
-  const minY = borderMargin;
-  const maxY = containerHeight - borderMargin;
+  const minX = 0;
+  const maxX = containerWidth;
+  const minY = 0;
+  const maxY = containerHeight;
 
   // Calculate piece dimensions based on actual grid size
   const boardWidth = (maxX - minX) * 0.8; // Use 80% of container width for board
@@ -69,7 +62,6 @@ export const shufflePieces = ({
 
     // Calculate the piece's original right edge position
     const originalRightX = originalX + pieceWidth;
-    const originalRightY = originalY;
 
     // Calculate the piece's original center Y position
     const originalCenterY = originalY + pieceHeight / 2;

@@ -25,7 +25,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   } = usePuzzleContext();
 
   // Ref to the puzzle container for piece positioning
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
     setBoardGrid(newRows, newColumns);
