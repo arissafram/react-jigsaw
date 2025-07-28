@@ -21,6 +21,7 @@ export interface InitialPuzzleOptions {
     columns?: number;
     height?: number;
     rows?: number;
+    scatterArea?: number;
     showBoardSlotOutlines?: boolean;
     snapThreshold?: number;
     width?: number;
@@ -62,6 +63,7 @@ export interface PuzzleOptions {
     columns: number;
     height: number;
     rows: number;
+    scatterArea: number;
     showBoardSlotOutlines: boolean;
     snapThreshold: number;
     width: number;

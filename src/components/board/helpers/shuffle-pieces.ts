@@ -1,8 +1,11 @@
 import { BoardSlot, PiecePosition } from '@/types';
 
 /**
- * Returns a new array with the elements shuffled in random order using the Fisher-Yates algorithm.
- * Used to randomize the order of board slots or other arrays without mutating the original.
+ * Shuffles an array using the Fisher-Yates algorithm.
+ * This is an unbiased shuffle where each permutation has equal probability.
+ *
+ * @param array - The array to shuffle
+ * @returns A new shuffled array (original array is not modified)
  */
 const getShuffledArray = <T>(array: T[]): T[] => {
   // Create a copy to avoid mutating the original array
@@ -19,38 +22,63 @@ const getShuffledArray = <T>(array: T[]): T[] => {
 };
 
 /**
- * Shuffles the board slots and assigns each piece a random initial position around the board.
+ * Shuffles the board slots and assigns each piece a random initial position within the container area.
  *
- * This is used to scatter puzzle pieces at the start of the game, so they don't start in their solved positions.
- * Each piece is given a random offset within a reasonable area around its slot.
+ * Pieces are placed randomly within the container boundaries, staying 50px away from the container border
+ * to ensure they don't scatter outside the visible area. The positions account for the board's
+ * actual position within the container and the fact that each piece's path is already positioned at
+ * its board coordinates.
  *
- * @param boardHeight - The height of the board
- * @param boardWidth - The width of the board
+ * @param boardWidth - The width of the container area
+ * @param boardHeight - The height of the container area
+ * @param pieceHeight - The height of a piece
+ * @param pieceWidth - The width of a piece
  * @param boardSlots - The array of board slots to shuffle
+ * @param scatterArea - Defines the expansion of the scattering area in all directions (default: 0)
  * @returns An array of PiecePosition objects with randomized x/y positions
  */
 export const shufflePieces = ({
-  boardHeight,
   boardWidth,
+  boardHeight,
   boardSlots,
+  pieceHeight,
+  pieceWidth,
+  scatterArea,
 }: {
-  boardHeight: number;
   boardWidth: number;
+  boardHeight: number;
   boardSlots: BoardSlot[];
+  pieceHeight: number;
+  pieceWidth: number;
+  scatterArea: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
   const shuffledBoardSlots = getShuffledArray(boardSlots);
 
-  // Assign each piece a random scatter position
-  return shuffledBoardSlots.map(({ pieceRow, pieceCol }, i) => {
-    // Alternate between positive and negative dimensions
-    const pieceHeight = i % 2 !== 0 ? -boardHeight : boardHeight;
-    const pieceWidth = i % 2 !== 0 ? -boardWidth : boardWidth;
+  // Calculate the expanded scattering area
+  const expandedWidth = boardWidth + scatterArea * 2;
+  const expandedHeight = boardHeight + scatterArea * 2;
 
-    // Create random offset: Math.random() - 0.5 gives range -0.5 to +0.5
-    // Multiply by half the piece size to scatter within area
-    const x = (Math.random() - 0.5) * pieceWidth * 0.5;
-    const y = (Math.random() - 0.5) * pieceHeight * 0.5;
+  // Calculate the offset to keep pieces centered in the expanded area
+  const offsetX = -scatterArea;
+  const offsetY = -scatterArea;
+
+  // Assign each piece a random position within the expanded container area
+  return shuffledBoardSlots.map(({ pieceRow, pieceCol }) => {
+    // Calculate where we want the piece to appear in the shuffled area
+    // Use the expanded dimensions but account for piece size to keep pieces fully visible
+    const shuffledX = offsetX + Math.random() * (expandedWidth - pieceWidth);
+    const shuffledY = offsetY + Math.random() * (expandedHeight - pieceHeight);
+
+    // Calculate the piece's original board position (where the path is defined)
+    const originalBoardX = pieceCol * pieceWidth;
+    const originalBoardY = pieceRow * pieceHeight;
+
+    // Calculate the offset needed to move from original board position to shuffled position
+    // This is necessaary because each piece path sits inside of a larger container equal
+    // to the size of the board.
+    const x = shuffledX - originalBoardX;
+    const y = shuffledY - originalBoardY;
 
     return { pieceRow, pieceCol, x, y };
   });

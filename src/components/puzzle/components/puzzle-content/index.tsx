@@ -55,6 +55,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         rows={rows}
         snapThreshold={options.board.snapThreshold}
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
+        scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
       />
       <Settings
