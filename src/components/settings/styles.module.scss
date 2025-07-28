@@ -1,5 +1,6 @@
 .settingsContainer {
   display: flex;
+  flex-wrap: wrap;
   padding: 16px 0 0 0;
 
   .rightContainer {
@@ -7,5 +8,13 @@
     flex: 1;
     gap: 4px;
     justify-content: flex-end;
+  }
+
+  .inlineNote {
+    font-family: monospace;
+    text-transform: uppercase;
+    width: 100%;
+    font-size: 8px;
+    margin-top: 2px;
   }
 }
