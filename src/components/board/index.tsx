@@ -79,9 +79,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     const newShuffledPieces = shufflePieces({
       boardHeight,
       boardWidth,
-      rows,
-      columns,
       boardSlots,
+      pieceHeight,
+      pieceWidth,
       scatterArea,
     });
     setShuffledPieces(newShuffledPieces);

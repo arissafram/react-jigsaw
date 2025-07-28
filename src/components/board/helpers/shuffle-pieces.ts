@@ -1,6 +1,22 @@
 import { BoardSlot, PiecePosition } from '@/types';
 
 /**
+ * Shuffles an array using the Fisher-Yates algorithm.
+ * This is an unbiased shuffle where each permutation has equal probability.
+ *
+ * @param array - The array to shuffle
+ * @returns A new shuffled array (original array is not modified)
+ */
+const shuffleArray = <T>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+  }
+  return shuffled;
+};
+
+/**
  * Shuffles the board slots and assigns each piece a random initial position within the container area.
  *
  * Pieces are placed randomly within the container boundaries, staying 50px away from the container border
@@ -10,8 +26,8 @@ import { BoardSlot, PiecePosition } from '@/types';
  *
  * @param boardWidth - The width of the container area
  * @param boardHeight - The height of the container area
- * @param rows - Number of rows in the grid
- * @param columns - Number of columns in the grid
+ * @param pieceHeight - The height of a piece
+ * @param pieceWidth - The width of a piece
  * @param boardSlots - The array of board slots to shuffle
  * @param scatterArea - Optional expansion of the scattering area in all directions (default: 0)
  * @returns An array of PiecePosition objects with randomized x/y positions
@@ -19,30 +35,20 @@ import { BoardSlot, PiecePosition } from '@/types';
 export const shufflePieces = ({
   boardWidth,
   boardHeight,
-  rows,
-  columns,
   boardSlots,
+  pieceHeight,
+  pieceWidth,
   scatterArea = 0,
 }: {
   boardWidth: number;
   boardHeight: number;
-  rows: number;
-  columns: number;
   boardSlots: BoardSlot[];
+  pieceHeight: number;
+  pieceWidth: number;
   scatterArea?: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
-  const shuffledBoardSlots = [...boardSlots];
-  for (let i = shuffledBoardSlots.length - 1; i > 0; i--) {
-    const randomIndex = Math.floor(Math.random() * (i + 1));
-    [shuffledBoardSlots[i], shuffledBoardSlots[randomIndex]] = [
-      shuffledBoardSlots[randomIndex],
-      shuffledBoardSlots[i],
-    ];
-  }
-
-  const pieceWidth = boardWidth / columns;
-  const pieceHeight = boardHeight / rows;
+  const shuffledBoardSlots = shuffleArray(boardSlots);
 
   // Calculate the expanded scattering area
   const expandedWidth = boardWidth + scatterArea * 2;
