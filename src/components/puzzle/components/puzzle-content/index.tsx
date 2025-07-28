@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import Board from '@/components/board';
 import Settings from '@/components/settings';
 import { usePuzzleContext } from '@/contexts/puzzle-context';
@@ -24,9 +23,6 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     setTimerIsRunning,
   } = usePuzzleContext();
 
-  // Ref to the puzzle container for piece positioning
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
     setBoardGrid(newRows, newColumns);
   };
@@ -42,7 +38,6 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   return (
     <div
-      ref={containerRef}
       className={styles.puzzle}
       style={{
         width: `${options.board.width}px`,
@@ -61,7 +56,6 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         snapThreshold={options.board.snapThreshold}
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         onPuzzleComplete={handlePuzzleComplete}
-        containerRef={containerRef}
       />
       <Settings
         currentRows={rows}

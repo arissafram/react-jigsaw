@@ -23,7 +23,6 @@ interface BoardProps {
   rows: number;
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
-  containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
@@ -38,7 +37,6 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     rows,
     showBoardSlotOutlines,
     snapThreshold,
-    containerRef,
   } = props;
 
   const pieceHeight = boardHeight / rows;
@@ -76,14 +74,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
   const boardSlots = useMemo(() => generateBoardSlots(rows, columns), [rows, columns]);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const containerRect = container.getBoundingClientRect();
-
     const newShuffledPieces = shufflePieces({
-      containerWidth: containerRect.width,
-      containerHeight: containerRect.height,
+      boardHeight,
+      boardWidth,
       rows,
       columns,
       boardSlots,
@@ -91,7 +84,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     setShuffledPieces(newShuffledPieces);
     setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when board changes
-  }, [boardSlots, containerRef, rows, columns]);
+  }, [boardHeight, boardWidth, boardSlots, rows, columns]);
 
   // Check for puzzle completion
   useEffect(() => {
