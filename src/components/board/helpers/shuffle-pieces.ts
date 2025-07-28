@@ -43,7 +43,7 @@ export const shufflePieces = ({
   boardSlots,
   pieceHeight,
   pieceWidth,
-  scatterArea = 0,
+  scatterArea,
 }: {
   boardWidth: number;
   boardHeight: number;
