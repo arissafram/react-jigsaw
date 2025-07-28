@@ -87,7 +87,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     setShuffledPieces(newShuffledPieces);
     setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when board changes
-  }, [boardHeight, boardWidth, boardSlots, rows, columns, scatterArea]);
+  }, [boardHeight, boardWidth, boardSlots, pieceHeight, pieceWidth, scatterArea]);
 
   // Check for puzzle completion
   useEffect(() => {

@@ -57,6 +57,9 @@ export function useMovePieces({
     isDragging: boolean;
   } | null>(null);
 
+  // Store the handlePointerMove function in a ref to avoid circular dependencies
+  const handlePointerMoveRef = useRef<((e: PointerEvent) => void) | null>(null);
+
   // Convert screen (client) coordinates to SVG coordinates for accurate dragging
   const screenToSvgCoords = useCallback(
     (clientX: number, clientY: number) => {
@@ -102,6 +105,9 @@ export function useMovePieces({
     [screenToSvgCoords],
   );
 
+  // Store the handlePointerMove function in the ref
+  handlePointerMoveRef.current = handlePointerMove;
+
   // End drag, check for snapping, and clean up event listeners
   const endDrag = useCallback(
     (e: PointerEvent) => {
@@ -109,7 +115,9 @@ export function useMovePieces({
       if (!dragInfo || !dragInfo.isDragging || e.pointerId !== dragInfo.pointerId) return;
       dragInfo.isDragging = false;
       // Remove global event listeners
-      window.removeEventListener('pointermove', handlePointerMove);
+      if (handlePointerMoveRef.current) {
+        window.removeEventListener('pointermove', handlePointerMoveRef.current);
+      }
       window.removeEventListener('pointerup', endDrag);
       window.removeEventListener('pointercancel', endDrag);
 
@@ -160,14 +168,16 @@ export function useMovePieces({
       element.setPointerCapture(event.pointerId);
 
       // Add global event listeners for drag
-      window.addEventListener('pointermove', handlePointerMove, { passive: false });
+      if (handlePointerMoveRef.current) {
+        window.addEventListener('pointermove', handlePointerMoveRef.current, { passive: false });
+      }
       window.addEventListener('pointerup', endDrag, { passive: false });
       window.addEventListener('pointercancel', endDrag, { passive: false });
 
       setDragState((prev) => ({ ...prev, isDragging: true }));
       event.preventDefault();
     },
-    [isSnapped, dragState.x, dragState.y, screenToSvgCoords, handlePointerMove, endDrag],
+    [isSnapped, dragState.x, dragState.y, screenToSvgCoords, endDrag],
   );
 
   // Prevent default behavior for pointer move/up/cancel on the element

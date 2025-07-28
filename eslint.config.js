@@ -26,14 +26,14 @@ export default [
           ignorePropertyModificationsFor: ['acc'],
         },
       ],
-      'no-plusplus': [
-        'error',
-        { allowForLoopAfterthoughts: true },
-      ],
+      'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
       'no-return-assign': ['error', 'always'],
       'no-var': 'error',
       'prefer-const': 'error',
       'prefer-spread': 'error',
+      // React Hooks rules
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'error',
     },
     settings: {
       react: {
