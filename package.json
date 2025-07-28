@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "demo": "npm run dev --prefix demo"
+    "demo": "npm run dev --prefix demo",
+    "check-types": "tsc --noEmit"
   },
   "type": "module",
   "dependencies": {

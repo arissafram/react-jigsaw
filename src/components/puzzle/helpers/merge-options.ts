@@ -29,6 +29,8 @@ export const mergeOptions = (
       snapThreshold: options.board?.snapThreshold ?? defaults.board.snapThreshold,
       width: options.board?.width ?? defaults.board.width,
     },
+    onComplete: options.onComplete ?? defaults.onComplete,
+    onRefresh: options.onRefresh ?? defaults.onRefresh,
     puzzlePiece: {
       strokeColor: options.puzzlePiece?.strokeColor ?? defaults.puzzlePiece.strokeColor,
       strokeEnabled: options.puzzlePiece?.strokeEnabled ?? defaults.puzzlePiece.strokeEnabled,

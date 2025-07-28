@@ -65,7 +65,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
         registerPieceRef(boardSlotKey, null);
       }
     };
-  }, [ref.current, registerPieceRef, boardSlotKey]);
+  }, [ref, registerPieceRef, boardSlotKey]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSnapped) return;
@@ -107,7 +107,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
     if (dragState.isDragging && ref.current && ref.current.parentNode && !isSnapped) {
       ref.current.parentNode.appendChild(ref.current);
     }
-  }, [dragState.isDragging, isSnapped]);
+  }, [ref, dragState.isDragging, isSnapped]);
 
   // Move element to back when snapped and drag ends
   useEffect(() => {
@@ -117,7 +117,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
         parent.insertBefore(ref.current, parent.firstChild);
       }
     }
-  }, [dragState.isDragging, isSnapped]);
+  }, [ref, dragState.isDragging, isSnapped]);
 
   return (
     <g
