@@ -13,6 +13,7 @@ import { BoardSlot, PiecePosition } from '@/types';
  * @param rows - Number of rows in the grid
  * @param columns - Number of columns in the grid
  * @param boardSlots - The array of board slots to shuffle
+ * @param scatterAreaExpansion - Optional expansion of the scattering area in all directions (default: 0)
  * @returns An array of PiecePosition objects with randomized x/y positions
  */
 export const shufflePieces = ({
@@ -21,12 +22,14 @@ export const shufflePieces = ({
   rows,
   columns,
   boardSlots,
+  scatterAreaExpansion = 0,
 }: {
   boardWidth: number;
   boardHeight: number;
   rows: number;
   columns: number;
   boardSlots: BoardSlot[];
+  scatterAreaExpansion?: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
   const shuffledBoardSlots = [...boardSlots];
@@ -41,11 +44,20 @@ export const shufflePieces = ({
   const pieceWidth = boardWidth / columns;
   const pieceHeight = boardHeight / rows;
 
-  // Assign each piece a random position within the container area
+  // Calculate the expanded scattering area
+  const expandedWidth = boardWidth + scatterAreaExpansion * 2;
+  const expandedHeight = boardHeight + scatterAreaExpansion * 2;
+
+  // Calculate the offset to keep pieces centered in the expanded area
+  const offsetX = -scatterAreaExpansion;
+  const offsetY = -scatterAreaExpansion;
+
+  // Assign each piece a random position within the expanded container area
   return shuffledBoardSlots.map(({ pieceRow, pieceCol }) => {
     // Calculate where we want the piece to appear in the shuffled area
-    const shuffledX = Math.random() * (boardWidth - pieceWidth);
-    const shuffledY = Math.random() * (boardHeight - pieceHeight);
+    // Use the expanded dimensions but account for piece size to keep pieces fully visible
+    const shuffledX = offsetX + Math.random() * (expandedWidth - pieceWidth);
+    const shuffledY = offsetY + Math.random() * (expandedHeight - pieceHeight);
 
     // Calculate the piece's original board position (where the path is defined)
     const originalBoardX = pieceCol * pieceWidth;

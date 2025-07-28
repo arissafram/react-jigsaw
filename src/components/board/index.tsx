@@ -23,6 +23,7 @@ interface BoardProps {
   rows: number;
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
+  scatterAreaExpansion?: number;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
@@ -37,6 +38,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     rows,
     showBoardSlotOutlines,
     snapThreshold,
+    scatterAreaExpansion,
   } = props;
 
   const pieceHeight = boardHeight / rows;
@@ -80,11 +82,12 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       rows,
       columns,
       boardSlots,
+      scatterAreaExpansion,
     });
     setShuffledPieces(newShuffledPieces);
     setSnappedPieceIds(new Set()); // Reset snapped pieces when puzzle is reshuffled
     pieceRefs.current.clear(); // Clear piece refs when board changes
-  }, [boardHeight, boardWidth, boardSlots, rows, columns]);
+  }, [boardHeight, boardWidth, boardSlots, rows, columns, scatterAreaExpansion]);
 
   // Check for puzzle completion
   useEffect(() => {
