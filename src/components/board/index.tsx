@@ -23,7 +23,7 @@ interface BoardProps {
   rows: number;
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
-  scatterArea?: number;
+  scatterArea: number;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {

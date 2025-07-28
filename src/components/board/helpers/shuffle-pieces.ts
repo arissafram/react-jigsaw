@@ -34,7 +34,7 @@ const getShuffledArray = <T>(array: T[]): T[] => {
  * @param pieceHeight - The height of a piece
  * @param pieceWidth - The width of a piece
  * @param boardSlots - The array of board slots to shuffle
- * @param scatterArea - Optional expansion of the scattering area in all directions (default: 0)
+ * @param scatterArea - Defines the expansion of the scattering area in all directions (default: 0)
  * @returns An array of PiecePosition objects with randomized x/y positions
  */
 export const shufflePieces = ({
@@ -50,7 +50,7 @@ export const shufflePieces = ({
   boardSlots: BoardSlot[];
   pieceHeight: number;
   pieceWidth: number;
-  scatterArea?: number;
+  scatterArea: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
   const shuffledBoardSlots = getShuffledArray(boardSlots);
