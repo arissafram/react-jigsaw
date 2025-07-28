@@ -43,24 +43,19 @@ export const shufflePieces = ({
 
   // Assign each piece a random position within the container area
   return shuffledBoardSlots.map(({ pieceRow, pieceCol }) => {
-    // Calculate where we want the piece's right edge to appear
-    const targetRightX = Math.random() * (boardWidth - 0);
-    const targetY = Math.random() * (boardHeight - 0);
+    // Calculate where we want the piece to appear in the shuffled area
+    const shuffledX = Math.random() * (boardWidth - pieceWidth);
+    const shuffledY = Math.random() * (boardHeight - pieceHeight);
 
-    // Calculate the piece's original board position (top-left corner)
-    const originalX = pieceCol * pieceWidth;
-    const originalY = pieceRow * pieceHeight;
+    // Calculate the piece's original board position (where the path is defined)
+    const originalBoardX = pieceCol * pieceWidth;
+    const originalBoardY = pieceRow * pieceHeight;
 
-    // Calculate the piece's original center X position
-    const originalRightX = originalX + pieceWidth / 2;
-
-    // Calculate the piece's original center Y position
-    const originalCenterY = originalY + pieceHeight / 2;
-
-    // Calculate the offset needed to move from original right edge to target right edge
-    // and align by center of the height edge
-    const x = targetRightX - originalRightX;
-    const y = targetY - originalCenterY;
+    // Calculate the offset needed to move from original board position to shuffled position
+    // This is necessaary because each piece path sits inside of a larger container equal
+    // to the size of the board.
+    const x = shuffledX - originalBoardX;
+    const y = shuffledY - originalBoardY;
 
     return { pieceRow, pieceCol, x, y };
   });
