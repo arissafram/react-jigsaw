@@ -11,6 +11,8 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     snapThreshold: 20,
     width: 400,
   },
+  onComplete: () => {},
+  onRefresh: () => {},
   puzzlePiece: {
     strokeColor: 'gold',
     strokeEnabled: true,

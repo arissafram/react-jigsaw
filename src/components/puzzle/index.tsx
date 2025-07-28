@@ -10,6 +10,7 @@ interface PuzzleProps {
   image: string;
   options?: InitialPuzzleOptions;
   onComplete?: () => void;
+  onRefresh?: () => void;
 }
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
