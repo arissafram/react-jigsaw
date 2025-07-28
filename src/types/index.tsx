@@ -26,6 +26,8 @@ export interface InitialPuzzleOptions {
     snapThreshold?: number;
     width?: number;
   };
+  onComplete?: () => void;
+  onRefresh?: () => void;
   puzzlePiece?: {
     strokeColor?: string;
     strokeEnabled?: boolean;
@@ -68,7 +70,8 @@ export interface PuzzleOptions {
     snapThreshold: number;
     width: number;
   };
-  onComplete?: () => void;
+  onComplete: () => void;
+  onRefresh: () => void;
   puzzle: {
     className: string;
     settings: {
