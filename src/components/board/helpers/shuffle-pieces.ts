@@ -13,7 +13,7 @@ import { BoardSlot, PiecePosition } from '@/types';
  * @param rows - Number of rows in the grid
  * @param columns - Number of columns in the grid
  * @param boardSlots - The array of board slots to shuffle
- * @param scatterAreaExpansion - Optional expansion of the scattering area in all directions (default: 0)
+ * @param scatterArea - Optional expansion of the scattering area in all directions (default: 0)
  * @returns An array of PiecePosition objects with randomized x/y positions
  */
 export const shufflePieces = ({
@@ -22,14 +22,14 @@ export const shufflePieces = ({
   rows,
   columns,
   boardSlots,
-  scatterAreaExpansion = 0,
+  scatterArea = 0,
 }: {
   boardWidth: number;
   boardHeight: number;
   rows: number;
   columns: number;
   boardSlots: BoardSlot[];
-  scatterAreaExpansion?: number;
+  scatterArea?: number;
 }): PiecePosition[] => {
   // Shuffle the board slots
   const shuffledBoardSlots = [...boardSlots];
@@ -45,12 +45,12 @@ export const shufflePieces = ({
   const pieceHeight = boardHeight / rows;
 
   // Calculate the expanded scattering area
-  const expandedWidth = boardWidth + scatterAreaExpansion * 2;
-  const expandedHeight = boardHeight + scatterAreaExpansion * 2;
+  const expandedWidth = boardWidth + scatterArea * 2;
+  const expandedHeight = boardHeight + scatterArea * 2;
 
   // Calculate the offset to keep pieces centered in the expanded area
-  const offsetX = -scatterAreaExpansion;
-  const offsetY = -scatterAreaExpansion;
+  const offsetX = -scatterArea;
+  const offsetY = -scatterArea;
 
   // Assign each piece a random position within the expanded container area
   return shuffledBoardSlots.map(({ pieceRow, pieceCol }) => {

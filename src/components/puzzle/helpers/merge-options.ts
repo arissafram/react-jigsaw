@@ -23,6 +23,7 @@ export const mergeOptions = (
       columns: options.board?.columns ?? defaults.board.columns,
       height: options.board?.height ?? defaults.board.height,
       rows: options.board?.rows ?? defaults.board.rows,
+      scatterArea: options.board?.scatterArea ?? defaults.board.scatterArea,
       showBoardSlotOutlines:
         options.board?.showBoardSlotOutlines ?? defaults.board.showBoardSlotOutlines,
       snapThreshold: options.board?.snapThreshold ?? defaults.board.snapThreshold,
