@@ -11,6 +11,7 @@ interface PuzzleProps {
   options?: InitialPuzzleOptions;
   onComplete?: () => void;
   onRefresh?: () => void;
+  responsive?: boolean;
 }
 
 const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {

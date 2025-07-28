@@ -10,10 +10,11 @@ interface PuzzleContentProps {
   options: PuzzleOptions;
   onComplete?: () => void;
   onRefresh?: () => void;
+  responsive?: boolean;
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, options, onComplete, onRefresh } = props;
+  const { image, options, onComplete, onRefresh, responsive } = props;
   const {
     rows,
     columns,
@@ -43,10 +44,14 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   return (
     <div
       className={styles.puzzle}
-      style={{
-        width: `${options.board.width}px`,
-        minHeight: `${options.board.height}px`,
-      }}
+      style={
+        !responsive
+          ? {
+              width: `${options.board.width}px`,
+              minHeight: `${options.board.height}px`,
+            }
+          : {}
+      }
     >
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
@@ -61,6 +66,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
+        responsive={responsive}
       />
       <Settings
         currentRows={rows}

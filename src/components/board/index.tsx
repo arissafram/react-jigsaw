@@ -24,6 +24,7 @@ interface BoardProps {
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
   scatterArea: number;
+  responsive?: boolean;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
@@ -39,10 +40,14 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     showBoardSlotOutlines,
     snapThreshold,
     scatterArea,
+    responsive = false,
   } = props;
 
   const pieceHeight = boardHeight / rows;
   const pieceWidth = boardWidth / columns;
+
+  // Calculate aspect ratio for responsive behavior
+  const aspectRatio = boardWidth / boardHeight;
 
   // Shuffled pieces with random positions
   const [shuffledPieces, setShuffledPieces] = useState<PiecePosition[]>([]);
@@ -135,13 +140,23 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }
   };
 
+  // Determine board classes and styles
+  const boardClasses = responsive
+    ? `${styles.board} ${styles.responsive} ${className}`
+    : `${styles.board} ${className}`;
+
+  const boardStyles = responsive
+    ? ({ '--board-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
+    : {};
+
   return (
     <svg
       ref={boardRef}
-      className={`${styles.board} ${className}`}
+      className={boardClasses}
       height={boardHeight}
       width={boardWidth}
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}
+      style={boardStyles}
     >
       <BoardOutlines
         boardPathOptions={boardPathOptions}

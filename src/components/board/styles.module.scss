@@ -5,3 +5,24 @@
   overflow: visible;
   z-index: 1;
 }
+
+.responsive {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: var(--board-aspect-ratio, 1);
+
+  // Ensure pieces scale proportionally
+  & > * {
+    transform-origin: center;
+  }
+
+  // Mobile adjustments
+  @media (max-width: 768px) {
+    border-radius: 8px;
+  }
+
+  // Small mobile adjustments
+  @media (max-width: 480px) {
+    border-radius: 6px;
+  }
+}
