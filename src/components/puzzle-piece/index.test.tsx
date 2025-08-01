@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import PuzzlePiece from './index';
 
 // Mock the useMovePieces hook
@@ -109,7 +109,7 @@ describe('PuzzlePiece', () => {
     expect(image).toHaveAttribute('height', '800');
   });
 
-  it('renders with correct class name', () => {
+  it('renders with correct className', () => {
     render(<PuzzlePiece {...defaultProps} />);
     const puzzlePiece = document.querySelector('g');
     expect(puzzlePiece?.className).toContain('puzzlePiece');
