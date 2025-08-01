@@ -1,7 +1,7 @@
 import Board from '@/components/board';
 import EditRowsColumns from '@/components/settings/components/edit-rows-columns';
-import Timer from '@/components/settings/components/timer';
 import RefreshButton from '@/components/settings/components/refresh-button';
+import Timer from '@/components/settings/components/timer';
 import { usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions } from '@/types';
 
@@ -50,12 +50,15 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     ? `${styles.puzzle} ${styles.responsive}`
     : styles.puzzle;
 
-  const containerStyles = options.puzzle.responsive
+  const aspectRatioStyle = options.puzzle.responsive
     ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
     : {};
 
   return (
-    <div className={containerClasses} style={{ maxWidth: options.board.width, ...containerStyles }}>
+    <div
+      className={containerClasses}
+      style={{ maxWidth: options.board.width, ...aspectRatioStyle }}
+    >
       {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
         <div className={styles.settingsContainer}>
           {options.puzzle.timer.enabled && (
@@ -76,12 +79,12 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         className={options.board.className}
         columns={columns}
         image={image}
+        onPuzzleComplete={handlePuzzleComplete}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
-        snapThreshold={options.board.snapThreshold}
-        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         scatterArea={options.board.scatterArea}
-        onPuzzleComplete={handlePuzzleComplete}
+        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
+        snapThreshold={options.board.snapThreshold}
       />
       {options.puzzle.rowsAndColumns.enabled && (
         <div className={styles.settingsContainer}>
