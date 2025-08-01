@@ -1,7 +1,7 @@
 import Board from '@/components/board';
-import EditRowsColumns from '@/components/settings/components/edit-rows-columns';
-import RefreshButton from '@/components/settings/components/refresh-button';
-import Timer from '@/components/settings/components/timer';
+import EditRowsColumns from '@/components/edit-rows-columns';
+import RefreshButton from '@/components/refresh-button';
+import Timer from '@/components/timer';
 import { usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions } from '@/types';
 
