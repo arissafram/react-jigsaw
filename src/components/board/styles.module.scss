@@ -15,14 +15,4 @@
   & > * {
     transform-origin: center;
   }
-
-  // Mobile adjustments
-  @media (max-width: 768px) {
-    border-radius: 8px;
-  }
-
-  // Small mobile adjustments
-  @media (max-width: 480px) {
-    border-radius: 6px;
-  }
 }

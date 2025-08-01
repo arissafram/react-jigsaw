@@ -18,7 +18,7 @@ const App = () => {
     <Puzzle
       image={imageSource}
       onRefresh={handleRefresh}
-      responsive={false}
+      responsive={true}
       options={{
         board: { columns: 2, rows: 2 },
         puzzle: {
