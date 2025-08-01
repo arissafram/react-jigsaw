@@ -8,17 +8,15 @@ interface BoardOutlinesProps {
   boardSlots: BoardSlot[];
   showBoardSlotOutlines: boolean | undefined;
   snappedPieceIds: SnappedPieceIds;
-  dataTestId?: string;
 }
 
 const BoardOutlines = (props: BoardOutlinesProps) => {
-  const { boardPathOptions, boardSlots, showBoardSlotOutlines, snappedPieceIds, dataTestId } =
-    props;
+  const { boardPathOptions, boardSlots, showBoardSlotOutlines, snappedPieceIds } = props;
 
   if (!showBoardSlotOutlines) return null;
 
   return (
-    <g data-testid={dataTestId}>
+    <g data-testid="board-outlines">
       {boardSlots.map(({ pieceRow: row, pieceCol: col }) => {
         const boardSlotKey = `${row}-${col}`;
         const isSnapped = snappedPieceIds.has(boardSlotKey);

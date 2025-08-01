@@ -4,13 +4,12 @@ import styles from './styles.module.scss';
 
 interface TimerProps {
   className?: string;
-  dataTestId?: string;
   isRunning: boolean;
   onTimeUpdate?: (seconds: number) => void;
 }
 
 const Timer: FC<TimerProps> = (props: TimerProps) => {
-  const { className, dataTestId, isRunning, onTimeUpdate } = props;
+  const { className, isRunning, onTimeUpdate } = props;
 
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -55,7 +54,7 @@ const Timer: FC<TimerProps> = (props: TimerProps) => {
   };
 
   return (
-    <div data-testid={dataTestId} className={`${styles.timer} ${className}`}>
+    <div data-testid="timer" className={`${styles.timer} ${className}`}>
       {formatTime(seconds)}
     </div>
   );

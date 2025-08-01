@@ -39,7 +39,7 @@ describe('BoardOutlines', () => {
   };
 
   it('renders without crashing', () => {
-    render(<BoardOutlines {...defaultProps} dataTestId="board-outlines" />);
+    render(<BoardOutlines {...defaultProps} />);
     expect(screen.getByTestId('board-outlines')).toBeInTheDocument();
   });
 

@@ -21,10 +21,9 @@ const PuzzleContent = () => {
   const context = usePuzzleContext();
   return (
     <div>
-      <Timer dataTestId="timer" isRunning={context.timerIsRunning} />
-      <RefreshButton dataTestId="refresh-button" onRefresh={context.refreshBoard} />
+      <Timer isRunning={context.timerIsRunning} />
+      <RefreshButton onRefresh={context.refreshBoard} />
       <EditRowsColumns
-        dataTestId="edit-rows-columns"
         currentRows={context.rows}
         currentColumns={context.columns}
         onBoardSlotChange={context.setBoardGrid}

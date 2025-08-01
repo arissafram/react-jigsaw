@@ -63,16 +63,12 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
       {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
         <div className={styles.settingsContainer}>
           {options.puzzle.timer.enabled && (
-            <Timer
-              className={options.puzzle.timer.className}
-              dataTestId="timer"
-              isRunning={timerIsRunning}
-            />
+            <Timer className={options.puzzle.timer.className} isRunning={timerIsRunning} />
           )}
           {options.puzzle.refreshButton.enabled && (
             <RefreshButton
               className={options.puzzle.refreshButton.className}
-              dataTestId="refresh-button"
+              // dataTestId="refresh-button"
               onRefresh={handleRefresh}
             />
           )}
@@ -84,7 +80,6 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         boardWidth={options.board.width}
         className={options.board.className}
         columns={columns}
-        dataTestId="board"
         image={image}
         onPuzzleComplete={handlePuzzleComplete}
         puzzlePieceOptions={options.puzzlePiece}
@@ -99,7 +94,6 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
             className={options.puzzle.rowsAndColumns.className}
             currentRows={rows}
             currentColumns={columns}
-            dataTestId="edit-rows-columns"
             onBoardSlotChange={handleBoardSlotChange}
           />
         </div>
