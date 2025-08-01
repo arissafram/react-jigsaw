@@ -15,15 +15,15 @@ interface PuzzleContentProps {
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, options, onComplete, onRefresh } = props;
+  const { image, onComplete, onRefresh, options } = props;
   const {
-    rows,
     columns,
-    setBoardGrid,
     refreshBoard,
-    timerIsRunning,
     refreshCount,
+    rows,
+    setBoardGrid,
     setTimerIsRunning,
+    timerIsRunning,
   } = usePuzzleContext();
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
