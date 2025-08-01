@@ -21,7 +21,7 @@ const App = () => {
       options={{
         board: { columns: 2, rows: 2 },
         puzzle: {
-          responsive: true,
+          responsive: false,
           settings: {
             enabled: true,
             timer: { enabled: true },
