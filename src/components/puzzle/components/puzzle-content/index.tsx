@@ -55,11 +55,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     : {};
 
   return (
-    <div
-      data-testid="puzzle-content"
-      className={containerClasses}
-      style={{ maxWidth: options.board.width, ...aspectRatioStyle }}
-    >
+    <div data-testid="puzzle-content" className={containerClasses} style={{ ...aspectRatioStyle }}>
       {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
         <div className={styles.settingsContainer}>
           {options.puzzle.timer.enabled && (

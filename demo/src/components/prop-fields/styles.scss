@@ -1,0 +1,78 @@
+.formGroup {
+  align-items: center;
+  display: flex;
+  margin-bottom: 4px;
+
+  &.indent1 {
+    margin-left: 0.75rem;
+  }
+
+  &.indent2 {
+    margin-left: 1.5rem;
+  }
+
+  &.indent3 {
+    margin-left: 2.25rem;
+  }
+
+  label {
+    color: #333;
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  input[type='text'],
+  input[type='number'] {
+    background: transparent;
+    border: none;
+    color: #333;
+    font-family: monospace;
+    font-size: 0.75rem;
+    width: auto;
+
+    &:focus {
+      background-color: transparent;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #999;
+      font-style: italic;
+    }
+
+    // Remove up/down arrows from number inputs
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+  }
+
+  input[type='checkbox'] {
+    width: 14px;
+    height: 14px;
+    accent-color: #333;
+  }
+
+  .key {
+    color: #333;
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
+  }
+
+  .brace {
+    color: #666;
+    font-family: monospace;
+    font-size: 12pxg;
+    margin-right: 4px;
+  }
+}

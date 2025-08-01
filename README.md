@@ -58,12 +58,12 @@ function App() {
 
 ### `PuzzleOptions`
 
-| Property      | Type                                              | Default                                                         | Description                                                             |
-| ------------- | ------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `board`       | [`BoardOptions`](./src/types/index.tsx#L10)       | `{ rows: 3, columns: 3 }`                                       | Options for the puzzle board, including the number of rows and columns. |
-| `puzzlePiece` | [`PuzzlePieceOptions`](./src/types/index.tsx#L15) | `{ strokeEnabled: true, strokeColor: 'white', strokeWidth: 2 }` | Options for the puzzle pieces, including stroke color and width.        |
-| `callbacks`   | [`Callbacks`](./src/types/index.tsx#L21)          | `{}`                                                            | Callbacks for puzzle events, such as `onSnap` and `onDone`.             |
-| `snap`        | [`SnapOptions`](./src/types/index.tsx#L26)        | `{ threshold: 20 }`                                             | Options for snapping, including the snap threshold.                     |
+| Property      | Type                                              | Default                                         | Description                                                             |
+| ------------- | ------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| `board`       | [`BoardOptions`](./src/types/index.tsx#L10)       | `{ rows: 3, columns: 3 }`                       | Options for the puzzle board, including the number of rows and columns. |
+| `puzzlePiece` | [`PuzzlePieceOptions`](./src/types/index.tsx#L15) | `{ strokeEnabled: true, strokeColor: 'white' }` | Options for the puzzle pieces, including stroke color and width.        |
+| `callbacks`   | [`Callbacks`](./src/types/index.tsx#L21)          | `{}`                                            | Callbacks for puzzle events, such as `onSnap` and `onDone`.             |
+| `snap`        | [`SnapOptions`](./src/types/index.tsx#L26)        | `{ threshold: 20 }`                             | Options for snapping, including the snap threshold.                     |
 
 ## Development
 

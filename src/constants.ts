@@ -16,7 +16,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   puzzlePiece: {
     strokeColor: 'gold',
     strokeEnabled: true,
-    strokeWidth: 2,
   },
   puzzle: {
     className: '',
@@ -37,3 +36,5 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
 };
 
 export const REACT_JIGSAW_STORAGE_KEY = 'react-jigsaw';
+
+export const STROKE_WIDTH = 2;

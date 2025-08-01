@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 
+import { STROKE_WIDTH } from '@/constants';
 import { useMovePieces } from '@/hooks/use-move-pieces';
 import { PuzzleOptions, BoardRef } from '@/types';
 
@@ -148,7 +149,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
         stroke={
           isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
         }
-        strokeWidth={puzzlePieceOptions.strokeEnabled ? puzzlePieceOptions.strokeWidth : 0}
+        strokeWidth={puzzlePieceOptions.strokeEnabled ? STROKE_WIDTH : 0}
       />
     </g>
   );
