@@ -88,6 +88,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         snapThreshold={options.board.snapThreshold}
       />
+      <p>hello</p>
       {options.puzzle.rowsAndColumns.enabled && (
         <div className={styles.settingsContainer}>
           <EditRowsColumns
