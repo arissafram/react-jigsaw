@@ -2,14 +2,14 @@ import { FC, useState, useEffect } from 'react';
 
 import styles from './styles.module.scss';
 
-interface RowsAndColumnsProps {
+interface EditRowsColumnsProps {
   className?: string;
   currentRows: number;
   currentColumns: number;
   onBoardSlotChange: (rows: number, columns: number) => void;
 }
 
-export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
+const EditRowsColumns: FC<EditRowsColumnsProps> = ({
   className,
   currentRows,
   currentColumns,
@@ -65,7 +65,7 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
 
   return (
     <>
-      <form className={`${styles.rowsAndColumns} ${className}`} onSubmit={handleSubmit}>
+      <form className={`${styles.editRowsColumns} ${className}`} onSubmit={handleSubmit}>
         <label>
           Rows:
           <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
@@ -80,3 +80,5 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
     </>
   );
 };
+
+export default EditRowsColumns;

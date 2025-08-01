@@ -7,7 +7,7 @@ interface RefreshButtonProps {
   onRefresh: () => void;
 }
 
-export const RefreshButton: FC<RefreshButtonProps> = ({ className, onRefresh }) => {
+const RefreshButton: FC<RefreshButtonProps> = ({ className, onRefresh }) => {
   return (
     <button
       className={`${styles.refreshButton} ${className}`}
@@ -32,3 +32,5 @@ export const RefreshButton: FC<RefreshButtonProps> = ({ className, onRefresh }) 
     </button>
   );
 };
+
+export default RefreshButton;

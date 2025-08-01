@@ -8,7 +8,7 @@ interface TimerProps {
   onTimeUpdate?: (seconds: number) => void;
 }
 
-export const Timer: FC<TimerProps> = ({ className, isRunning, onTimeUpdate }) => {
+const Timer: FC<TimerProps> = ({ className, isRunning, onTimeUpdate }) => {
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -53,3 +53,5 @@ export const Timer: FC<TimerProps> = ({ className, isRunning, onTimeUpdate }) =>
 
   return <div className={`${styles.timer} ${className}`}>{formatTime(seconds)}</div>;
 };
+
+export default Timer;
