@@ -40,7 +40,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     showBoardSlotOutlines,
     snapThreshold,
     scatterArea,
-    responsive = false,
+    responsive,
   } = props;
 
   const pieceHeight = boardHeight / rows;
@@ -154,9 +154,9 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       ref={boardRef}
       className={boardClasses}
       height={boardHeight}
+      style={boardStyles}
       width={boardWidth}
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}
-      style={boardStyles}
     >
       <BoardOutlines
         boardPathOptions={boardPathOptions}

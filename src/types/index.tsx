@@ -52,6 +52,7 @@ export interface InitialPuzzleOptions {
       };
     };
   };
+  responsive?: boolean;
 }
 
 export interface PiecePosition extends BoardSlot {
@@ -96,6 +97,7 @@ export interface PuzzleOptions {
     strokeEnabled: boolean;
     strokeWidth: number;
   };
+  responsive: boolean;
 }
 
 export type SnappedPieceIds = Set<string>;

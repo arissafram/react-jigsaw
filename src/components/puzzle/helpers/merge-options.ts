@@ -65,5 +65,6 @@ export const mergeOptions = (
         },
       },
     },
+    responsive: options.responsive ?? defaults.responsive,
   };
 };
