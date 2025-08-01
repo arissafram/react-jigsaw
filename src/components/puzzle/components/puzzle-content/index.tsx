@@ -42,17 +42,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   };
 
   return (
-    <div
-      className={styles.puzzle}
-      style={
-        !responsive
-          ? {
-              width: `${options.board.width}px`,
-              minHeight: `${options.board.height}px`,
-            }
-          : {}
-      }
-    >
+    <div className={styles.puzzle}>
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
