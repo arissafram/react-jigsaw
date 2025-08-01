@@ -1,5 +1,4 @@
 .refreshButton {
-  align-self: flex-end;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 4px;
   background: rgb(255, 255, 255);
@@ -8,11 +7,13 @@
   font-family: monospace;
   font-size: 14px;
   font-weight: bold;
+  height: 24px;
   padding: 3px 6px;
-  width: auto;
+  width: 30px;
 
   svg {
-    width: 16px;
+    align-self: center;
     height: 16px;
+    width: 16px;
   }
 }

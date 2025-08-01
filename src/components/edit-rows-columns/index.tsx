@@ -2,19 +2,15 @@ import { FC, useState, useEffect } from 'react';
 
 import styles from './styles.module.scss';
 
-interface RowsAndColumnsProps {
+interface EditRowsColumnsProps {
   className?: string;
   currentRows: number;
   currentColumns: number;
   onBoardSlotChange: (rows: number, columns: number) => void;
 }
 
-export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
-  className,
-  currentRows,
-  currentColumns,
-  onBoardSlotChange,
-}) => {
+const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) => {
+  const { className, currentColumns, currentRows, onBoardSlotChange } = props;
   const [rows, setRows] = useState(currentRows.toString());
   const [columns, setColumns] = useState(currentColumns.toString());
 
@@ -64,16 +60,21 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   };
 
   return (
-    <form className={`${styles.rowsAndColumns} ${className}`} onSubmit={handleSubmit}>
-      <label>
-        Rows:
-        <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
-      </label>
-      <label>
-        Cols:
-        <input type="text" value={columns} onChange={handleColumnsChange} placeholder="2-10" />
-      </label>
-      <input type="submit" value="Ok" disabled={!isValid} />
-    </form>
+    <>
+      <form className={`${styles.editRowsColumns} ${className}`} onSubmit={handleSubmit}>
+        <label>
+          Rows:
+          <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
+        </label>
+        <label>
+          Cols:
+          <input type="text" value={columns} onChange={handleColumnsChange} placeholder="2-10" />
+        </label>
+        <input type="submit" value="Ok" disabled={!isValid} />
+      </form>
+      <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>
+    </>
   );
 };
+
+export default EditRowsColumns;

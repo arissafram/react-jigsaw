@@ -38,31 +38,20 @@ export const mergeOptions = (
     },
     puzzle: {
       className: options.puzzle?.className ?? defaults.puzzle.className,
-      settings: {
-        className: options.puzzle?.settings?.className ?? defaults.puzzle.settings.className,
-        enabled: options.puzzle?.settings?.enabled ?? defaults.puzzle.settings.enabled,
-        timer: {
-          className:
-            options.puzzle?.settings?.timer?.className ?? defaults.puzzle.settings.timer.className,
-          enabled:
-            options.puzzle?.settings?.timer?.enabled ?? defaults.puzzle.settings.timer.enabled,
-        },
-        refreshButton: {
-          className:
-            options.puzzle?.settings?.refreshButton?.className ??
-            defaults.puzzle.settings.refreshButton.className,
-          enabled:
-            options.puzzle?.settings?.refreshButton?.enabled ??
-            defaults.puzzle.settings.refreshButton.enabled,
-        },
-        rowsAndColumns: {
-          className:
-            options.puzzle?.settings?.rowsAndColumns?.className ??
-            defaults.puzzle.settings.rowsAndColumns.className,
-          enabled:
-            options.puzzle?.settings?.rowsAndColumns?.enabled ??
-            defaults.puzzle.settings.rowsAndColumns.enabled,
-        },
+      responsive: options.puzzle?.responsive ?? defaults.puzzle.responsive,
+      timer: {
+        className: options.puzzle?.timer?.className ?? defaults.puzzle.timer.className,
+        enabled: options.puzzle?.timer?.enabled ?? defaults.puzzle.timer.enabled,
+      },
+      refreshButton: {
+        className:
+          options.puzzle?.refreshButton?.className ?? defaults.puzzle.refreshButton.className,
+        enabled: options.puzzle?.refreshButton?.enabled ?? defaults.puzzle.refreshButton.enabled,
+      },
+      rowsAndColumns: {
+        className:
+          options.puzzle?.rowsAndColumns?.className ?? defaults.puzzle.rowsAndColumns.className,
+        enabled: options.puzzle?.rowsAndColumns?.enabled ?? defaults.puzzle.rowsAndColumns.enabled,
       },
     },
   };

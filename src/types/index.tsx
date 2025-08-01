@@ -20,6 +20,7 @@ export interface InitialPuzzleOptions {
     className?: string;
     columns?: number;
     height?: number;
+    responsive?: boolean;
     rows?: number;
     scatterArea?: number;
     showBoardSlotOutlines?: boolean;
@@ -28,29 +29,26 @@ export interface InitialPuzzleOptions {
   };
   onComplete?: () => void;
   onRefresh?: () => void;
+  puzzle?: {
+    className?: string;
+    responsive?: boolean;
+    timer?: {
+      className?: string;
+      enabled?: boolean;
+    };
+    refreshButton?: {
+      className?: string;
+      enabled?: boolean;
+    };
+    rowsAndColumns?: {
+      className?: string;
+      enabled?: boolean;
+    };
+  };
   puzzlePiece?: {
     strokeColor?: string;
     strokeEnabled?: boolean;
     strokeWidth?: number;
-  };
-  puzzle?: {
-    className?: string;
-    settings?: {
-      className?: string;
-      enabled?: boolean;
-      timer?: {
-        className?: string;
-        enabled?: boolean;
-      };
-      refreshButton?: {
-        className?: string;
-        enabled?: boolean;
-      };
-      rowsAndColumns?: {
-        className?: string;
-        enabled?: boolean;
-      };
-    };
   };
 }
 
@@ -74,21 +72,18 @@ export interface PuzzleOptions {
   onRefresh: () => void;
   puzzle: {
     className: string;
-    settings: {
+    responsive: boolean;
+    timer: {
       className: string;
       enabled: boolean;
-      timer: {
-        className: string;
-        enabled: boolean;
-      };
-      refreshButton: {
-        className: string;
-        enabled: boolean;
-      };
-      rowsAndColumns: {
-        className: string;
-        enabled: boolean;
-      };
+    };
+    refreshButton: {
+      className: string;
+      enabled: boolean;
+    };
+    rowsAndColumns: {
+      className: string;
+      enabled: boolean;
     };
   };
   puzzlePiece: {

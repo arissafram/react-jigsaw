@@ -4,6 +4,22 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  min-width: 260px;
   padding: 16px;
   width: auto;
+}
+
+.responsive {
+  aspect-ratio: var(--puzzle-aspect-ratio, 1);
+  max-width: 100%;
+
+  & > * {
+    height: auto;
+    width: 100%;
+  }
+}
+.settingsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

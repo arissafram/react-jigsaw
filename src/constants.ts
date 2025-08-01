@@ -20,21 +20,18 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   },
   puzzle: {
     className: '',
-    settings: {
+    responsive: false,
+    timer: {
       className: '',
       enabled: false,
-      timer: {
-        className: '',
-        enabled: false,
-      },
-      refreshButton: {
-        className: '',
-        enabled: false,
-      },
-      rowsAndColumns: {
-        className: '',
-        enabled: false,
-      },
+    },
+    refreshButton: {
+      className: '',
+      enabled: false,
+    },
+    rowsAndColumns: {
+      className: '',
+      enabled: false,
     },
   },
 };

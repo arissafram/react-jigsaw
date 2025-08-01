@@ -1,5 +1,7 @@
 import Board from '@/components/board';
-import Settings from '@/components/settings';
+import EditRowsColumns from '@/components/edit-rows-columns';
+import RefreshButton from '@/components/refresh-button';
+import Timer from '@/components/timer';
 import { usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions } from '@/types';
 
@@ -13,15 +15,15 @@ interface PuzzleContentProps {
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, options, onComplete, onRefresh } = props;
+  const { image, onComplete, onRefresh, options } = props;
   const {
-    rows,
     columns,
-    setBoardGrid,
     refreshBoard,
-    timerIsRunning,
     refreshCount,
+    rows,
+    setBoardGrid,
     setTimerIsRunning,
+    timerIsRunning,
   } = usePuzzleContext();
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
@@ -40,14 +42,36 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     onComplete?.();
   };
 
+  // Calculate aspect ratio for responsive behavior
+  const aspectRatio = options.board.width / options.board.height;
+
+  // Determine container classes and styles
+  const containerClasses = options.puzzle.responsive
+    ? `${styles.puzzle} ${styles.responsive}`
+    : styles.puzzle;
+
+  const aspectRatioStyle = options.puzzle.responsive
+    ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
+    : {};
+
   return (
     <div
-      className={styles.puzzle}
-      style={{
-        width: `${options.board.width}px`,
-        minHeight: `${options.board.height}px`,
-      }}
+      className={containerClasses}
+      style={{ maxWidth: options.board.width, ...aspectRatioStyle }}
     >
+      {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
+        <div className={styles.settingsContainer}>
+          {options.puzzle.timer.enabled && (
+            <Timer className={options.puzzle.timer.className} isRunning={timerIsRunning} />
+          )}
+          {options.puzzle.refreshButton.enabled && (
+            <RefreshButton
+              className={options.puzzle.refreshButton.className}
+              onRefresh={handleRefresh}
+            />
+          )}
+        </div>
+      ) : null}
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
@@ -55,21 +79,23 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         className={options.board.className}
         columns={columns}
         image={image}
+        onPuzzleComplete={handlePuzzleComplete}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
-        snapThreshold={options.board.snapThreshold}
-        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         scatterArea={options.board.scatterArea}
-        onPuzzleComplete={handlePuzzleComplete}
+        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
+        snapThreshold={options.board.snapThreshold}
       />
-      <Settings
-        currentRows={rows}
-        currentColumns={columns}
-        onBoardSlotChange={handleBoardSlotChange}
-        onRefresh={handleRefresh}
-        timerIsRunning={timerIsRunning}
-        settings={options.puzzle.settings}
-      />
+      {options.puzzle.rowsAndColumns.enabled && (
+        <div className={styles.settingsContainer}>
+          <EditRowsColumns
+            className={options.puzzle.rowsAndColumns.className}
+            currentRows={rows}
+            currentColumns={columns}
+            onBoardSlotChange={handleBoardSlotChange}
+          />
+        </div>
+      )}
     </div>
   );
 };

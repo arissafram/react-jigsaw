@@ -21,12 +21,10 @@ const App = () => {
       options={{
         board: { columns: 2, rows: 2 },
         puzzle: {
-          settings: {
-            enabled: true,
-            timer: { enabled: true },
-            refreshButton: { enabled: true },
-            rowsAndColumns: { enabled: true },
-          },
+          responsive: true,
+          timer: { enabled: true },
+          refreshButton: { enabled: true },
+          rowsAndColumns: { enabled: true },
         },
       }}
     />
