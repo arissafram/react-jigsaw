@@ -7,7 +7,7 @@
   font-family: monospace;
   font-size: 14px;
   font-weight: bold;
-  max-height: 24px;
+  height: 24px;
   padding: 3px 6px;
   width: 30px;
 
@@ -15,9 +15,5 @@
     margin: 0 auto;
     height: 16px;
     width: 16px;
-  }
-
-  @media (min-width: 480px) {
-    height: 24px;
   }
 }
