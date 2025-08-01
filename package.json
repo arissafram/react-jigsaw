@@ -2,8 +2,7 @@
   "scripts": {
     "demo": "npm run dev --prefix demo",
     "check-types": "tsc --noEmit",
-    "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test": "vitest"
   },
   "type": "module",
   "dependencies": {
