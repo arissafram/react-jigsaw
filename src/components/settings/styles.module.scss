@@ -4,16 +4,10 @@
   padding: 16px 0 0 0;
 
   .rightContainer {
-    align-items: flex-start;
     display: flex;
     flex: 1;
-    flex-direction: column;
     gap: 4px;
-
-    @media (min-width: 480px) {
-      flex-direction: row;
-      justify-content: flex-end;
-    }
+    justify-content: flex-end;
   }
 
   .inlineNote {

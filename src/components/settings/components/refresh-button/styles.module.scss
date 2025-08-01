@@ -1,5 +1,4 @@
 .refreshButton {
-  align-self: flex-end;
   border: 1px solid rgb(221, 221, 221);
   border-radius: 4px;
   background: rgb(255, 255, 255);
@@ -8,8 +7,9 @@
   font-family: monospace;
   font-size: 14px;
   font-weight: bold;
+  max-height: 24px;
   padding: 3px 6px;
-  width: 44px;
+  width: 30px;
 
   svg {
     margin: 0 auto;
@@ -18,6 +18,6 @@
   }
 
   @media (min-width: 480px) {
-    width: auto;
+    height: 24px;
   }
 }
