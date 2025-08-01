@@ -9,10 +9,15 @@
   font-size: 14px;
   font-weight: bold;
   padding: 3px 6px;
-  width: auto;
+  width: 44px;
 
   svg {
-    width: 16px;
+    margin: 0 auto;
     height: 16px;
+    width: 16px;
+  }
+
+  @media (min-width: 480px) {
+    width: auto;
   }
 }

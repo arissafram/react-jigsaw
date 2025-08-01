@@ -6,10 +6,9 @@
   font-size: 12px;
   font-weight: bold;
   width: auto;
-  margin-right: 6px;
 
   @media (min-width: 480px) {
     align-self: center;
-    border: 1px solid red;
+    margin-right: 6px;
   }
 }
