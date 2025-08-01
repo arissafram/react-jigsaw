@@ -44,11 +44,11 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   const aspectRatio = options.board.width / options.board.height;
 
   // Determine container classes and styles
-  const containerClasses = options.board.responsive
+  const containerClasses = options.puzzle.responsive
     ? `${styles.puzzle} ${styles.responsive}`
     : styles.puzzle;
 
-  const containerStyles = options.board.responsive
+  const containerStyles = options.puzzle.responsive
     ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
     : {};
 

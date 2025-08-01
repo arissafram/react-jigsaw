@@ -66,7 +66,6 @@ export interface PuzzleOptions {
     className: string;
     columns: number;
     height: number;
-    responsive: boolean;
     rows: number;
     scatterArea: number;
     showBoardSlotOutlines: boolean;
@@ -77,6 +76,7 @@ export interface PuzzleOptions {
   onRefresh: () => void;
   puzzle: {
     className: string;
+    responsive: boolean;
     settings: {
       className: string;
       enabled: boolean;

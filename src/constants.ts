@@ -5,7 +5,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     className: '',
     columns: 4,
     height: 500,
-    responsive: false,
     rows: 5,
     scatterArea: 0,
     showBoardSlotOutlines: true,
@@ -21,6 +20,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   },
   puzzle: {
     className: '',
+    responsive: false,
     settings: {
       className: '',
       enabled: false,
