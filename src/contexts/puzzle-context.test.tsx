@@ -1,4 +1,4 @@
-import { render, screen, act, cleanup } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { PuzzleProvider, usePuzzleContext } from './puzzle-context';
 import Timer from '../components/timer';
