@@ -1,78 +1,172 @@
 # React Jigsaw
 
-A simple and powerful React component for creating interactive jigsaw puzzles with touch support.
-
-## Features
-
-- **Customizable**: Control the number of rows and columns, image source, and more.
-- **Responsive**: The puzzle board adapts to the container size.
-- **Touch and Pointer Support**: Works on desktop and mobile with native pointer events.
-- **Keyboard Accessible**: Move and snap pieces using the keyboard.
-- **Snapping**: Pieces snap into place when they are close to their target.
-- **Auto-solving**: Animate the puzzle to solve itself.
+A React component for creating interactive jigsaw puzzles with customizable options and smooth drag-and-drop functionality.
 
 ## Installation
+
+### From GitHub (Recommended)
+
+You can install this component directly from GitHub:
+
+```bash
+npm install github:yourusername/react-jigsaw
+```
+
+Or using yarn:
+
+```bash
+yarn add github:yourusername/react-jigsaw
+```
+
+### From npm (when published)
 
 ```bash
 npm install react-jigsaw
 ```
 
-or with yarn:
-
-```bash
-yarn add react-jigsaw
-```
-
 ## Usage
+
+### Basic Usage
 
 ```tsx
 import { Puzzle } from 'react-jigsaw';
 
 function App() {
-  const imageUrl = 'https://your-image-url.com/image.jpg';
+  const handleComplete = () => {
+    console.log('Puzzle completed!');
+  };
+
+  return <Puzzle image="/path/to/your/image.jpg" onComplete={handleComplete} />;
+}
+```
+
+### Advanced Usage with Custom Options
+
+```tsx
+import { Puzzle, DEFAULT_PUZZLE_OPTIONS } from 'react-jigsaw';
+
+function App() {
+  const customOptions = {
+    board: {
+      columns: 6,
+      rows: 4,
+      width: 600,
+      height: 400,
+      snapThreshold: 15,
+      scatterArea: 100,
+      showBoardSlotOutlines: true,
+    },
+    puzzle: {
+      responsive: true,
+      timer: {
+        enabled: true,
+        className: 'custom-timer',
+      },
+      refreshButton: {
+        enabled: true,
+        className: 'custom-refresh-btn',
+      },
+      rowsAndColumns: {
+        enabled: true,
+        className: 'custom-controls',
+      },
+    },
+    puzzlePiece: {
+      strokeColor: '#ff6b6b',
+      strokeEnabled: true,
+    },
+  };
 
   return (
     <Puzzle
-      image={imageUrl}
-      options={{
-        board: {
-          rows: 3,
-          columns: 3,
-        },
-      }}
+      image="/path/to/your/image.jpg"
+      options={customOptions}
+      onComplete={() => console.log('Puzzle completed!')}
+      onRefresh={() => console.log('Puzzle refreshed!')}
+      responsive={true}
     />
   );
 }
 ```
 
-## API
+## Props
 
-### `Puzzle` Component Props
+### Puzzle Component Props
 
-| Prop      | Type                                     | Default     | Description                                                            |
-| --------- | ---------------------------------------- | ----------- | ---------------------------------------------------------------------- |
-| `image`   | `string`                                 | `undefined` | The URL of the image to use for the puzzle.                            |
-| `options` | [`PuzzleOptions`](./src/types/index.tsx) | `undefined` | An object with options to customize the puzzle. See below for details. |
-| `onSnap`  | `() => void`                             | `undefined` | A callback function that is called when a piece is snapped into place. |
-| `onDone`  | `() => void`                             | `undefined` | A callback function that is called when the puzzle is completed.       |
+| Prop         | Type                   | Default                  | Description                             |
+| ------------ | ---------------------- | ------------------------ | --------------------------------------- |
+| `image`      | `string`               | **required**             | URL or path to the image for the puzzle |
+| `options`    | `InitialPuzzleOptions` | `DEFAULT_PUZZLE_OPTIONS` | Configuration options for the puzzle    |
+| `onComplete` | `() => void`           | `undefined`              | Callback when puzzle is completed       |
+| `onRefresh`  | `() => void`           | `undefined`              | Callback when puzzle is refreshed       |
+| `responsive` | `boolean`              | `false`                  | Enable responsive behavior              |
 
-### `PuzzleOptions`
+### Board Options
 
-| Property      | Type                                              | Default                                         | Description                                                             |
-| ------------- | ------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
-| `board`       | [`BoardOptions`](./src/types/index.tsx#L10)       | `{ rows: 3, columns: 3 }`                       | Options for the puzzle board, including the number of rows and columns. |
-| `puzzlePiece` | [`PuzzlePieceOptions`](./src/types/index.tsx#L15) | `{ strokeEnabled: true, strokeColor: 'white' }` | Options for the puzzle pieces, including stroke color and width.        |
-| `callbacks`   | [`Callbacks`](./src/types/index.tsx#L21)          | `{}`                                            | Callbacks for puzzle events, such as `onSnap` and `onDone`.             |
-| `snap`        | [`SnapOptions`](./src/types/index.tsx#L26)        | `{ threshold: 20 }`                             | Options for snapping, including the snap threshold.                     |
+| Option                  | Type      | Default | Description                                  |
+| ----------------------- | --------- | ------- | -------------------------------------------- |
+| `columns`               | `number`  | `4`     | Number of columns in the puzzle              |
+| `rows`                  | `number`  | `5`     | Number of rows in the puzzle                 |
+| `width`                 | `number`  | `400`   | Width of the puzzle board                    |
+| `height`                | `number`  | `500`   | Height of the puzzle board                   |
+| `snapThreshold`         | `number`  | `20`    | Distance threshold for snapping pieces       |
+| `scatterArea`           | `number`  | `0`     | Area around board where pieces are scattered |
+| `showBoardSlotOutlines` | `boolean` | `true`  | Show outlines of board slots                 |
+| `className`             | `string`  | `''`    | CSS class for the board                      |
+
+### Puzzle Options
+
+| Option                     | Type      | Default | Description                        |
+| -------------------------- | --------- | ------- | ---------------------------------- |
+| `responsive`               | `boolean` | `false` | Enable responsive behavior         |
+| `className`                | `string`  | `''`    | CSS class for the puzzle container |
+| `timer.enabled`            | `boolean` | `false` | Enable timer functionality         |
+| `timer.className`          | `string`  | `''`    | CSS class for the timer            |
+| `refreshButton.enabled`    | `boolean` | `false` | Enable refresh button              |
+| `refreshButton.className`  | `string`  | `''`    | CSS class for the refresh button   |
+| `rowsAndColumns.enabled`   | `boolean` | `false` | Enable rows/columns controls       |
+| `rowsAndColumns.className` | `string`  | `''`    | CSS class for the controls         |
+
+### Puzzle Piece Options
+
+| Option          | Type      | Default  | Description           |
+| --------------- | --------- | -------- | --------------------- |
+| `strokeColor`   | `string`  | `'gold'` | Color of piece stroke |
+| `strokeEnabled` | `boolean` | `true`   | Enable piece stroke   |
+
+## Features
+
+- **Drag and Drop**: Smooth drag-and-drop functionality for puzzle pieces
+- **Snap to Grid**: Pieces automatically snap to correct positions
+- **Keyboard Navigation**: Full keyboard accessibility support
+- **Responsive Design**: Optional responsive behavior
+- **Customizable**: Extensive customization options
+- **Timer**: Optional built-in timer
+- **Refresh**: Optional refresh button to restart puzzle
+- **Row/Column Controls**: Optional controls to adjust puzzle size
+- **Local Storage**: Optional state persistence
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## Development
 
-To run the demo locally:
+### Prerequisites
 
-1. Clone this repository:
+- Node.js 18+
+- npm or yarn
+
+### Setup
+
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/airstack/react-jigsaw.git
+git clone https://github.com/yourusername/react-jigsaw.git
+cd react-jigsaw
 ```
 
 2. Install dependencies:
@@ -81,16 +175,32 @@ git clone https://github.com/airstack/react-jigsaw.git
 npm install
 ```
 
-3. Run the demo:
+3. Start the demo:
 
 ```bash
 npm run demo
 ```
 
-## Contributing
+4. Run tests:
 
-Contributions are welcome! Please open an issue or submit a pull request on GitHub.
+```bash
+npm test
+```
+
+### Building
+
+To build the library:
+
+```bash
+npm run build
+```
+
+This will create the distribution files in the `dist` directory.
 
 ## License
 
-This project is licensed under the MIT License.
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

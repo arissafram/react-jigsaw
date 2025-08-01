@@ -1,5 +1,27 @@
 {
+  "name": "react-jigsaw",
+  "version": "1.0.0",
+  "description": "A React component for creating interactive jigsaw puzzles",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./styles": {
+      "import": "./dist/react-jigsaw.css",
+      "require": "./dist/react-jigsaw.css"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "vite build",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "demo": "npm run dev --prefix demo",
     "check-types": "tsc --noEmit",
     "test": "SASS_SILENCE_DEPRECATION_WARNINGS=true vitest run --reporter=basic --silent 2>/dev/null"
@@ -8,6 +30,10 @@
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",
@@ -30,5 +56,19 @@
     "typescript-eslint": "^8.38.0",
     "vite": "^7.0.5",
     "vitest": "^2.1.8"
+  },
+  "keywords": [
+    "react",
+    "jigsaw",
+    "puzzle",
+    "game",
+    "interactive",
+    "component"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arissafram/react-jigsaw.git"
   }
 }

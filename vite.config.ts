@@ -11,10 +11,10 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: path.resolve(__dirname, 'src/index.tsx'),
       name: 'ReactJigsaw',
-      fileName: (format) => `react-jigsaw.${format}.js`,
-      formats: ['es', 'umd'],
+      fileName: (format) => `index.${format === 'es' ? 'esm' : format}.js`,
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
       // Externalize dependencies that shouldn't be bundled
@@ -24,7 +24,12 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') return 'styles.css';
+          return assetInfo.name || 'asset';
+        },
       },
     },
+    cssCodeSplit: false,
   },
 });
