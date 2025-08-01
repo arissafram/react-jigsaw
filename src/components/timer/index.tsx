@@ -53,7 +53,11 @@ const Timer: FC<TimerProps> = (props: TimerProps) => {
     return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  return <div className={`${styles.timer} ${className}`}>{formatTime(seconds)}</div>;
+  return (
+    <div data-testid="timer" className={`${styles.timer} ${className}`}>
+      {formatTime(seconds)}
+    </div>
+  );
 };
 
 export default Timer;

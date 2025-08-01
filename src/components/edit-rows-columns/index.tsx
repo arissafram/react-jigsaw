@@ -61,7 +61,11 @@ const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) 
 
   return (
     <>
-      <form className={`${styles.editRowsColumns} ${className}`} onSubmit={handleSubmit}>
+      <form
+        data-testid="edit-rows-columns"
+        className={`${styles.editRowsColumns} ${className}`}
+        onSubmit={handleSubmit}
+      >
         <label>
           Rows:
           <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
@@ -72,7 +76,7 @@ const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) 
         </label>
         <input type="submit" value="Ok" disabled={!isValid} />
       </form>
-      <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>
+      <span className={styles.inlineNote}>(Valid numbers: 2-10)</span>
     </>
   );
 };

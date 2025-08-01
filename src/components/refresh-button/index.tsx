@@ -12,6 +12,7 @@ const RefreshButton: FC<RefreshButtonProps> = (props: RefreshButtonProps) => {
 
   return (
     <button
+      data-testid="refresh-button"
       className={`${styles.refreshButton} ${className}`}
       onClick={onRefresh}
       title="Refresh puzzle"

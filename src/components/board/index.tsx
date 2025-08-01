@@ -139,6 +139,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     <svg
       ref={boardRef}
       className={`${styles.board} ${className}`}
+      data-testid="board"
       height={boardHeight}
       width={boardWidth}
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}

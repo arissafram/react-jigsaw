@@ -15,18 +15,23 @@ const BoardOutlines = (props: BoardOutlinesProps) => {
 
   if (!showBoardSlotOutlines) return null;
 
-  return boardSlots.map(({ pieceRow: row, pieceCol: col }) => {
-    const boardSlotKey = `${row}-${col}`;
-    const isSnapped = snappedPieceIds.has(boardSlotKey);
+  return (
+    <g data-testid="board-outlines">
+      {boardSlots.map(({ pieceRow: row, pieceCol: col }) => {
+        const boardSlotKey = `${row}-${col}`;
+        const isSnapped = snappedPieceIds.has(boardSlotKey);
 
-    return (
-      <path
-        key={`outline-${row}-${col}`}
-        className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
-        d={generateBoardPath({ row, col, options: boardPathOptions })}
-      />
-    );
-  });
+        return (
+          <path
+            key={`outline-${row}-${col}`}
+            data-testid={`outline-${row}-${col}`}
+            className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
+            d={generateBoardPath({ row, col, options: boardPathOptions })}
+          />
+        );
+      })}
+    </g>
+  );
 };
 
 export default BoardOutlines;

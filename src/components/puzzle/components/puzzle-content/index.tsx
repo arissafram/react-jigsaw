@@ -56,6 +56,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   return (
     <div
+      data-testid="puzzle-content"
       className={containerClasses}
       style={{ maxWidth: options.board.width, ...aspectRatioStyle }}
     >
@@ -67,6 +68,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
           {options.puzzle.refreshButton.enabled && (
             <RefreshButton
               className={options.puzzle.refreshButton.className}
+              // dataTestId="refresh-button"
               onRefresh={handleRefresh}
             />
           )}
