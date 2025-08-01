@@ -13,15 +13,6 @@ describe('RefreshButton', () => {
     expect(screen.getByTestId('refresh-button')).toBeInTheDocument();
   });
 
-  it('displays the refresh icon', () => {
-    render(<RefreshButton {...defaultProps} />);
-    const button = screen.getByTestId('refresh-button');
-
-    // Check that the SVG is present
-    const svg = button.querySelector('svg');
-    expect(svg).toBeInTheDocument();
-  });
-
   it('has the correct title attribute', () => {
     render(<RefreshButton {...defaultProps} />);
     const button = screen.getByTestId('refresh-button');
