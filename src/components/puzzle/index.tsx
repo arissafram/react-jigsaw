@@ -19,7 +19,11 @@ const Puzzle: React.FC<PuzzleProps> = (props: PuzzleProps) => {
   const mergedOptions: PuzzleOptions = mergeOptions(DEFAULT_PUZZLE_OPTIONS, options);
 
   return (
-    <PuzzleProvider rows={mergedOptions.board.rows} columns={mergedOptions.board.columns}>
+    <PuzzleProvider
+      checkLocalStorage={mergedOptions.checkLocalStorage}
+      rows={mergedOptions.board.rows}
+      columns={mergedOptions.board.columns}
+    >
       <PuzzleContent {...props} options={mergedOptions} />
     </PuzzleProvider>
   );

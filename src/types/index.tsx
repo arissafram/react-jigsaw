@@ -27,6 +27,7 @@ export interface InitialPuzzleOptions {
     snapThreshold?: number;
     width?: number;
   };
+  checkLocalStorage?: boolean;
   onComplete?: () => void;
   onRefresh?: () => void;
   puzzle?: {
@@ -67,6 +68,7 @@ export interface PuzzleOptions {
     snapThreshold: number;
     width: number;
   };
+  checkLocalStorage: boolean;
   onComplete: () => void;
   onRefresh: () => void;
   puzzle: {
