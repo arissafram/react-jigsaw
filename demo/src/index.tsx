@@ -15,19 +15,21 @@ const App = () => {
   };
 
   return (
-    <Puzzle
-      image={imageSource}
-      onRefresh={handleRefresh}
-      options={{
-        board: { columns: 2, rows: 2 },
-        puzzle: {
-          responsive: true,
-          timer: { enabled: true },
-          refreshButton: { enabled: true },
-          rowsAndColumns: { enabled: true },
-        },
-      }}
-    />
+    <div className="puzzleWrapper">
+      <Puzzle
+        image={imageSource}
+        onRefresh={handleRefresh}
+        options={{
+          board: { columns: 2, rows: 2 },
+          puzzle: {
+            responsive: true,
+            timer: { enabled: true },
+            refreshButton: { enabled: true },
+            rowsAndColumns: { enabled: true },
+          },
+        }}
+      />
+    </div>
   );
 };
 
