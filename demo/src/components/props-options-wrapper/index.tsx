@@ -62,7 +62,7 @@ const PropOptionsWrapper = (props: PropOptionsWrapperProps) => {
 
   const formFields = FIELDS.map((field) => (
     <PropField
-      key={field.name}
+      key={`${field.name}-${field.label}`}
       field={field}
       getValue={getFieldValue}
       updateFormOption={updateField}
@@ -72,7 +72,7 @@ const PropOptionsWrapper = (props: PropOptionsWrapperProps) => {
   return (
     <div className="propOptionsWrapper">
       <button className="propsToggleButton" onClick={() => setIsOpen(!isOpen)}>
-        Update puzzle props
+        {isOpen ? 'Close puzzle props' : 'Update puzzle props'}
       </button>
       {isOpen && (
         <div className="propsMenu">

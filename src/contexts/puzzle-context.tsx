@@ -16,14 +16,15 @@ interface PuzzleContextState {
 const PuzzleContext = createContext<PuzzleContextState | undefined>(undefined);
 
 interface PuzzleProviderProps {
+  checkLocalStorage: boolean;
   children: React.ReactNode;
   columns: number;
   rows: number;
 }
 
 // On first mount, check localStorage for saved values
-const getInitialBoardConfig = () => {
-  if (typeof window !== 'undefined') {
+const getInitialBoardConfig = (checkLocalStorage: boolean) => {
+  if (typeof window !== 'undefined' && checkLocalStorage) {
     const boardConfig = localStorage.getItem(REACT_JIGSAW_STORAGE_KEY);
     if (boardConfig) {
       const parsed = JSON.parse(boardConfig);
@@ -36,7 +37,9 @@ const getInitialBoardConfig = () => {
 };
 
 export const PuzzleProvider: React.FC<PuzzleProviderProps> = (props: PuzzleProviderProps) => {
-  const { rows: rowsFromStorage, columns: columnsFromStorage } = getInitialBoardConfig();
+  const { rows: rowsFromStorage, columns: columnsFromStorage } = getInitialBoardConfig(
+    props.checkLocalStorage,
+  );
 
   const [columns, setColumns] = useState(columnsFromStorage ?? props.columns);
   const [rows, setRows] = useState(rowsFromStorage ?? props.rows);

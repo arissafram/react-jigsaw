@@ -29,6 +29,7 @@ export const mergeOptions = (
       snapThreshold: options.board?.snapThreshold ?? defaults.board.snapThreshold,
       width: options.board?.width ?? defaults.board.width,
     },
+    checkLocalStorage: options.checkLocalStorage ?? defaults.checkLocalStorage,
     onComplete: options.onComplete ?? defaults.onComplete,
     onRefresh: options.onRefresh ?? defaults.onRefresh,
     puzzlePiece: {
