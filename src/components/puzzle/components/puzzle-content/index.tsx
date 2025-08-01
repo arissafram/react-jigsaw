@@ -49,13 +49,13 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         className={options.board.className}
         columns={columns}
         image={image}
-        puzzlePieceOptions={options.puzzlePiece}
-        rows={rows}
-        snapThreshold={options.board.snapThreshold}
-        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
-        scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
+        puzzlePieceOptions={options.puzzlePiece}
         responsive={options.board.responsive}
+        rows={rows}
+        scatterArea={options.board.scatterArea}
+        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
+        snapThreshold={options.board.snapThreshold}
       />
       <Settings
         currentRows={rows}

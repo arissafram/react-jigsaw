@@ -20,11 +20,11 @@ interface BoardProps {
   image: string;
   onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
+  responsive?: boolean;
   rows: number;
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
   scatterArea: number;
-  responsive?: boolean;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
@@ -36,11 +36,11 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     image,
     onPuzzleComplete,
     puzzlePieceOptions,
+    responsive,
     rows,
     showBoardSlotOutlines,
     snapThreshold,
     scatterArea,
-    responsive,
   } = props;
 
   const pieceHeight = boardHeight / rows;
