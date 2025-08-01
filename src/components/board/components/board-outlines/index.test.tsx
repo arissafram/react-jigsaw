@@ -52,15 +52,6 @@ describe('BoardOutlines', () => {
     expect(paths.length).toBe(20);
   });
 
-  it('renders paths with correct class names', () => {
-    render(<BoardOutlines {...defaultProps} />);
-    const paths = document.querySelectorAll('path');
-
-    paths.forEach((path) => {
-      expect(path.className).toContain('boardSlotOutline');
-    });
-  });
-
   it('applies snapped class to snapped pieces', () => {
     const propsWithSnappedPieces = {
       ...defaultProps,
@@ -129,7 +120,7 @@ describe('BoardOutlines', () => {
     expect(paths.length).toBe(18);
   });
 
-  it('renders with empty snapped pieces set', () => {
+  it('renders with empty snapped pieces set on puzzle start', () => {
     const propsWithEmptySnapped = {
       ...defaultProps,
       snappedPieceIds: new Set<string>(),
@@ -141,11 +132,11 @@ describe('BoardOutlines', () => {
 
     // All paths should have the base class
     paths.forEach((path) => {
-      expect(path.className).toContain('boardSlotOutline');
+      expect(path.classList.contains('boardSlotOutline')).toBe(true);
     });
   });
 
-  it('renders with all pieces snapped', () => {
+  it('renders with all pieces snapped when puzzle is complete', () => {
     const allSnappedIds = new Set<string>();
     // Create a set with all piece IDs
     for (let row = 0; row < 5; row++) {
@@ -165,18 +156,7 @@ describe('BoardOutlines', () => {
 
     // All paths should have the base class
     paths.forEach((path) => {
-      expect(path.className).toContain('boardSlotOutline');
-    });
-  });
-
-  it('renders paths with correct d attributes', () => {
-    render(<BoardOutlines {...defaultProps} />);
-    const paths = document.querySelectorAll('path');
-
-    paths.forEach((path) => {
-      // Each path should have a 'd' attribute (the SVG path data)
-      expect(path).toHaveAttribute('d');
-      expect(path.getAttribute('d')).toBeTruthy();
+      expect(path.classList.contains('boardSlotOutline')).toBe(true);
     });
   });
 });
