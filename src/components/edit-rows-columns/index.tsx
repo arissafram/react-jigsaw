@@ -6,11 +6,12 @@ interface EditRowsColumnsProps {
   className?: string;
   currentRows: number;
   currentColumns: number;
+  dataTestId?: string;
   onBoardSlotChange: (rows: number, columns: number) => void;
 }
 
 const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) => {
-  const { className, currentColumns, currentRows, onBoardSlotChange } = props;
+  const { className, currentColumns, currentRows, dataTestId, onBoardSlotChange } = props;
   const [rows, setRows] = useState(currentRows.toString());
   const [columns, setColumns] = useState(currentColumns.toString());
 
@@ -61,7 +62,11 @@ const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) 
 
   return (
     <>
-      <form className={`${styles.editRowsColumns} ${className}`} onSubmit={handleSubmit}>
+      <form
+        data-testid={dataTestId}
+        className={`${styles.editRowsColumns} ${className}`}
+        onSubmit={handleSubmit}
+      >
         <label>
           Rows:
           <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />

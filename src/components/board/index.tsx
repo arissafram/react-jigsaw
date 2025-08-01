@@ -17,6 +17,7 @@ interface BoardProps {
   boardWidth: number;
   className: string;
   columns: number;
+  dataTestId?: string;
   image: string;
   onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
@@ -32,6 +33,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     boardWidth,
     className,
     columns,
+    dataTestId,
     image,
     onPuzzleComplete,
     puzzlePieceOptions,
@@ -139,6 +141,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     <svg
       ref={boardRef}
       className={`${styles.board} ${className}`}
+      data-testid={dataTestId}
       height={boardHeight}
       width={boardWidth}
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}

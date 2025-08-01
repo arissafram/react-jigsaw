@@ -4,14 +4,16 @@ import styles from './styles.module.scss';
 
 interface RefreshButtonProps {
   className?: string;
+  dataTestId?: string;
   onRefresh: () => void;
 }
 
 const RefreshButton: FC<RefreshButtonProps> = (props: RefreshButtonProps) => {
-  const { className, onRefresh } = props;
+  const { className, dataTestId, onRefresh } = props;
 
   return (
     <button
+      data-testid={dataTestId}
       className={`${styles.refreshButton} ${className}`}
       onClick={onRefresh}
       title="Refresh puzzle"
