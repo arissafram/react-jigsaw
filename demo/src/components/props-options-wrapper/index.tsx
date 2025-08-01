@@ -72,7 +72,7 @@ const PropOptionsWrapper = (props: PropOptionsWrapperProps) => {
   return (
     <div className="propOptionsWrapper">
       <button className="propsToggleButton" onClick={() => setIsOpen(!isOpen)}>
-        Update puzzle props
+        {isOpen ? 'Close puzzle props' : 'Update puzzle props'}
       </button>
       {isOpen && (
         <div className="propsMenu">
