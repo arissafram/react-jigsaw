@@ -2,7 +2,7 @@
   "scripts": {
     "demo": "npm run dev --prefix demo",
     "check-types": "tsc --noEmit",
-    "test": "vitest"
+    "test": "SASS_SILENCE_DEPRECATION_WARNINGS=true vitest run --reporter=basic --silent 2>/dev/null"
   },
   "type": "module",
   "dependencies": {
