@@ -20,7 +20,6 @@ interface BoardProps {
   image: string;
   onPuzzleComplete?: () => void;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
-  responsive?: boolean;
   rows: number;
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
@@ -36,7 +35,6 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     image,
     onPuzzleComplete,
     puzzlePieceOptions,
-    responsive,
     rows,
     showBoardSlotOutlines,
     snapThreshold,
@@ -45,9 +43,6 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
 
   const pieceHeight = boardHeight / rows;
   const pieceWidth = boardWidth / columns;
-
-  // Calculate aspect ratio for responsive behavior
-  const aspectRatio = boardWidth / boardHeight;
 
   // Shuffled pieces with random positions
   const [shuffledPieces, setShuffledPieces] = useState<PiecePosition[]>([]);
@@ -140,21 +135,11 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     }
   };
 
-  // Determine board classes and styles
-  const boardClasses = responsive
-    ? `${styles.board} ${styles.responsive} ${className}`
-    : `${styles.board} ${className}`;
-
-  const boardStyles = responsive
-    ? ({ '--board-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
-    : {};
-
   return (
     <svg
       ref={boardRef}
-      className={boardClasses}
+      className={`${styles.board} ${className}`}
       height={boardHeight}
-      style={boardStyles}
       width={boardWidth}
       viewBox={`0 0 ${boardWidth} ${boardHeight}`}
     >

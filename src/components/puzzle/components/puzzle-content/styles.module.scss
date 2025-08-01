@@ -7,3 +7,14 @@
   padding: 16px;
   width: auto;
 }
+
+.responsive {
+  max-width: 100%;
+  aspect-ratio: var(--puzzle-aspect-ratio, 1);
+
+  // Ensure the board fills the container
+  & > * {
+    width: 100%;
+    height: auto;
+  }
+}

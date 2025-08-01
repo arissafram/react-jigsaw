@@ -19,9 +19,8 @@ const App = () => {
       image={imageSource}
       onRefresh={handleRefresh}
       options={{
-        board: { columns: 2, rows: 2 },
+        board: { columns: 2, rows: 2, responsive: true },
         puzzle: {
-          responsive: true,
           settings: {
             enabled: true,
             timer: { enabled: true },

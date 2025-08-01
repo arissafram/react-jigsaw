@@ -40,8 +40,20 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     onComplete?.();
   };
 
+  // Calculate aspect ratio for responsive behavior
+  const aspectRatio = options.board.width / options.board.height;
+
+  // Determine container classes and styles
+  const containerClasses = options.board.responsive
+    ? `${styles.puzzle} ${styles.responsive}`
+    : styles.puzzle;
+
+  const containerStyles = options.board.responsive
+    ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
+    : {};
+
   return (
-    <div className={styles.puzzle}>
+    <div className={containerClasses} style={{ maxWidth: options.board.width, ...containerStyles }}>
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
@@ -49,13 +61,12 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         className={options.board.className}
         columns={columns}
         image={image}
-        onPuzzleComplete={handlePuzzleComplete}
         puzzlePieceOptions={options.puzzlePiece}
-        responsive={options.board.responsive}
         rows={rows}
-        scatterArea={options.board.scatterArea}
-        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         snapThreshold={options.board.snapThreshold}
+        showBoardSlotOutlines={options.board.showBoardSlotOutlines}
+        scatterArea={options.board.scatterArea}
+        onPuzzleComplete={handlePuzzleComplete}
       />
       <Settings
         currentRows={rows}
