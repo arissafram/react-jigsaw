@@ -64,8 +64,9 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'open',
   },
-  { name: 'puzzle.rowsAndColumns.className', label: 'className:', type: 'text', indent: 3 },
-  { name: 'puzzle.rowsAndColumns.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
+  // TODO: There's a conflict with local storage in the demo, so we'll omit this for now
+  // { name: 'puzzle.rowsAndColumns.className', label: 'className:', type: 'text', indent: 3 },
+  // { name: 'puzzle.rowsAndColumns.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
   {
     name: 'puzzle.rowsAndColumns',
     label: '',

@@ -62,7 +62,7 @@ const PropOptionsWrapper = (props: PropOptionsWrapperProps) => {
 
   const formFields = FIELDS.map((field) => (
     <PropField
-      key={field.name}
+      key={`${field.name}-${field.label}`}
       field={field}
       getValue={getFieldValue}
       updateFormOption={updateField}

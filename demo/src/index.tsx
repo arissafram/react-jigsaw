@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Puzzle from '@/components/puzzle';
-import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { PuzzleOptions } from '@/types';
 
 import PropOptionsWrapper from './components/props-options-wrapper';
@@ -15,7 +14,7 @@ const DEMO_IMAGE_2 =
 
 const App = () => {
   const [imageSource, setImageSource] = useState(DEMO_IMAGE);
-  const [options, setOptions] = useState<PuzzleOptions | undefined>(DEFAULT_PUZZLE_OPTIONS);
+  const [options, setOptions] = useState<PuzzleOptions | undefined>(undefined);
   const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
