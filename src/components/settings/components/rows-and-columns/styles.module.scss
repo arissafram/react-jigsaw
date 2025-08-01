@@ -1,8 +1,14 @@
 .rowsAndColumns {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   font-family: monospace;
+  justify-content: flex-start;
   text-transform: uppercase;
+
+  @media (min-width: 480px) {
+    border: 1px solid red;
+    flex-direction: row;
+  }
 
   label {
     font-size: 12px;
@@ -34,14 +40,14 @@
 
   input[type='submit'] {
     display: flex;
-    align-self: flex-end;
+
     border: 1px solid rgb(221, 221, 221);
     border-radius: 4px;
     background: rgb(255, 255, 255);
     font-family: monospace;
     font-size: 14px;
     font-weight: bold;
-    width: auto;
+    width: 76px;
     height: 24px;
     text-transform: uppercase;
     cursor: pointer;
@@ -50,5 +56,11 @@
       opacity: 0.5;
       cursor: unset;
     }
+  }
+
+  @media (min-width: 480px) {
+    align-self: flex-end;
+    border: 1px solid red;
+    width: auto;
   }
 }
