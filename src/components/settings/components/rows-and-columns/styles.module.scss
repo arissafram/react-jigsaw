@@ -55,11 +55,10 @@
       opacity: 0.5;
       cursor: unset;
     }
-  }
-
-  @media (min-width: 480px) {
-    align-self: flex-end;
-    margin-top: 0;
-    width: 24px;
+    @media (min-width: 480px) {
+      align-self: flex-end;
+      margin-top: 0;
+      width: 32px;
+    }
   }
 }
