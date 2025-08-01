@@ -9,10 +9,9 @@ interface PropFieldProps {
 }
 
 const PropField = ({ field, getValue, updateFormOption }: PropFieldProps) => {
-  // Generate CSS class for indentation level
   const indentClass = field.indent === 0 ? '' : `indent${field.indent}`;
 
-  // Render opening/closing braces for JSON-like structure
+  // Render opening/closing braces for JSON
   if (field.isBrace) {
     return (
       <div className={`formGroup ${indentClass}`}>
@@ -56,7 +55,7 @@ const PropField = ({ field, getValue, updateFormOption }: PropFieldProps) => {
     );
   }
 
-  // Default: render text input
+  // Render text input
   return (
     <div className={`formGroup ${indentClass}`}>
       <label>{field.label}</label>

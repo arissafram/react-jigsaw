@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Puzzle from '@/components/puzzle';
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { PuzzleOptions } from '@/types';
 
-import PropsContainer from './components/props-container';
+import PropOptionsWrapper from './components/props-options-wrapper';
 
 import './styles.scss';
-import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 
 const DEMO_IMAGE =
   'https://images.unsplash.com/photo-1611003228941-98852ba62227?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
@@ -19,6 +19,7 @@ const App = () => {
   const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
+    // TODO: use a random image generator
     setImageSource(DEMO_IMAGE_2);
   };
 
@@ -30,8 +31,11 @@ const App = () => {
 
   return (
     <div className="puzzleWrapper">
-      <Puzzle key={puzzleKey} image={imageSource} onRefresh={handleRefresh} options={options} />
-      <PropsContainer handlePropsChange={handlePropsChange} />
+      <h1 className="header">React Jigsaw Demo</h1>
+      <div className="puzzleContainer">
+        <Puzzle key={puzzleKey} image={imageSource} onRefresh={handleRefresh} options={options} />
+        <PropOptionsWrapper handlePropsChange={handlePropsChange} />
+      </div>
     </div>
   );
 };

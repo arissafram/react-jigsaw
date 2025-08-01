@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { STROKE_WIDTH } from '@/constants';
+
 import styles from './styles.module.scss';
 
 interface RefreshButtonProps {
@@ -23,7 +25,7 @@ const RefreshButton: FC<RefreshButtonProps> = (props: RefreshButtonProps) => {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth={STROKE_WIDTH}
         strokeLinecap="round"
         strokeLinejoin="round"
       >

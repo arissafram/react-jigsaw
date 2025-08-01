@@ -1,19 +1,18 @@
-.propsContainer {
-  position: fixed;
+.propOptionsWrapper {
   bottom: 20px;
+  position: fixed;
   right: 20px;
-  z-index: 1000;
 
   .propsToggleButton {
     background: white;
     border: 1px solid #d1d5db;
     border-radius: 6px;
-    color: #333;
-    font-weight: 600;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #333;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 8px 16px;
     transition: all 0.2s ease;
 
     &:hover {
@@ -29,49 +28,45 @@
   }
 
   .propsMenu {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    margin-bottom: 0.5rem;
     background: #f8f9fa;
     border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 12px;
-    width: 400px;
+    border-radius: 12px;
+    bottom: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 8px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
+    padding: 12px;
+    position: absolute;
+    right: 0;
+    width: 400px;
 
     .formHeader {
-      margin-bottom: 12px;
-      margin-top: 24px;
+      padding: 12px 12px 16px;
 
       p {
-        margin: 0;
         color: #6c757d;
-        font-size: 12px;
-        font-weight: 400;
         font-family: monospace;
+        font-size: 12px;
       }
     }
 
     .jsonForm {
-      margin-bottom: 1rem;
+      margin-bottom: 12px;
     }
 
     .applyButton {
-      width: 100%;
-      padding: 0.5rem 1rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
       background: white;
       border: 1px solid #d1d5db;
       border-radius: 6px;
       color: #333;
       font-weight: 600;
       font-size: 0.8rem;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 8px 16px;
       transition: all 0.2s ease;
+      width: 100%;
 
       &:hover {
         background: #f9fafb;

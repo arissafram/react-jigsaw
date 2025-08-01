@@ -1,5 +1,7 @@
 import { Field } from './types';
 
+// These are hardcoded based on the current props. New props would need to be manually
+// added to this menu to appear in the demo options.
 export const FIELDS: Field[] = [
   {
     name: 'board',
@@ -10,18 +12,18 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'open',
   },
-  { name: 'board.width', label: 'width:', type: 'number', indent: 2 },
-  { name: 'board.height', label: 'height:', type: 'number', indent: 2 },
   { name: 'board.columns', label: 'columns:', type: 'number', indent: 2 },
+  { name: 'board.height', label: 'height:', type: 'number', indent: 2 },
   { name: 'board.rows', label: 'rows:', type: 'number', indent: 2 },
   { name: 'board.scatterArea', label: 'scatterArea:', type: 'number', indent: 2 },
-  { name: 'board.snapThreshold', label: 'snapThreshold:', type: 'number', indent: 2 },
   {
     name: 'board.showBoardSlotOutlines',
     label: 'showBoardSlotOutlines:',
     type: 'checkbox',
     indent: 2,
   },
+  { name: 'board.snapThreshold', label: 'snapThreshold:', type: 'number', indent: 2 },
+  { name: 'board.width', label: 'width:', type: 'number', indent: 2 },
   { name: 'board', label: '', type: 'text', indent: 1, isBrace: true, braceType: 'close' },
 
   {
@@ -33,21 +35,6 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'open',
   },
-  { name: 'puzzle.responsive', label: 'responsive:', type: 'checkbox', indent: 2 },
-
-  {
-    name: 'puzzle.timer',
-    label: 'timer:',
-    type: 'text',
-    indent: 2,
-    isKey: true,
-    isBrace: true,
-    braceType: 'open',
-  },
-  { name: 'puzzle.timer.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
-  { name: 'puzzle.timer.className', label: 'className:', type: 'text', indent: 3 },
-  { name: 'puzzle.timer', label: '', type: 'text', indent: 2, isBrace: true, braceType: 'close' },
-
   {
     name: 'puzzle.refreshButton',
     label: 'refreshButton:',
@@ -57,8 +44,8 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'open',
   },
-  { name: 'puzzle.refreshButton.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
   { name: 'puzzle.refreshButton.className', label: 'className:', type: 'text', indent: 3 },
+  { name: 'puzzle.refreshButton.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
   {
     name: 'puzzle.refreshButton',
     label: '',
@@ -67,7 +54,7 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'close',
   },
-
+  { name: 'puzzle.responsive', label: 'responsive:', type: 'checkbox', indent: 2 },
   {
     name: 'puzzle.rowsAndColumns',
     label: 'rowsAndColumns:',
@@ -77,8 +64,8 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'open',
   },
-  { name: 'puzzle.rowsAndColumns.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
   { name: 'puzzle.rowsAndColumns.className', label: 'className:', type: 'text', indent: 3 },
+  { name: 'puzzle.rowsAndColumns.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
   {
     name: 'puzzle.rowsAndColumns',
     label: '',
@@ -87,7 +74,18 @@ export const FIELDS: Field[] = [
     isBrace: true,
     braceType: 'close',
   },
-
+  {
+    name: 'puzzle.timer',
+    label: 'timer:',
+    type: 'text',
+    indent: 2,
+    isKey: true,
+    isBrace: true,
+    braceType: 'open',
+  },
+  { name: 'puzzle.timer.className', label: 'className:', type: 'text', indent: 3 },
+  { name: 'puzzle.timer.enabled', label: 'enabled:', type: 'checkbox', indent: 3 },
+  { name: 'puzzle.timer', label: '', type: 'text', indent: 2, isBrace: true, braceType: 'close' },
   { name: 'puzzle', label: '', type: 'text', indent: 1, isBrace: true, braceType: 'close' },
 
   {

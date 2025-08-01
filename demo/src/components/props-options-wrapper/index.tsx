@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { PuzzleOptions } from '@/types';
 
 import PropField from '../prop-fields';
@@ -7,37 +8,13 @@ import { FIELDS } from '../../constants';
 
 import './styles.scss';
 
-interface PropsContainerProps {
+interface PropOptionsWrapperProps {
   handlePropsChange: (options: PuzzleOptions) => void;
 }
 
-// Use the same default options as the puzzle to ensure consistency
-const DEMO_DEFAULT_OPTIONS: PuzzleOptions = {
-  board: {
-    columns: 4,
-    rows: 5,
-    width: 800,
-    height: 500,
-    className: '',
-    scatterArea: 0,
-    showBoardSlotOutlines: true,
-    snapThreshold: 20,
-  },
-  puzzle: {
-    responsive: false,
-    className: '',
-    timer: { enabled: true, className: '' },
-    refreshButton: { enabled: true, className: '' },
-    rowsAndColumns: { enabled: true, className: '' },
-  },
-  puzzlePiece: { strokeColor: '#000000', strokeEnabled: true },
-  onComplete: () => {},
-  onRefresh: () => {},
-};
-
-const PropsContainer = (props: PropsContainerProps) => {
+const PropOptionsWrapper = (props: PropOptionsWrapperProps) => {
   const { handlePropsChange } = props;
-  const [formValues, setFormValues] = useState<PuzzleOptions>(DEMO_DEFAULT_OPTIONS);
+  const [formValues, setFormValues] = useState<PuzzleOptions>(DEFAULT_PUZZLE_OPTIONS);
   const [isOpen, setIsOpen] = useState(false);
 
   // Update nested form values using dot notation (e.g., 'board.width')
@@ -83,7 +60,6 @@ const PropsContainer = (props: PropsContainerProps) => {
     setIsOpen(false); // Close the menu after applying
   };
 
-  // Render form fields from the FIELDS configuration
   const formFields = FIELDS.map((field) => (
     <PropField
       key={field.name}
@@ -94,19 +70,18 @@ const PropsContainer = (props: PropsContainerProps) => {
   ));
 
   return (
-    <div className="propsContainer">
+    <div className="propOptionsWrapper">
       <button className="propsToggleButton" onClick={() => setIsOpen(!isOpen)}>
-        Puzzle Props
+        Update puzzle props
       </button>
-
       {isOpen && (
         <div className="propsMenu">
           <div className="formHeader">
-            <p>Click on a property to modify it, then click apply</p>
+            <p>Click on a value, then edit and apply.</p>
           </div>
           <div className="jsonForm">{formFields}</div>
           <button className="applyButton" onClick={handleApplyChanges}>
-            Apply Changes
+            Apply changes
           </button>
         </div>
       )}
@@ -114,4 +89,4 @@ const PropsContainer = (props: PropsContainerProps) => {
   );
 };
 
-export default PropsContainer;
+export default PropOptionsWrapper;

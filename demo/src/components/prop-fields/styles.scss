@@ -1,8 +1,7 @@
 .formGroup {
-  display: flex;
   align-items: center;
-  gap: 0;
-  margin-bottom: 0.125rem;
+  display: flex;
+  margin-bottom: 4px;
 
   &.indent1 {
     margin-left: 0.75rem;
@@ -17,32 +16,30 @@
   }
 
   label {
-    min-width: 100px;
     color: #333;
     font-weight: 600;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.75rem;
+    font-family: monospace;
+    font-size: 12px;
+    margin-right: 4px;
   }
 
   input[type='text'],
   input[type='number'] {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.75rem;
-    border: none;
     background: transparent;
+    border: none;
     color: #333;
-    min-width: 60px;
+    font-family: monospace;
+    font-size: 0.75rem;
     width: auto;
-    padding: 0.125rem 0.25rem;
 
     &:focus {
+      background-color: transparent;
       outline: none;
-      background: rgba(0, 0, 0, 0.05);
     }
 
     &::placeholder {
-      font-style: italic;
       color: #999;
+      font-style: italic;
     }
 
     // Remove up/down arrows from number inputs
@@ -66,17 +63,15 @@
   .key {
     color: #333;
     font-weight: 600;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-family: monospace;
     font-size: 0.75rem;
     margin-right: 0.25rem;
   }
 
   .brace {
     color: #666;
-    font-weight: 400;
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    font-size: 0.75rem;
-    margin-left: 0.125rem;
-    margin-right: 0.125rem;
+    font-family: monospace;
+    font-size: 12px;
+    margin-right: 4px;
   }
 }
