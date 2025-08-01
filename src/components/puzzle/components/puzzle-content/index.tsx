@@ -1,10 +1,9 @@
 import Board from '@/components/board';
-import { usePuzzleContext } from '@/contexts/puzzle-context';
-import { PuzzleOptions } from '@/types';
-
 import EditRowsColumns from '@/components/settings/components/edit-rows-columns';
 import Timer from '@/components/settings/components/timer';
 import RefreshButton from '@/components/settings/components/refresh-button';
+import { usePuzzleContext } from '@/contexts/puzzle-context';
+import { PuzzleOptions } from '@/types';
 
 import styles from './styles.module.scss';
 
