@@ -18,10 +18,10 @@ const App = () => {
     <Puzzle
       image={imageSource}
       onRefresh={handleRefresh}
-      responsive={true}
       options={{
         board: { columns: 2, rows: 2 },
         puzzle: {
+          responsive: true,
           settings: {
             enabled: true,
             timer: { enabled: true },
