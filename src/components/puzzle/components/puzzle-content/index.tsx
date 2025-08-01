@@ -10,11 +10,10 @@ interface PuzzleContentProps {
   options: PuzzleOptions;
   onComplete?: () => void;
   onRefresh?: () => void;
-  responsive?: boolean;
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, options, onComplete, onRefresh, responsive } = props;
+  const { image, options, onComplete, onRefresh } = props;
   const {
     rows,
     columns,
@@ -56,7 +55,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
-        responsive={responsive}
+        responsive={options.board.responsive}
       />
       <Settings
         currentRows={rows}

@@ -5,6 +5,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     className: '',
     columns: 4,
     height: 500,
+    responsive: false,
     rows: 5,
     scatterArea: 0,
     showBoardSlotOutlines: true,
@@ -37,7 +38,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
       },
     },
   },
-  responsive: false,
 };
 
 export const REACT_JIGSAW_STORAGE_KEY = 'react-jigsaw';

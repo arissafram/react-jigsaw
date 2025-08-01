@@ -20,6 +20,7 @@ export interface InitialPuzzleOptions {
     className?: string;
     columns?: number;
     height?: number;
+    responsive?: boolean;
     rows?: number;
     scatterArea?: number;
     showBoardSlotOutlines?: boolean;
@@ -28,13 +29,9 @@ export interface InitialPuzzleOptions {
   };
   onComplete?: () => void;
   onRefresh?: () => void;
-  puzzlePiece?: {
-    strokeColor?: string;
-    strokeEnabled?: boolean;
-    strokeWidth?: number;
-  };
   puzzle?: {
     className?: string;
+    responsive?: boolean;
     settings?: {
       className?: string;
       enabled?: boolean;
@@ -52,7 +49,11 @@ export interface InitialPuzzleOptions {
       };
     };
   };
-  responsive?: boolean;
+  puzzlePiece?: {
+    strokeColor?: string;
+    strokeEnabled?: boolean;
+    strokeWidth?: number;
+  };
 }
 
 export interface PiecePosition extends BoardSlot {
@@ -65,6 +66,7 @@ export interface PuzzleOptions {
     className: string;
     columns: number;
     height: number;
+    responsive: boolean;
     rows: number;
     scatterArea: number;
     showBoardSlotOutlines: boolean;
@@ -97,7 +99,6 @@ export interface PuzzleOptions {
     strokeEnabled: boolean;
     strokeWidth: number;
   };
-  responsive: boolean;
 }
 
 export type SnappedPieceIds = Set<string>;

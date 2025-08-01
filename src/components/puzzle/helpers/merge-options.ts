@@ -22,6 +22,7 @@ export const mergeOptions = (
       className: options.board?.className ?? defaults.board.className,
       columns: options.board?.columns ?? defaults.board.columns,
       height: options.board?.height ?? defaults.board.height,
+      responsive: options.board?.responsive ?? defaults.board.responsive,
       rows: options.board?.rows ?? defaults.board.rows,
       scatterArea: options.board?.scatterArea ?? defaults.board.scatterArea,
       showBoardSlotOutlines:
@@ -65,6 +66,5 @@ export const mergeOptions = (
         },
       },
     },
-    responsive: options.responsive ?? defaults.responsive,
   };
 };
