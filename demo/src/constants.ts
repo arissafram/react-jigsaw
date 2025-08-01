@@ -101,7 +101,6 @@ export const FIELDS: Field[] = [
   },
   { name: 'puzzlePiece.strokeColor', label: 'strokeColor:', type: 'text', indent: 2 },
   { name: 'puzzlePiece.strokeEnabled', label: 'strokeEnabled:', type: 'checkbox', indent: 2 },
-  { name: 'puzzlePiece.strokeWidth', label: 'strokeWidth:', type: 'number', indent: 2 },
   { name: 'puzzlePiece', label: '', type: 'text', indent: 1, isBrace: true, braceType: 'close' },
 
   { name: 'root', label: '', type: 'text', indent: 0, isBrace: true, braceType: 'close' },

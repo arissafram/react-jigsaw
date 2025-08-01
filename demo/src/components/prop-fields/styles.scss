@@ -1,58 +1,82 @@
 .formGroup {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.25rem;
+  gap: 0;
+  margin-bottom: 0.125rem;
 
   &.indent1 {
-    margin-left: 1rem;
+    margin-left: 0.75rem;
   }
 
   &.indent2 {
-    margin-left: 2rem;
+    margin-left: 1.5rem;
   }
 
   &.indent3 {
-    margin-left: 3rem;
+    margin-left: 2.25rem;
   }
 
   label {
-    min-width: 120px;
-    color: #0066cc;
-    font-weight: 500;
+    min-width: 100px;
+    color: #333;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
   }
 
   input[type='text'],
   input[type='number'] {
-    font-family: inherit;
-    font-size: inherit;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    padding: 0.25rem 0.5rem;
-    background: white;
-    color: #495057;
-    min-width: 100px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    border: none;
+    background: transparent;
+    color: #333;
+    min-width: 60px;
+    width: auto;
+    padding: 0.125rem 0.25rem;
 
     &:focus {
       outline: none;
-      border-color: #0066cc;
-      box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &::placeholder {
+      font-style: italic;
+      color: #999;
+    }
+
+    // Remove up/down arrows from number inputs
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &[type='number'] {
+      -moz-appearance: textfield;
     }
   }
 
   input[type='checkbox'] {
-    width: 16px;
-    height: 16px;
-    accent-color: #0066cc;
+    width: 14px;
+    height: 14px;
+    accent-color: #333;
   }
 
   .key {
-    color: #0066cc;
+    color: #333;
     font-weight: 600;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    margin-right: 0.25rem;
   }
 
   .brace {
-    color: #6c757d;
-    font-weight: 500;
+    color: #666;
+    font-weight: 400;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    margin-left: 0.125rem;
+    margin-right: 0.125rem;
   }
 }

@@ -48,7 +48,6 @@ export interface InitialPuzzleOptions {
   puzzlePiece?: {
     strokeColor?: string;
     strokeEnabled?: boolean;
-    strokeWidth?: number;
   };
 }
 
@@ -89,7 +88,6 @@ export interface PuzzleOptions {
   puzzlePiece: {
     strokeColor: string;
     strokeEnabled: boolean;
-    strokeWidth: number;
   };
 }
 

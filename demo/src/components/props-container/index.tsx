@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 import { PuzzleOptions } from '@/types';
 
 import PropField from '../prop-fields';
@@ -12,9 +11,34 @@ interface PropsContainerProps {
   handlePropsChange: (options: PuzzleOptions) => void;
 }
 
+// Use the same default options as the puzzle to ensure consistency
+const DEMO_DEFAULT_OPTIONS: PuzzleOptions = {
+  board: {
+    columns: 4,
+    rows: 5,
+    width: 800,
+    height: 500,
+    className: '',
+    scatterArea: 0,
+    showBoardSlotOutlines: true,
+    snapThreshold: 20,
+  },
+  puzzle: {
+    responsive: false,
+    className: '',
+    timer: { enabled: true, className: '' },
+    refreshButton: { enabled: true, className: '' },
+    rowsAndColumns: { enabled: true, className: '' },
+  },
+  puzzlePiece: { strokeColor: '#000000', strokeEnabled: true },
+  onComplete: () => {},
+  onRefresh: () => {},
+};
+
 const PropsContainer = (props: PropsContainerProps) => {
   const { handlePropsChange } = props;
-  const [formValues, setFormValues] = useState<PuzzleOptions>(DEFAULT_PUZZLE_OPTIONS);
+  const [formValues, setFormValues] = useState<PuzzleOptions>(DEMO_DEFAULT_OPTIONS);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Update nested form values using dot notation (e.g., 'board.width')
   const updateField = (path: string, value: string | number | boolean) => {
@@ -47,10 +71,16 @@ const PropsContainer = (props: PropsContainerProps) => {
     return current as string | number | boolean;
   };
 
-  // Apply form changes to the puzzle
+  // Apply form changes to the puzzle and trigger re-render
   const handleApplyChanges = (e: React.FormEvent) => {
     e.preventDefault();
-    handlePropsChange(formValues);
+    // Add a timestamp to force re-render
+    const optionsWithKey = {
+      ...formValues,
+      _key: Date.now(), // This will force React to treat it as a new object
+    };
+    handlePropsChange(optionsWithKey);
+    setIsOpen(false); // Close the menu after applying
   };
 
   // Render form fields from the FIELDS configuration
@@ -64,14 +94,22 @@ const PropsContainer = (props: PropsContainerProps) => {
   ));
 
   return (
-    <div className="propsForm">
-      <div className="formHeader">
-        <h3>Puzzle Props</h3>
-        <button className="applyButton" onClick={handleApplyChanges}>
-          Apply Changes
-        </button>
-      </div>
-      <div className="jsonForm">{formFields}</div>
+    <div className="propsContainer">
+      <button className="propsToggleButton" onClick={() => setIsOpen(!isOpen)}>
+        Puzzle Props
+      </button>
+
+      {isOpen && (
+        <div className="propsMenu">
+          <div className="formHeader">
+            <p>Click on a property to modify it, then click apply</p>
+          </div>
+          <div className="jsonForm">{formFields}</div>
+          <button className="applyButton" onClick={handleApplyChanges}>
+            Apply Changes
+          </button>
+        </div>
+      )}
     </div>
   );
 };

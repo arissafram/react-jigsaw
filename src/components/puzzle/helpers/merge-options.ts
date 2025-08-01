@@ -34,7 +34,6 @@ export const mergeOptions = (
     puzzlePiece: {
       strokeColor: options.puzzlePiece?.strokeColor ?? defaults.puzzlePiece.strokeColor,
       strokeEnabled: options.puzzlePiece?.strokeEnabled ?? defaults.puzzlePiece.strokeEnabled,
-      strokeWidth: options.puzzlePiece?.strokeWidth ?? defaults.puzzlePiece.strokeWidth,
     },
     puzzle: {
       className: options.puzzle?.className ?? defaults.puzzle.className,

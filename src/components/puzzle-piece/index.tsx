@@ -148,7 +148,7 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
         stroke={
           isSnapped || !puzzlePieceOptions.strokeEnabled ? '' : puzzlePieceOptions.strokeColor
         }
-        strokeWidth={puzzlePieceOptions.strokeEnabled ? puzzlePieceOptions.strokeWidth : 0}
+        strokeWidth={puzzlePieceOptions.strokeEnabled ? 2 : 0}
       />
     </g>
   );

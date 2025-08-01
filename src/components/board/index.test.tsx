@@ -14,7 +14,6 @@ describe('Board', () => {
     puzzlePieceOptions: {
       strokeColor: 'gold',
       strokeEnabled: true,
-      strokeWidth: 2,
     },
     rows: 5,
     showBoardSlotOutlines: true,
@@ -119,7 +118,6 @@ describe('Board', () => {
     const customPuzzleOptions = {
       strokeColor: 'red',
       strokeEnabled: false,
-      strokeWidth: 5,
     };
 
     const propsWithCustomOptions = {

@@ -34,7 +34,6 @@ describe('PuzzlePiece', () => {
     puzzlePieceOptions: {
       strokeColor: 'red',
       strokeEnabled: true,
-      strokeWidth: 2,
     },
     boardSlotKey: '0-0',
   };

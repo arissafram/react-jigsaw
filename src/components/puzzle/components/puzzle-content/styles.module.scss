@@ -1,15 +1,8 @@
 .puzzle {
-  background: #eaf6ff;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
   min-width: 260px;
-  padding: 16px;
-  width: auto;
 }
 
 .responsive {
-  aspect-ratio: var(--puzzle-aspect-ratio, 1);
   max-width: 100%;
 
   & > * {

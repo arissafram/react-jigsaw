@@ -38,13 +38,19 @@ const PropField = ({ field, getValue, updateFormOption }: PropFieldProps) => {
 
   // Render number input
   if (field.type === 'number') {
+    const currentValue = getValue(field.name) as number;
     return (
       <div className={`formGroup ${indentClass}`}>
         <label>{field.label}</label>
         <input
           type="number"
-          value={getValue(field.name) as number}
-          onChange={(e) => updateFormOption(field.name, Number(e.target.value))}
+          value={currentValue === 0 ? '' : currentValue}
+          placeholder="number"
+          onChange={(e) => {
+            const newValue = e.target.value;
+            const numericValue = newValue === '' ? 0 : Number(newValue);
+            updateFormOption(field.name, numericValue);
+          }}
         />
       </div>
     );
@@ -57,6 +63,7 @@ const PropField = ({ field, getValue, updateFormOption }: PropFieldProps) => {
       <input
         type="text"
         value={getValue(field.name) as string}
+        placeholder="string"
         onChange={(e) => updateFormOption(field.name, e.target.value)}
       />
     </div>

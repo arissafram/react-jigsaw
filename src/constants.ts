@@ -16,7 +16,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   puzzlePiece: {
     strokeColor: 'gold',
     strokeEnabled: true,
-    strokeWidth: 2,
   },
   puzzle: {
     className: '',

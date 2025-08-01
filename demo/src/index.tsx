@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Puzzle from '@/components/puzzle';
+import { PuzzleOptions } from '@/types';
 
 import PropsContainer from './components/props-container';
-import { PuzzleOptions } from '@/types';
-import './styles/index.scss';
+
+import './styles.scss';
+import { DEFAULT_PUZZLE_OPTIONS } from '@/constants';
 
 const DEMO_IMAGE =
   'https://images.unsplash.com/photo-1611003228941-98852ba62227?q=80&w=2148&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
@@ -13,7 +15,8 @@ const DEMO_IMAGE_2 =
 
 const App = () => {
   const [imageSource, setImageSource] = useState(DEMO_IMAGE);
-  const [options, setOptions] = useState<PuzzleOptions | null>(null);
+  const [options, setOptions] = useState<PuzzleOptions | undefined>(DEFAULT_PUZZLE_OPTIONS);
+  const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
     setImageSource(DEMO_IMAGE_2);
@@ -21,38 +24,13 @@ const App = () => {
 
   const handlePropsChange = (newOptions: PuzzleOptions) => {
     setOptions(newOptions);
+    // Force re-render by updating the key
+    setPuzzleKey((prev) => prev + 1);
   };
 
   return (
     <div className="puzzleWrapper">
-      <Puzzle
-        image={imageSource}
-        onRefresh={handleRefresh}
-        options={
-          options || {
-            board: {
-              columns: 4,
-              rows: 5,
-              width: 800,
-              height: 500,
-              className: '',
-              scatterArea: 0,
-              showBoardSlotOutlines: true,
-              snapThreshold: 20,
-            },
-            puzzle: {
-              responsive: false,
-              className: '',
-              timer: { enabled: true, className: '' },
-              refreshButton: { enabled: true, className: '' },
-              rowsAndColumns: { enabled: true, className: '' },
-            },
-            puzzlePiece: { strokeColor: '#000000', strokeEnabled: true, strokeWidth: 2 },
-            onComplete: () => {},
-            onRefresh: () => {},
-          }
-        }
-      />
+      <Puzzle key={puzzleKey} image={imageSource} onRefresh={handleRefresh} options={options} />
       <PropsContainer handlePropsChange={handlePropsChange} />
     </div>
   );
