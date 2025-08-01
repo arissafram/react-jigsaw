@@ -36,14 +36,6 @@ const Settings: FC<SettingsProps> = ({
           onBoardSlotChange={onBoardSlotChange}
         />
       )}
-      {(timer.enabled || refreshButton.enabled) && (
-        <div className={styles.rightContainer}>
-          {timer.enabled && <Timer className={timer.className} isRunning={timerIsRunning} />}
-          {refreshButton.enabled && (
-            <RefreshButton className={refreshButton.className} onRefresh={onRefresh} />
-          )}
-        </div>
-      )}
       {rowsAndColumns.enabled && <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>}
     </div>
   );

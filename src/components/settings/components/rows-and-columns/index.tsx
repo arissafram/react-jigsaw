@@ -64,16 +64,19 @@ export const RowsAndColumns: FC<RowsAndColumnsProps> = ({
   };
 
   return (
-    <form className={`${styles.rowsAndColumns} ${className}`} onSubmit={handleSubmit}>
-      <label>
-        Rows:
-        <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
-      </label>
-      <label>
-        Cols:
-        <input type="text" value={columns} onChange={handleColumnsChange} placeholder="2-10" />
-      </label>
-      <input type="submit" value="Ok" disabled={!isValid} />
-    </form>
+    <>
+      <form className={`${styles.rowsAndColumns} ${className}`} onSubmit={handleSubmit}>
+        <label>
+          Rows:
+          <input type="text" value={rows} onChange={handleRowsChange} placeholder="2-10" />
+        </label>
+        <label>
+          Cols:
+          <input type="text" value={columns} onChange={handleColumnsChange} placeholder="2-10" />
+        </label>
+        <input type="submit" value="Ok" disabled={!isValid} />
+      </form>
+      <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>
+    </>
   );
 };

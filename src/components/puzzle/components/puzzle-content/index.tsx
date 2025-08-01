@@ -4,6 +4,9 @@ import { usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions } from '@/types';
 
 import styles from './styles.module.scss';
+import { RowsAndColumns } from '@/components/settings/components/rows-and-columns';
+import { Timer } from '@/components/settings/components/timer';
+import { RefreshButton } from '@/components/settings/components/refresh-button';
 
 interface PuzzleContentProps {
   image: string;
@@ -54,6 +57,17 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   return (
     <div className={containerClasses} style={{ maxWidth: options.board.width, ...containerStyles }}>
+      <div className={styles.settingsContainer}>
+        {options.puzzle.settings.timer.enabled && (
+          <Timer className={options.puzzle.settings.timer.className} isRunning={timerIsRunning} />
+        )}
+        {options.puzzle.settings.refreshButton.enabled && (
+          <RefreshButton
+            className={options.puzzle.settings.refreshButton.className}
+            onRefresh={handleRefresh}
+          />
+        )}
+      </div>
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
@@ -68,14 +82,16 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
       />
-      <Settings
-        currentRows={rows}
-        currentColumns={columns}
-        onBoardSlotChange={handleBoardSlotChange}
-        onRefresh={handleRefresh}
-        timerIsRunning={timerIsRunning}
-        settings={options.puzzle.settings}
-      />
+      {options.puzzle.settings.rowsAndColumns.enabled && (
+        <div className={styles.settingsContainer}>
+          <RowsAndColumns
+            className={options.puzzle.settings.rowsAndColumns.className}
+            currentRows={rows}
+            currentColumns={columns}
+            onBoardSlotChange={handleBoardSlotChange}
+          />
+        </div>
+      )}
     </div>
   );
 };
