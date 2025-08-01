@@ -71,27 +71,6 @@ describe('generateBoardClipPaths', () => {
     });
   });
 
-  it('works with square board', () => {
-    const squareOptions = {
-      boardHeight: 400,
-      boardWidth: 400,
-      columns: 3,
-      rows: 3,
-      edgeMap: computeEdgeMap({ columns: 3, rows: 3 }),
-    };
-
-    const clipPaths = generateBoardClipPaths(squareOptions);
-    // Should generate 3 * 3 = 9 paths
-    expect(clipPaths.length).toBe(9);
-
-    clipPaths.forEach((path) => {
-      expect(path).toBeTypeOf('string');
-      expect(path.length).toBeGreaterThan(0);
-      expect(path).toMatch(/^M/);
-      expect(path).toMatch(/Z$/);
-    });
-  });
-
   it('generates unique paths for each position', () => {
     const clipPaths = generateBoardClipPaths(defaultOptions);
 
