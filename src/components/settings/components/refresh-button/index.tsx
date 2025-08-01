@@ -7,7 +7,9 @@ interface RefreshButtonProps {
   onRefresh: () => void;
 }
 
-const RefreshButton: FC<RefreshButtonProps> = ({ className, onRefresh }) => {
+const RefreshButton: FC<RefreshButtonProps> = (props: RefreshButtonProps) => {
+  const { className, onRefresh } = props;
+
   return (
     <button
       className={`${styles.refreshButton} ${className}`}

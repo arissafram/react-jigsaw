@@ -17,16 +17,15 @@
   }
 
   input[type='text'] {
-    width: 30px;
     background-color: transparent;
     border: none;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: monospace;
-    text-transform: uppercase;
     border-bottom: 1px solid black;
     border-radius: 0;
+    font-family: monospace;
+    font-size: 12px;
     text-align: center;
+    text-transform: uppercase;
+    width: 30px;
 
     &:focus {
       outline: none;
@@ -35,16 +34,15 @@
 
   input[type='submit'] {
     align-self: flex-end;
+    background: rgb(255, 255, 255);
     border: 1px solid rgb(221, 221, 221);
     border-radius: 4px;
-    background: rgb(255, 255, 255);
     cursor: pointer;
     display: flex;
     font-family: monospace;
     font-size: 14px;
     font-weight: bold;
     height: 24px;
-    margin-top: 0;
     text-transform: uppercase;
     width: 32px;
 
@@ -57,8 +55,8 @@
 
 .inlineNote {
   font-family: monospace;
-  text-transform: uppercase;
-  width: 100%;
   font-size: 8px;
   margin-top: 2px;
+  text-transform: uppercase;
+  width: 100%;
 }

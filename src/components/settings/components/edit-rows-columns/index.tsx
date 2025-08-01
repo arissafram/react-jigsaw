@@ -9,12 +9,8 @@ interface EditRowsColumnsProps {
   onBoardSlotChange: (rows: number, columns: number) => void;
 }
 
-const EditRowsColumns: FC<EditRowsColumnsProps> = ({
-  className,
-  currentRows,
-  currentColumns,
-  onBoardSlotChange,
-}) => {
+const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) => {
+  const { className, currentRows, currentColumns, onBoardSlotChange } = props;
   const [rows, setRows] = useState(currentRows.toString());
   const [columns, setColumns] = useState(currentColumns.toString());
 

@@ -10,18 +10,16 @@
 }
 
 .responsive {
-  max-width: 100%;
   aspect-ratio: var(--puzzle-aspect-ratio, 1);
+  max-width: 100%;
 
-  // Ensure the board fills the container
   & > * {
-    width: 100%;
     height: auto;
+    width: 100%;
   }
 }
 .settingsContainer {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
   justify-content: space-between;
 }

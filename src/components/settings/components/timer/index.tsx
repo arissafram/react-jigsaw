@@ -8,7 +8,9 @@ interface TimerProps {
   onTimeUpdate?: (seconds: number) => void;
 }
 
-const Timer: FC<TimerProps> = ({ className, isRunning, onTimeUpdate }) => {
+const Timer: FC<TimerProps> = (props: TimerProps) => {
+  const { className, isRunning, onTimeUpdate } = props;
+
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 

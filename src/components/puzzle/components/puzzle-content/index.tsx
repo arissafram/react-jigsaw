@@ -52,7 +52,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   const containerStyles = options.puzzle.responsive
     ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
-    : { width: options.board.width };
+    : {};
 
   return (
     <div className={containerClasses} style={{ maxWidth: options.board.width, ...containerStyles }}>
