@@ -1,0 +1,51 @@
+.propsForm {
+  flex: 1;
+  max-width: 500px;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  height: fit-content;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  .formHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #495057;
+    }
+
+    .applyButton {
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+
+      &:hover {
+        background: #0052a3;
+      }
+
+      &:active {
+        background: #004080;
+      }
+    }
+  }
+}
+
+.jsonForm {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #212529;
+  border: 1px solid red;
+}

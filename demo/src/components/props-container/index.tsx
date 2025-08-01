@@ -6,6 +6,8 @@ import { PuzzleOptions } from '@/types';
 import PropField from '../prop-fields';
 import { FIELDS } from '../../constants';
 
+import './styles.scss';
+
 interface PropsContainerProps {
   handlePropsChange: (options: PuzzleOptions) => void;
 }

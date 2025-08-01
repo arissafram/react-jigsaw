@@ -1,5 +1,7 @@
 import { Field } from '../../types';
 
+import './styles.scss';
+
 interface PropFieldProps {
   field: Field;
   getValue: (path: string) => string | number | boolean;

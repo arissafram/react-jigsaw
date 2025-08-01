@@ -1,0 +1,58 @@
+.formGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+
+  &.indent1 {
+    margin-left: 1rem;
+  }
+
+  &.indent2 {
+    margin-left: 2rem;
+  }
+
+  &.indent3 {
+    margin-left: 3rem;
+  }
+
+  label {
+    min-width: 120px;
+    color: #0066cc;
+    font-weight: 500;
+  }
+
+  input[type='text'],
+  input[type='number'] {
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    background: white;
+    color: #495057;
+    min-width: 100px;
+
+    &:focus {
+      outline: none;
+      border-color: #0066cc;
+      box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+    }
+  }
+
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0066cc;
+  }
+
+  .key {
+    color: #0066cc;
+    font-weight: 600;
+  }
+
+  .brace {
+    color: #6c757d;
+    font-weight: 500;
+  }
+}
