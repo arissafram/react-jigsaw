@@ -77,7 +77,7 @@ const EditRowsColumns: FC<EditRowsColumnsProps> = (props: EditRowsColumnsProps) 
         </label>
         <input type="submit" value="Ok" disabled={!isValid} />
       </form>
-      <span className={styles.inlineNote}>(Valid numbers: 2-9)</span>
+      <span className={styles.inlineNote}>(Valid numbers: 2-10)</span>
     </>
   );
 };
