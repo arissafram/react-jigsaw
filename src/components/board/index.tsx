@@ -149,6 +149,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       <BoardOutlines
         boardPathOptions={boardPathOptions}
         boardSlots={boardSlots}
+        dataTestId="board-outlines"
         showBoardSlotOutlines={showBoardSlotOutlines}
         snappedPieceIds={snappedPieceIds}
       />

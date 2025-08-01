@@ -8,25 +8,31 @@ interface BoardOutlinesProps {
   boardSlots: BoardSlot[];
   showBoardSlotOutlines: boolean | undefined;
   snappedPieceIds: SnappedPieceIds;
+  dataTestId?: string;
 }
 
 const BoardOutlines = (props: BoardOutlinesProps) => {
-  const { boardPathOptions, boardSlots, showBoardSlotOutlines, snappedPieceIds } = props;
+  const { boardPathOptions, boardSlots, showBoardSlotOutlines, snappedPieceIds, dataTestId } =
+    props;
 
   if (!showBoardSlotOutlines) return null;
 
-  return boardSlots.map(({ pieceRow: row, pieceCol: col }) => {
-    const boardSlotKey = `${row}-${col}`;
-    const isSnapped = snappedPieceIds.has(boardSlotKey);
+  return (
+    <g data-testid={dataTestId}>
+      {boardSlots.map(({ pieceRow: row, pieceCol: col }) => {
+        const boardSlotKey = `${row}-${col}`;
+        const isSnapped = snappedPieceIds.has(boardSlotKey);
 
-    return (
-      <path
-        key={`outline-${row}-${col}`}
-        className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
-        d={generateBoardPath({ row, col, options: boardPathOptions })}
-      />
-    );
-  });
+        return (
+          <path
+            key={`outline-${row}-${col}`}
+            className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
+            d={generateBoardPath({ row, col, options: boardPathOptions })}
+          />
+        );
+      })}
+    </g>
+  );
 };
 
 export default BoardOutlines;
