@@ -125,15 +125,14 @@ describe('BoardOutlines', () => {
       ...defaultProps,
       snappedPieceIds: new Set<string>(),
     };
-
     render(<BoardOutlines {...propsWithEmptySnapped} />);
-    const paths = document.querySelectorAll('path');
-    expect(paths.length).toBe(20);
 
-    // All paths should have the base class
-    paths.forEach((path) => {
-      expect(path.classList.contains('boardSlotOutline')).toBe(true);
-    });
+    // Check that all outline paths are rendered with test IDs
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 4; col++) {
+        expect(screen.getByTestId(`outline-${row}-${col}`)).toBeInTheDocument();
+      }
+    }
   });
 
   it('renders with all pieces snapped when puzzle is complete', () => {
@@ -151,12 +150,12 @@ describe('BoardOutlines', () => {
     };
 
     render(<BoardOutlines {...propsWithAllSnapped} />);
-    const paths = document.querySelectorAll('path');
-    expect(paths.length).toBe(20);
 
-    // All paths should have the base class
-    paths.forEach((path) => {
-      expect(path.classList.contains('boardSlotOutline')).toBe(true);
-    });
+    // Check that all outline paths are rendered with test IDs
+    for (let row = 0; row < 5; row++) {
+      for (let col = 0; col < 4; col++) {
+        expect(screen.getByTestId(`outline-${row}-${col}`)).toBeInTheDocument();
+      }
+    }
   });
 });

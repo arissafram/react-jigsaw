@@ -26,6 +26,7 @@ const BoardOutlines = (props: BoardOutlinesProps) => {
         return (
           <path
             key={`outline-${row}-${col}`}
+            data-testid={`outline-${row}-${col}`}
             className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
             d={generateBoardPath({ row, col, options: boardPathOptions })}
           />
