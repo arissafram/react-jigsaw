@@ -57,17 +57,19 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
 
   return (
     <div className={containerClasses} style={{ maxWidth: options.board.width, ...containerStyles }}>
-      <div className={styles.settingsContainer}>
-        {options.puzzle.settings.timer.enabled && (
-          <Timer className={options.puzzle.settings.timer.className} isRunning={timerIsRunning} />
-        )}
-        {options.puzzle.settings.refreshButton.enabled && (
-          <RefreshButton
-            className={options.puzzle.settings.refreshButton.className}
-            onRefresh={handleRefresh}
-          />
-        )}
-      </div>
+      {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
+        <div className={styles.settingsContainer}>
+          {options.puzzle.timer.enabled && (
+            <Timer className={options.puzzle.timer.className} isRunning={timerIsRunning} />
+          )}
+          {options.puzzle.refreshButton.enabled && (
+            <RefreshButton
+              className={options.puzzle.refreshButton.className}
+              onRefresh={handleRefresh}
+            />
+          )}
+        </div>
+      ) : null}
       <Board
         key={`${rows}-${columns}-${refreshCount}`}
         boardHeight={options.board.height}
@@ -82,10 +84,10 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         scatterArea={options.board.scatterArea}
         onPuzzleComplete={handlePuzzleComplete}
       />
-      {options.puzzle.settings.rowsAndColumns.enabled && (
+      {options.puzzle.rowsAndColumns.enabled && (
         <div className={styles.settingsContainer}>
           <EditRowsColumns
-            className={options.puzzle.settings.rowsAndColumns.className}
+            className={options.puzzle.rowsAndColumns.className}
             currentRows={rows}
             currentColumns={columns}
             onBoardSlotChange={handleBoardSlotChange}

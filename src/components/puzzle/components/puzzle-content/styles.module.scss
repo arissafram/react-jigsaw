@@ -18,11 +18,10 @@
     width: 100%;
     height: auto;
   }
-
-  .settingsContainer {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+}
+.settingsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
 }

@@ -32,21 +32,17 @@ export interface InitialPuzzleOptions {
   puzzle?: {
     className?: string;
     responsive?: boolean;
-    settings?: {
+    timer?: {
       className?: string;
       enabled?: boolean;
-      timer?: {
-        className?: string;
-        enabled?: boolean;
-      };
-      refreshButton?: {
-        className?: string;
-        enabled?: boolean;
-      };
-      rowsAndColumns?: {
-        className?: string;
-        enabled?: boolean;
-      };
+    };
+    refreshButton?: {
+      className?: string;
+      enabled?: boolean;
+    };
+    rowsAndColumns?: {
+      className?: string;
+      enabled?: boolean;
     };
   };
   puzzlePiece?: {
@@ -77,21 +73,17 @@ export interface PuzzleOptions {
   puzzle: {
     className: string;
     responsive: boolean;
-    settings: {
+    timer: {
       className: string;
       enabled: boolean;
-      timer: {
-        className: string;
-        enabled: boolean;
-      };
-      refreshButton: {
-        className: string;
-        enabled: boolean;
-      };
-      rowsAndColumns: {
-        className: string;
-        enabled: boolean;
-      };
+    };
+    refreshButton: {
+      className: string;
+      enabled: boolean;
+    };
+    rowsAndColumns: {
+      className: string;
+      enabled: boolean;
     };
   };
   puzzlePiece: {
