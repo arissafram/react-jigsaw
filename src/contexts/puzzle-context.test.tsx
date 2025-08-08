@@ -54,7 +54,7 @@ describe('PuzzleProvider', () => {
 
   it('renders children with default values', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -70,7 +70,7 @@ describe('PuzzleProvider', () => {
     localStorageMock.getItem.mockReturnValue(JSON.stringify({ rows: 6, columns: 7 }));
 
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={true}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -84,7 +84,7 @@ describe('PuzzleProvider', () => {
     localStorageMock.getItem.mockReturnValue(null);
 
     render(
-      <PuzzleProvider columns={3} rows={8}>
+      <PuzzleProvider columns={3} rows={8} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -102,7 +102,7 @@ describe('PuzzleProvider', () => {
     });
 
     render(
-      <PuzzleProvider columns={2} rows={6}>
+      <PuzzleProvider columns={2} rows={6} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -119,7 +119,7 @@ describe('PuzzleProvider', () => {
     localStorageMock.getItem.mockReturnValue(JSON.stringify({ rows: 4 }));
 
     render(
-      <PuzzleProvider columns={5} rows={3}>
+      <PuzzleProvider columns={5} rows={3} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -131,7 +131,7 @@ describe('PuzzleProvider', () => {
 
   it('updates board grid when setBoardGrid is called', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -145,7 +145,7 @@ describe('PuzzleProvider', () => {
 
   it('stops and restarts timer when setBoardGrid is called', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -158,7 +158,7 @@ describe('PuzzleProvider', () => {
 
   it('increments refresh count when refreshBoard is called', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -171,7 +171,7 @@ describe('PuzzleProvider', () => {
 
   it('stops and restarts timer when refreshBoard is called', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -184,7 +184,7 @@ describe('PuzzleProvider', () => {
 
   it('allows manual timer control', () => {
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -197,7 +197,7 @@ describe('PuzzleProvider', () => {
 
   it('calculates numPieces correctly', () => {
     render(
-      <PuzzleProvider columns={3} rows={7}>
+      <PuzzleProvider columns={3} rows={7} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -207,7 +207,7 @@ describe('PuzzleProvider', () => {
 
   it('handles zero values', () => {
     render(
-      <PuzzleProvider columns={0} rows={0}>
+      <PuzzleProvider columns={0} rows={0} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -219,7 +219,7 @@ describe('PuzzleProvider', () => {
 
   it('handles large values', () => {
     render(
-      <PuzzleProvider columns={100} rows={50}>
+      <PuzzleProvider columns={100} rows={50} checkLocalStorage={false}>
         <PuzzleContent />
       </PuzzleProvider>,
     );
@@ -253,7 +253,7 @@ describe('usePuzzleContext', () => {
     };
 
     render(
-      <PuzzleProvider columns={4} rows={5}>
+      <PuzzleProvider columns={4} rows={5} checkLocalStorage={false}>
         <TestComponentWithProvider />
       </PuzzleProvider>,
     );
