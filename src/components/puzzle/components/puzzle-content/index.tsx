@@ -78,6 +78,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         columns={columns}
         image={image}
         onPuzzleComplete={handlePuzzleComplete}
+        outlineStrokeColor={options.board.outlineStrokeColor}
         puzzlePieceOptions={options.puzzlePiece}
         rows={rows}
         scatterArea={options.board.scatterArea}
