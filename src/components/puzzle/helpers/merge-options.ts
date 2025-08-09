@@ -22,6 +22,7 @@ export const mergeOptions = (
       className: options.board?.className ?? defaults.board.className,
       columns: options.board?.columns ?? defaults.board.columns,
       height: options.board?.height ?? defaults.board.height,
+      outlineStrokeColor: options.board?.outlineStrokeColor ?? defaults.board.outlineStrokeColor,
       rows: options.board?.rows ?? defaults.board.rows,
       scatterArea: options.board?.scatterArea ?? defaults.board.scatterArea,
       showBoardSlotOutlines:

@@ -7,6 +7,7 @@ export interface BoardPathOptions {
   boardWidth: number;
   columns: number;
   edgeMap: ComputedEdgeMap;
+  outlineStrokeColor: string;
   rows: number;
 }
 
@@ -20,6 +21,7 @@ export interface InitialPuzzleOptions {
     className?: string;
     columns?: number;
     height?: number;
+    outlineStrokeColor?: string;
     responsive?: boolean;
     rows?: number;
     scatterArea?: number;
@@ -62,6 +64,7 @@ export interface PuzzleOptions {
     className: string;
     columns: number;
     height: number;
+    outlineStrokeColor: string;
     rows: number;
     scatterArea: number;
     showBoardSlotOutlines: boolean;

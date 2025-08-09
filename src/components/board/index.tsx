@@ -19,6 +19,7 @@ interface BoardProps {
   columns: number;
   image: string;
   onPuzzleComplete?: () => void;
+  outlineStrokeColor: string;
   puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
   rows: number;
   showBoardSlotOutlines: boolean;
@@ -34,6 +35,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     columns,
     image,
     onPuzzleComplete,
+    outlineStrokeColor,
     puzzlePieceOptions,
     rows,
     showBoardSlotOutlines,
@@ -67,9 +69,10 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
       boardWidth,
       columns,
       edgeMap,
+      outlineStrokeColor,
       rows,
     }),
-    [boardHeight, boardWidth, columns, edgeMap, rows],
+    [boardHeight, boardWidth, columns, edgeMap, outlineStrokeColor, rows],
   );
 
   // Generate board slots once and memoize them

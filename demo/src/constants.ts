@@ -14,6 +14,7 @@ export const FIELDS: Field[] = [
   },
   { name: 'board.columns', label: 'columns:', type: 'number', indent: 2 },
   { name: 'board.height', label: 'height:', type: 'number', indent: 2 },
+  { name: 'board.outlineStrokeColor', label: 'outlineStrokeColor:', type: 'text', indent: 2 },
   { name: 'board.rows', label: 'rows:', type: 'number', indent: 2 },
   { name: 'board.scatterArea', label: 'scatterArea:', type: 'number', indent: 2 },
   {

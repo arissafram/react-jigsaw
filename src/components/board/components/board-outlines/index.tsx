@@ -27,6 +27,7 @@ const BoardOutlines = (props: BoardOutlinesProps) => {
             data-testid={`outline-${row}-${col}`}
             className={`${styles.boardSlotOutline} ${isSnapped ? styles.snapped : ''}`}
             d={generateBoardPath({ row, col, options: boardPathOptions })}
+            stroke={boardPathOptions.outlineStrokeColor}
           />
         );
       })}
