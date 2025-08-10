@@ -3,10 +3,10 @@ import { PuzzleOptions } from '@/types';
 export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   board: {
     className: '',
-    columns: 4,
+    columns: 3,
     height: 500,
     outlineStrokeColor: '#000',
-    rows: 6,
+    rows: 4,
     scatterArea: 0,
     showBoardSlotOutlines: true,
     snapThreshold: 20,
@@ -24,11 +24,11 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
     responsive: true,
     timer: {
       className: '',
-      enabled: false,
+      enabled: true,
     },
     refreshButton: {
       className: '',
-      enabled: false,
+      enabled: true,
     },
     rowsAndColumns: {
       className: '',
