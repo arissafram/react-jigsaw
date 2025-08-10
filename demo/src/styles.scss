@@ -9,7 +9,7 @@
     font-family: monospace;
     font-size: 1.25rem;
     font-weight: 600;
-    padding-top: 100px;
+    padding-top: clamp(50px, 12.5vw, 100px);
     padding-bottom: 24px;
   }
 

@@ -1,0 +1,20 @@
+import { FC } from 'react';
+import { PuzzleOptions } from '@/types';
+interface BoardProps {
+    boardHeight: number;
+    boardWidth: number;
+    className: string;
+    columns: number;
+    image: string;
+    onPuzzleComplete?: () => void;
+    outlineStrokeColor: string;
+    puzzlePieceOptions: PuzzleOptions['puzzlePiece'];
+    rows: number;
+    showBoardSlotOutlines: boolean;
+    snapThreshold: number;
+    scatterArea: number;
+    onAnyPieceActiveChange?: (isActive: boolean) => void;
+}
+declare const Board: FC<BoardProps>;
+export default Board;
+//# sourceMappingURL=index.d.ts.map
