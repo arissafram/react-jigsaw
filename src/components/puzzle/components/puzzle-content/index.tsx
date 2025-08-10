@@ -4,6 +4,7 @@ import RefreshButton from '@/components/refresh-button';
 import Timer from '@/components/timer';
 import { usePuzzleContext } from '@/contexts/puzzle-context';
 import { PuzzleOptions } from '@/types';
+import { useEffect, useMemo, useState } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -25,6 +26,28 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     setTimerIsRunning,
     timerIsRunning,
   } = usePuzzleContext();
+
+  const [isAnyPieceActive, setIsAnyPieceActive] = useState(false);
+
+  useEffect(() => {
+    if (!isAnyPieceActive) return;
+
+    const preventTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+    };
+    const preventGesture = (e: Event) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener('touchmove', preventTouchMove, { passive: false });
+    // Safari-specific gesture zoom prevention
+    window.addEventListener('gesturestart', preventGesture as EventListener, { passive: false });
+
+    return () => {
+      window.removeEventListener('touchmove', preventTouchMove);
+      window.removeEventListener('gesturestart', preventGesture as EventListener);
+    };
+  }, [isAnyPieceActive]);
 
   const handleBoardSlotChange = (newRows: number, newColumns: number) => {
     setBoardGrid(newRows, newColumns);
@@ -50,12 +73,20 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
     ? `${styles.puzzle} ${styles.responsive}`
     : styles.puzzle;
 
-  const aspectRatioStyle = options.puzzle.responsive
-    ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
-    : {};
+  const puzzleContainerStyle: React.CSSProperties = useMemo(() => {
+    const aspectRatioStyle = options.puzzle.responsive
+      ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
+      : {};
+
+    return {
+      ...aspectRatioStyle,
+      touchAction: isAnyPieceActive ? 'none' : undefined,
+      overscrollBehavior: isAnyPieceActive ? 'none' : undefined,
+    } as React.CSSProperties;
+  }, [options.puzzle.responsive, aspectRatio, isAnyPieceActive]);
 
   return (
-    <div data-testid="puzzle-content" className={containerClasses} style={{ ...aspectRatioStyle }}>
+    <div data-testid="puzzle-content" className={containerClasses} style={puzzleContainerStyle}>
       {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
         <div className={styles.settingsContainer}>
           {options.puzzle.timer.enabled && (
@@ -84,6 +115,7 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
         scatterArea={options.board.scatterArea}
         showBoardSlotOutlines={options.board.showBoardSlotOutlines}
         snapThreshold={options.board.snapThreshold}
+        onAnyPieceActiveChange={setIsAnyPieceActive}
       />
       {options.puzzle.rowsAndColumns.enabled && (
         <div className={styles.settingsContainer}>

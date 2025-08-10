@@ -25,6 +25,8 @@ interface PuzzlePieceProps {
   onSnapWithKeyboard?: () => void;
   registerPieceRef?: (boardSlotKey: string, ref: SVGGElement | null) => void;
   boardSlotKey: string;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = ({
@@ -44,6 +46,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
   onSnapWithKeyboard,
   registerPieceRef,
   boardSlotKey,
+  onDragStart,
+  onDragEnd,
 }) => {
   const { ref, dragState, isSnapped, moveBy, trySnap, handlers } = useMovePieces({
     initialX,
@@ -53,6 +57,8 @@ const PuzzlePiece: FC<PuzzlePieceProps> = ({
     targetX,
     targetY,
     onSnap,
+    onDragStart,
+    onDragEnd,
   });
 
   // Register this piece's ref with the parent

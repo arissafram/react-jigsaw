@@ -15,6 +15,8 @@ interface UseMovePiecesOptions {
   targetY: number;
   snapThreshold: number;
   onSnap?: () => void;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
 }
 
 /**
@@ -36,6 +38,8 @@ export function useMovePieces({
   targetY,
   snapThreshold,
   onSnap,
+  onDragStart,
+  onDragEnd,
 }: UseMovePiecesOptions) {
   // Ref to the SVG group element representing the piece
   const elementRef = useRef<SVGGElement>(null);
@@ -138,9 +142,13 @@ export function useMovePieces({
       if (!checkSnap(finalX, finalY)) {
         setDragState((prev) => ({ ...prev, isDragging: false }));
       }
+
+      // Notify drag end
+      onDragEnd?.();
+
       e.preventDefault();
     },
-    [screenToSvgCoords, checkSnap],
+    [screenToSvgCoords, checkSnap, onDragEnd],
   );
 
   // Pointer down handler for starting drag
@@ -175,9 +183,13 @@ export function useMovePieces({
       window.addEventListener('pointercancel', endDrag, { passive: false });
 
       setDragState((prev) => ({ ...prev, isDragging: true }));
+
+      // Notify drag start
+      onDragStart?.();
+
       event.preventDefault();
     },
-    [isSnapped, dragState.x, dragState.y, screenToSvgCoords, endDrag],
+    [isSnapped, dragState.x, dragState.y, screenToSvgCoords, endDrag, onDragStart],
   );
 
   // Prevent default behavior for pointer move/up/cancel on the element

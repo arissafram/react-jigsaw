@@ -25,6 +25,7 @@ interface BoardProps {
   showBoardSlotOutlines: boolean;
   snapThreshold: number;
   scatterArea: number;
+  onAnyPieceActiveChange?: (isActive: boolean) => void;
 }
 
 const Board: FC<BoardProps> = (props: BoardProps) => {
@@ -41,6 +42,7 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
     showBoardSlotOutlines,
     snapThreshold,
     scatterArea,
+    onAnyPieceActiveChange,
   } = props;
 
   const pieceHeight = boardHeight / rows;
@@ -172,6 +174,8 @@ const Board: FC<BoardProps> = (props: BoardProps) => {
           boardRef={boardRef}
           targetX={(pieceCol * pieceWidth) / 100}
           targetY={(pieceRow * pieceHeight) / 100}
+          onDragStart={() => onAnyPieceActiveChange?.(true)}
+          onDragEnd={() => onAnyPieceActiveChange?.(false)}
         />
       ))}
     </svg>
