@@ -41,13 +41,17 @@ jobs:
           VITE_BASE: '/${{ github.event.repository.name }}/demo/'
         run: npm run build
 
-      - name: Add SPA fallback
-        run: cp react-jigsaw/demo/dist/index.html react-jigsaw/demo/dist/404.html
+      - name: Prepare artifact under /demo
+        run: |
+          rm -rf site
+          mkdir -p site/demo
+          cp -R react-jigsaw/demo/dist/* site/demo/
+          cp site/demo/index.html site/demo/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: react-jigsaw/demo/dist
+          path: site
 
   deploy:
     environment:
