@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../demo/src/components/props-options-wrapper/index.tsx"],"names":[],"mappings":"AAGA,OAAO,EAAE,aAAa,EAAE,MAAM,SAAS,CAAC;AAKxC,OAAO,eAAe,CAAC;AAEvB,UAAU,uBAAuB;IAC/B,iBAAiB,EAAE,CAAC,OAAO,EAAE,aAAa,KAAK,IAAI,CAAC;CACrD;AAED,QAAA,MAAM,kBAAkB,GAAI,OAAO,uBAAuB,4CA2EzD,CAAC;AAEF,eAAe,kBAAkB,CAAC"}

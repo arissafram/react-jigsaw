@@ -24,7 +24,7 @@ const RefreshButton: FC<RefreshButtonProps> = (props: RefreshButtonProps) => {
         height="20"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
+        stroke="#000000"
         strokeWidth={STROKE_WIDTH}
         strokeLinecap="round"
         strokeLinejoin="round"
