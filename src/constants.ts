@@ -21,7 +21,7 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   },
   puzzle: {
     className: '',
-    responsive: false,
+    responsive: true,
     timer: {
       className: '',
       enabled: false,
