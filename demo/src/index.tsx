@@ -34,6 +34,14 @@ const App = () => {
       <div className="puzzleContainer">
         <Puzzle key={puzzleKey} image={imageSource} onRefresh={handleRefresh} options={options} />
         <PropOptionsWrapper handlePropsChange={handlePropsChange} />
+        <a
+          className="githubLink"
+          href="https://github.com/arissafram/react-jigsaw"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          react-jigsaw
+        </a>
       </div>
     </div>
   );
