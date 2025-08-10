@@ -15,8 +15,8 @@ interface UseMovePiecesOptions {
   targetY: number;
   snapThreshold: number;
   onSnap?: () => void;
-  onDragStart?: () => void;
-  onDragEnd?: () => void;
+  onDragStart: () => void;
+  onDragEnd: () => void;
 }
 
 /**
@@ -144,7 +144,7 @@ export function useMovePieces({
       }
 
       // Notify drag end
-      onDragEnd?.();
+      onDragEnd();
 
       e.preventDefault();
     },
@@ -185,7 +185,7 @@ export function useMovePieces({
       setDragState((prev) => ({ ...prev, isDragging: true }));
 
       // Notify drag start
-      onDragStart?.();
+      onDragStart();
 
       event.preventDefault();
     },

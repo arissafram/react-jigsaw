@@ -25,8 +25,8 @@ interface PuzzlePieceProps {
   onSnapWithKeyboard?: () => void;
   registerPieceRef?: (boardSlotKey: string, ref: SVGGElement | null) => void;
   boardSlotKey: string;
-  onDragStart?: () => void;
-  onDragEnd?: () => void;
+  onDragStart: () => void;
+  onDragEnd: () => void;
 }
 
 const PuzzlePiece: FC<PuzzlePieceProps> = ({

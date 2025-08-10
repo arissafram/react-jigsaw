@@ -36,7 +36,9 @@ describe('PuzzlePiece', () => {
       strokeEnabled: true,
     },
     boardSlotKey: '0-0',
-  };
+    onDragStart: () => {},
+    onDragEnd: () => {},
+  } as const;
 
   it('renders without crashing', () => {
     render(<PuzzlePiece {...defaultProps} />);
