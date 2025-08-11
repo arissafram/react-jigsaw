@@ -48,27 +48,30 @@ import { Puzzle, DEFAULT_PUZZLE_OPTIONS } from 'react-jigsaw';
 function App() {
   const customOptions = {
     board: {
+      className: 'custom-board',
       columns: 6,
-      rows: 4,
-      width: 600,
       height: 400,
-      snapThreshold: 15,
+      outlineStrokeColor: '#bbb',
+      rows: 4,
       scatterArea: 100,
       showBoardSlotOutlines: true,
+      snapThreshold: 15,
+      width: 600,
     },
     puzzle: {
+      className: 'custom-puzzle',
       responsive: true,
       timer: {
-        enabled: true,
         className: 'custom-timer',
+        enabled: true,
       },
       refreshButton: {
-        enabled: true,
         className: 'custom-refresh-btn',
+        enabled: true,
       },
       rowsAndColumns: {
-        enabled: true,
         className: 'custom-controls',
+        enabled: true,
       },
     },
     puzzlePiece: {
@@ -83,7 +86,6 @@ function App() {
       options={customOptions}
       onComplete={() => console.log('Puzzle completed!')}
       onRefresh={() => console.log('Puzzle refreshed!')}
-      responsive={true}
     />
   );
 }
@@ -91,38 +93,38 @@ function App() {
 
 ## Props
 
-### Puzzle Component Props
+### Global Options
 
 | Prop         | Type                   | Default                  | Description                             |
 | ------------ | ---------------------- | ------------------------ | --------------------------------------- |
 | `image`      | `string`               | **required**             | URL or path to the image for the puzzle |
 | `options`    | `InitialPuzzleOptions` | `DEFAULT_PUZZLE_OPTIONS` | Configuration options for the puzzle    |
-| `onComplete` | `() => void`           | `undefined`              | Callback when puzzle is completed       |
-| `onRefresh`  | `() => void`           | `undefined`              | Callback when puzzle is refreshed       |
-| `responsive` | `boolean`              | `false`                  | Enable responsive behavior              |
+| `onComplete` | `() => void`           | `() => {}`               | Callback when puzzle is completed       |
+| `onRefresh`  | `() => void`           | `() => {}`               | Callback when puzzle is refreshed       |
 
 ### Board Options
 
-| Option                  | Type      | Default | Description                                  |
-| ----------------------- | --------- | ------- | -------------------------------------------- |
-| `columns`               | `number`  | `4`     | Number of columns in the puzzle              |
-| `rows`                  | `number`  | `5`     | Number of rows in the puzzle                 |
-| `width`                 | `number`  | `400`   | Width of the puzzle board                    |
-| `height`                | `number`  | `500`   | Height of the puzzle board                   |
-| `snapThreshold`         | `number`  | `20`    | Distance threshold for snapping pieces       |
-| `scatterArea`           | `number`  | `0`     | Area around board where pieces are scattered |
-| `showBoardSlotOutlines` | `boolean` | `true`  | Show outlines of board slots                 |
-| `className`             | `string`  | `''`    | CSS class for the board                      |
+| Option                  | Type      | Default  | Description                                  |
+| ----------------------- | --------- | -------- | -------------------------------------------- |
+| `className`             | `string`  | `''`     | CSS class for the board                      |
+| `columns`               | `number`  | `3`      | Number of columns in the puzzle              |
+| `rows`                  | `number`  | `4`      | Number of rows in the puzzle                 |
+| `width`                 | `number`  | `400`    | Width of the puzzle board                    |
+| `height`                | `number`  | `500`    | Height of the puzzle board                   |
+| `snapThreshold`         | `number`  | `20`     | Distance threshold for snapping pieces       |
+| `scatterArea`           | `number`  | `0`      | Area around board where pieces are scattered |
+| `showBoardSlotOutlines` | `boolean` | `true`   | Show outlines of board slots                 |
+| `outlineStrokeColor`    | `string`  | `'#000'` | Stroke color for board outlines              |
 
 ### Puzzle Options
 
 | Option                     | Type      | Default | Description                        |
 | -------------------------- | --------- | ------- | ---------------------------------- |
-| `responsive`               | `boolean` | `false` | Enable responsive behavior         |
+| `responsive`               | `boolean` | `true`  | Enable responsive behavior         |
 | `className`                | `string`  | `''`    | CSS class for the puzzle container |
-| `timer.enabled`            | `boolean` | `false` | Enable timer functionality         |
+| `timer.enabled`            | `boolean` | `true`  | Enable timer functionality         |
 | `timer.className`          | `string`  | `''`    | CSS class for the timer            |
-| `refreshButton.enabled`    | `boolean` | `false` | Enable refresh button              |
+| `refreshButton.enabled`    | `boolean` | `true`  | Enable refresh button              |
 | `refreshButton.className`  | `string`  | `''`    | CSS class for the refresh button   |
 | `rowsAndColumns.enabled`   | `boolean` | `false` | Enable rows/columns controls       |
 | `rowsAndColumns.className` | `string`  | `''`    | CSS class for the controls         |
@@ -139,12 +141,12 @@ function App() {
 - **Drag and Drop**: Smooth drag-and-drop functionality for puzzle pieces
 - **Snap to Grid**: Pieces automatically snap to correct positions
 - **Keyboard Navigation**: Full keyboard accessibility support
+- **Mobile Support**: Full drag and drop across iOS and Android
 - **Responsive Design**: Optional responsive behavior
 - **Customizable**: Extensive customization options
 - **Timer**: Optional built-in timer
 - **Refresh**: Optional refresh button to restart puzzle
 - **Row/Column Controls**: Optional controls to adjust puzzle size
-- **Local Storage**: Optional state persistence
 
 ## Browser Support
 
