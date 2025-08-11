@@ -9,19 +9,11 @@ A React component for creating interactive jigsaw puzzles with customizable opti
 You can install this component directly from GitHub:
 
 ```bash
-npm install github:yourusername/react-jigsaw
+npm install github:arissafram/react-jigsaw
 ```
 
-Or using yarn:
-
 ```bash
-yarn add github:yourusername/react-jigsaw
-```
-
-### From npm (when published)
-
-```bash
-npm install react-jigsaw
+yarn add github:arissafram/react-jigsaw
 ```
 
 ## Usage
@@ -86,6 +78,45 @@ function App() {
       options={customOptions}
       onComplete={() => console.log('puzzle completed')}
       onRefresh={() => console.log('puzzle refreshed')}
+    />
+  );
+}
+```
+
+### Importing Styles (Optional)
+
+If you want to import the default styles:
+
+```tsx
+import 'react-jigsaw/styles';
+```
+
+### TypeScript Support
+
+The component includes full TypeScript support:
+
+```tsx
+import React from 'react';
+import { Puzzle, InitialPuzzleOptions } from 'react-jigsaw';
+
+function App() {
+  const options: InitialPuzzleOptions = {
+    board: {
+      columns: 5,
+      rows: 3,
+    },
+    puzzle: {
+      timer: {
+        enabled: true,
+      },
+    },
+  };
+
+  return (
+    <Puzzle
+      image="https://picsum.photos/400/300"
+      options={options}
+      onComplete={() => console.log('done')}
     />
   );
 }
@@ -162,12 +193,12 @@ function App() {
 - Node.js 18+
 - npm or yarn
 
-### Setup
+### Local development
 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/react-jigsaw.git
+git clone [repo]
 cd react-jigsaw
 ```
 
@@ -198,48 +229,3 @@ npm run build
 ```
 
 This will create the distribution files in the `dist` directory.
-
-## Installation
-
-```bash
-npm install github:yourusername/react-jigsaw
-```
-
-### Importing Styles (Optional)
-
-If you want to import the default styles:
-
-```tsx
-import 'react-jigsaw/styles';
-```
-
-### TypeScript Support
-
-The component includes full TypeScript support:
-
-```tsx
-import React from 'react';
-import { Puzzle, InitialPuzzleOptions } from 'react-jigsaw';
-
-function App() {
-  const options: InitialPuzzleOptions = {
-    board: {
-      columns: 5,
-      rows: 3,
-    },
-    puzzle: {
-      timer: {
-        enabled: true,
-      },
-    },
-  };
-
-  return (
-    <Puzzle
-      image="https://picsum.photos/400/300"
-      options={options}
-      onComplete={() => console.log('done')}
-    />
-  );
-}
-```
