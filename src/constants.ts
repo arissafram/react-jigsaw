@@ -15,10 +15,6 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
   checkLocalStorage: false,
   onComplete: () => {},
   onRefresh: () => {},
-  puzzlePiece: {
-    strokeColor: 'gold',
-    strokeEnabled: true,
-  },
   puzzle: {
     className: '',
     responsive: true,
@@ -34,6 +30,10 @@ export const DEFAULT_PUZZLE_OPTIONS: PuzzleOptions = {
       className: '',
       enabled: false,
     },
+  },
+  puzzlePiece: {
+    strokeColor: 'gold',
+    strokeEnabled: true,
   },
 };
 
