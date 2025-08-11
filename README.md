@@ -98,9 +98,9 @@ function App() {
 | Prop         | Type                   | Default                  | Description                             |
 | ------------ | ---------------------- | ------------------------ | --------------------------------------- |
 | `image`      | `string`               | **required**             | URL or path to the image for the puzzle |
-| `options`    | `InitialPuzzleOptions` | `DEFAULT_PUZZLE_OPTIONS` | Configuration options for the puzzle    |
 | `onComplete` | `() => void`           | `() => {}`               | Callback when puzzle is completed       |
 | `onRefresh`  | `() => void`           | `() => {}`               | Callback when puzzle is refreshed       |
+| `options`    | `InitialPuzzleOptions` | `DEFAULT_PUZZLE_OPTIONS` | Configuration options for the puzzle    |
 
 ### Board Options
 
@@ -108,26 +108,26 @@ function App() {
 | ----------------------- | --------- | -------- | -------------------------------------------- |
 | `className`             | `string`  | `''`     | CSS class for the board                      |
 | `columns`               | `number`  | `3`      | Number of columns in the puzzle              |
-| `rows`                  | `number`  | `4`      | Number of rows in the puzzle                 |
-| `width`                 | `number`  | `400`    | Width of the puzzle board                    |
 | `height`                | `number`  | `500`    | Height of the puzzle board                   |
-| `snapThreshold`         | `number`  | `20`     | Distance threshold for snapping pieces       |
+| `outlineStrokeColor`    | `string`  | `'#000'` | Stroke color for board outlines              |
+| `rows`                  | `number`  | `4`      | Number of rows in the puzzle                 |
 | `scatterArea`           | `number`  | `0`      | Area around board where pieces are scattered |
 | `showBoardSlotOutlines` | `boolean` | `true`   | Show outlines of board slots                 |
-| `outlineStrokeColor`    | `string`  | `'#000'` | Stroke color for board outlines              |
+| `snapThreshold`         | `number`  | `20`     | Distance threshold for snapping pieces       |
+| `width`                 | `number`  | `400`    | Width of the puzzle board                    |
 
 ### Puzzle Options
 
 | Option                     | Type      | Default | Description                        |
 | -------------------------- | --------- | ------- | ---------------------------------- |
-| `responsive`               | `boolean` | `true`  | Enable responsive behavior         |
 | `className`                | `string`  | `''`    | CSS class for the puzzle container |
-| `timer.enabled`            | `boolean` | `true`  | Enable timer functionality         |
-| `timer.className`          | `string`  | `''`    | CSS class for the timer            |
 | `refreshButton.enabled`    | `boolean` | `true`  | Enable refresh button              |
 | `refreshButton.className`  | `string`  | `''`    | CSS class for the refresh button   |
+| `responsive`               | `boolean` | `true`  | Enable responsive behavior         |
 | `rowsAndColumns.enabled`   | `boolean` | `false` | Enable rows/columns controls       |
 | `rowsAndColumns.className` | `string`  | `''`    | CSS class for the controls         |
+| `timer.enabled`            | `boolean` | `true`  | Enable timer functionality         |
+| `timer.className`          | `string`  | `''`    | CSS class for the timer            |
 
 ### Puzzle Piece Options
 
