@@ -21,6 +21,7 @@ const App = () => {
   const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
+    // cycle through images
     const nextIndex = (imageIndex + 1) % DASIE_IMAGES.length;
     setImageIndex(nextIndex);
     setImageSource(DASIE_IMAGES[nextIndex]);
