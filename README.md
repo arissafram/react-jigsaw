@@ -152,10 +152,10 @@ function App() {
 
 - Chrome (latest)
 - Firefox (latest)
-- Safari (latest)
+- Safari (latest)g
 - Edge (latest)
 
-## Development
+## Local development
 
 ### Prerequisites
 
@@ -198,11 +198,3 @@ npm run build
 ```
 
 This will create the distribution files in the `dist` directory.
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
