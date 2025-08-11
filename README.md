@@ -84,8 +84,8 @@ function App() {
     <Puzzle
       image="/path/to/your/image.jpg"
       options={customOptions}
-      onComplete={() => console.log('Puzzle completed!')}
-      onRefresh={() => console.log('Puzzle refreshed!')}
+      onComplete={() => console.log('puzzle completed')}
+      onRefresh={() => console.log('puzzle refreshed')}
     />
   );
 }
@@ -198,3 +198,48 @@ npm run build
 ```
 
 This will create the distribution files in the `dist` directory.
+
+## Installation
+
+```bash
+npm install github:yourusername/react-jigsaw
+```
+
+### Importing Styles (Optional)
+
+If you want to import the default styles:
+
+```tsx
+import 'react-jigsaw/styles';
+```
+
+### TypeScript Support
+
+The component includes full TypeScript support:
+
+```tsx
+import React from 'react';
+import { Puzzle, InitialPuzzleOptions } from 'react-jigsaw';
+
+function App() {
+  const options: InitialPuzzleOptions = {
+    board: {
+      columns: 5,
+      rows: 3,
+    },
+    puzzle: {
+      timer: {
+        enabled: true,
+      },
+    },
+  };
+
+  return (
+    <Puzzle
+      image="https://picsum.photos/400/300"
+      options={options}
+      onComplete={() => console.log('done')}
+    />
+  );
+}
+```
