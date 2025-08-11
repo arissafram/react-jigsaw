@@ -10,9 +10,8 @@ import dasie1 from './assets/dasie-1.jpg';
 import dasie2 from './assets/dasie-2.jpg';
 import dasie3 from './assets/dasie-3.jpg';
 import dasie4 from './assets/dasie-4.jpg';
-import dasie5 from './assets/dasie-5.jpg';
 
-const DASIE_IMAGES = [dasie1, dasie2, dasie3, dasie4, dasie5];
+const DASIE_IMAGES = [dasie1, dasie2, dasie3, dasie4];
 
 const App = () => {
   const [imageIndex, setImageIndex] = useState(0);
@@ -21,7 +20,7 @@ const App = () => {
   const [puzzleKey, setPuzzleKey] = useState(0);
 
   const handleRefresh = () => {
-    // cycle through images
+    // ycle through images
     const nextIndex = (imageIndex + 1) % DASIE_IMAGES.length;
     setImageIndex(nextIndex);
     setImageSource(DASIE_IMAGES[nextIndex]);
