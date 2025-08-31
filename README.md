@@ -126,14 +126,16 @@ function App() {
 
 ### Global Options
 
-| Prop         | Type                   | Default                  | Description                             |
-| ------------ | ---------------------- | ------------------------ | --------------------------------------- |
-| `image`      | `string`               | **required**             | URL or path to the image for the puzzle |
-| `onComplete` | `() => void`           | `() => {}`               | Callback when puzzle is completed       |
-| `onRefresh`  | `() => void`           | `() => {}`               | Callback when puzzle is refreshed       |
-| `options`    | `InitialPuzzleOptions` | `DEFAULT_PUZZLE_OPTIONS` | Configuration options for the puzzle    |
+| Prop         | Type                   | Default                   | Description                             |
+| ------------ | ---------------------- | ------------------------- | --------------------------------------- |
+| `image`      | `string`               | **required**              | URL or path to the image for the puzzle |
+| `onComplete` | `() => void`           | `() => {}`                | Callback when puzzle is completed       |
+| `onRefresh`  | `() => void`           | `() => {}`                | Callback when puzzle is refreshed       |
+| `options`    | `InitialPuzzleOptions` | `DEFAULT_OPTIONS` (below) | Configuration options for the puzzle    |
 
-### Board Options
+### DEFUALT OPTIONS
+
+## Board Options
 
 | Option                  | Type      | Default  | Description                                  |
 | ----------------------- | --------- | -------- | -------------------------------------------- |
@@ -147,7 +149,7 @@ function App() {
 | `snapThreshold`         | `number`  | `20`     | Distance threshold for snapping pieces       |
 | `width`                 | `number`  | `400`    | Width of the puzzle board                    |
 
-### Puzzle Options
+## Puzzle Options
 
 | Option                     | Type      | Default | Description                        |
 | -------------------------- | --------- | ------- | ---------------------------------- |
@@ -160,7 +162,7 @@ function App() {
 | `timer.enabled`            | `boolean` | `true`  | Enable timer functionality         |
 | `timer.className`          | `string`  | `''`    | CSS class for the timer            |
 
-### Puzzle Piece Options
+## Puzzle Piece Options
 
 | Option          | Type      | Default  | Description           |
 | --------------- | --------- | -------- | --------------------- |
