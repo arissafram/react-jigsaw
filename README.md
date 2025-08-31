@@ -4,7 +4,7 @@ A React component for creating interactive jigsaw puzzles with customizable opti
 
 ## Installation
 
-### From GitHub (Recommended)
+### From GitHub
 
 You can install this component directly from GitHub:
 
