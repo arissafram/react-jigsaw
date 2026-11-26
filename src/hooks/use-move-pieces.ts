@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { BoardRef } from '@/types';
 
 interface DragState {
@@ -6,6 +6,11 @@ interface DragState {
   x: number;
   y: number;
 }
+
+// A touch that starts on a piece and moves up or down at least this fast
+// (px/ms, measured at its first touchmove) is a swipe to scroll the page, not
+// a drag. Slower or sideways touches pick the piece up.
+const SWIPE_SPEED = 0.5;
 
 interface UseMovePiecesOptions {
   initialX: number;
@@ -59,6 +64,9 @@ export function useMovePieces({
     offsetY: number;
     pointerId: number;
     isDragging: boolean;
+    // Where the piece was when the drag began, to put it back on cancel
+    startX: number;
+    startY: number;
   } | null>(null);
 
   // Store the handlePointerMove function in a ref to avoid circular dependencies
@@ -138,8 +146,16 @@ export function useMovePieces({
 
       dragInfoRef.current = null;
 
-      // Snap if close enough, otherwise just end drag
-      if (!checkSnap(finalX, finalY)) {
+      if (e.type === 'pointercancel') {
+        // The browser took the touch (e.g. to scroll): put the piece back.
+        setDragState((prev) => ({
+          ...prev,
+          x: dragInfo.startX,
+          y: dragInfo.startY,
+          isDragging: false,
+        }));
+      } else if (!checkSnap(finalX, finalY)) {
+        // Snap if close enough, otherwise just end drag
         setDragState((prev) => ({ ...prev, isDragging: false }));
       }
 
@@ -170,6 +186,8 @@ export function useMovePieces({
         offsetY,
         pointerId: event.pointerId,
         isDragging: true,
+        startX: dragState.x,
+        startY: dragState.y,
       };
 
       // Capture pointer events for this element
@@ -209,6 +227,60 @@ export function useMovePieces({
     [endDrag],
   );
 
+  // Touch: pieces don't set `touch-action: none`, so a touch anywhere else on
+  // the page scrolls as usual. On a piece, the first touchmove decides: a fast
+  // up/down swipe is left to the browser (it scrolls and cancels the drag,
+  // which puts the piece back); anything else is a drag, and its touchmoves
+  // are cancelled so the page stays still.
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+    let start: { x: number; y: number; time: number } | null = null;
+    let isDrag = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) {
+        start = null;
+        return;
+      }
+      const t = e.touches[0];
+      start = { x: t.clientX, y: t.clientY, time: e.timeStamp };
+      isDrag = false;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!start) return;
+      if (!isDrag) {
+        const t = e.touches[0];
+        const dx = t.clientX - start.x;
+        const dy = t.clientY - start.y;
+        const speed = Math.hypot(dx, dy) / Math.max(e.timeStamp - start.time, 1);
+        if (Math.abs(dy) > Math.abs(dx) && speed >= SWIPE_SPEED) {
+          start = null;
+          return;
+        }
+        isDrag = true;
+      }
+      if (e.cancelable) e.preventDefault();
+    };
+
+    const onTouchEnd = () => {
+      start = null;
+      isDrag = false;
+    };
+
+    element.addEventListener('touchstart', onTouchStart, { passive: true });
+    element.addEventListener('touchmove', onTouchMove, { passive: false });
+    element.addEventListener('touchend', onTouchEnd);
+    element.addEventListener('touchcancel', onTouchEnd);
+    return () => {
+      element.removeEventListener('touchstart', onTouchStart);
+      element.removeEventListener('touchmove', onTouchMove);
+      element.removeEventListener('touchend', onTouchEnd);
+      element.removeEventListener('touchcancel', onTouchEnd);
+    };
+  }, []);
+
   // Programmatic movement (for keyboard controls, etc.)
   const moveTo = useCallback(
     (x: number, y: number) => {
@@ -246,7 +318,8 @@ export function useMovePieces({
       onPointerUp: handlePointerUpElement,
       onPointerCancel: handlePointerCancel,
       style: {
-        touchAction: 'none',
+        // Not 'none': see the touch handling above.
+        touchAction: 'manipulation',
         cursor: isSnapped ? 'default' : dragState.isDragging ? 'grabbing' : 'grab',
       } as React.CSSProperties,
     },

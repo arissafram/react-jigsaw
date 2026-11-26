@@ -32,19 +32,16 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
   useEffect(() => {
     if (!isAnyPieceActive) return;
 
-    const preventTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
-    };
+    // Touch scrolling during a drag is stopped by the piece itself (see
+    // useMovePieces), so a fast swipe that starts on a piece can still scroll.
     const preventGesture = (e: Event) => {
       e.preventDefault();
     };
 
-    window.addEventListener('touchmove', preventTouchMove, { passive: false });
     // Safari-specific gesture zoom prevention
     window.addEventListener('gesturestart', preventGesture as EventListener, { passive: false });
 
     return () => {
-      window.removeEventListener('touchmove', preventTouchMove);
       window.removeEventListener('gesturestart', preventGesture as EventListener);
     };
   }, [isAnyPieceActive]);
@@ -78,12 +75,8 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
       ? ({ '--puzzle-aspect-ratio': aspectRatio.toString() } as React.CSSProperties)
       : {};
 
-    return {
-      ...aspectRatioStyle,
-      touchAction: isAnyPieceActive ? 'none' : undefined,
-      overscrollBehavior: isAnyPieceActive ? 'none' : undefined,
-    } as React.CSSProperties;
-  }, [options.puzzle.responsive, aspectRatio, isAnyPieceActive]);
+    return aspectRatioStyle;
+  }, [options.puzzle.responsive, aspectRatio]);
 
   return (
     <div data-testid="puzzle-content" className={containerClasses} style={puzzleContainerStyle}>
