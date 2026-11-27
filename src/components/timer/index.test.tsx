@@ -76,6 +76,51 @@ describe('Timer', () => {
     expect(screen.getByTestId('timer')).toHaveTextContent(timeWhenStopped!);
   });
 
+  it('stays at 00:00 while paused', async () => {
+    render(<Timer {...defaultProps} isRunning={true} paused={true} />);
+
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    expect(screen.getByTestId('timer')).toHaveTextContent('00:00');
+  });
+
+  it('counts from 00:00 when unpaused after mounting paused', async () => {
+    const { rerender } = render(<Timer {...defaultProps} isRunning={true} paused={true} />);
+
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    rerender(<Timer {...defaultProps} isRunning={true} paused={false} />);
+    expect(screen.getByTestId('timer')).toHaveTextContent('00:00');
+
+    await waitFor(
+      () => {
+        expect(screen.getByText('00:01')).toBeInTheDocument();
+      },
+      { timeout: 2000 },
+    );
+  });
+
+  it('keeps its time while paused and resumes from it', async () => {
+    const { rerender } = render(<Timer {...defaultProps} isRunning={true} />);
+
+    await waitFor(
+      () => {
+        expect(screen.getByText('00:01')).toBeInTheDocument();
+      },
+      { timeout: 2000 },
+    );
+
+    rerender(<Timer {...defaultProps} isRunning={true} paused={true} />);
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    expect(screen.getByTestId('timer')).toHaveTextContent('00:01');
+
+    rerender(<Timer {...defaultProps} isRunning={true} paused={false} />);
+    await waitFor(
+      () => {
+        expect(screen.getByText('00:02')).toBeInTheDocument();
+      },
+      { timeout: 2000 },
+    );
+  });
+
   it('calls onTimeUpdate callback when timer is running', async () => {
     const mockOnTimeUpdate = vi.fn();
     render(<Timer {...defaultProps} isRunning={true} onTimeUpdate={mockOnTimeUpdate} />);

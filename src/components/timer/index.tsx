@@ -6,16 +6,20 @@ interface TimerProps {
   className?: string;
   isRunning: boolean;
   onTimeUpdate?: (seconds: number) => void;
+  // Holds the current time without resetting it; counting resumes when false
+  paused?: boolean;
 }
 
 const Timer: FC<TimerProps> = (props: TimerProps) => {
-  const { className, isRunning, onTimeUpdate } = props;
+  const { className, isRunning, onTimeUpdate, paused = false } = props;
 
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  const isCounting = isRunning && !paused;
+
   useEffect(() => {
-    if (isRunning) {
+    if (isCounting) {
       // Start the timer
       intervalRef.current = setInterval(() => {
         setSeconds((prev) => {
@@ -38,7 +42,7 @@ const Timer: FC<TimerProps> = (props: TimerProps) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isRunning, onTimeUpdate]);
+  }, [isCounting, onTimeUpdate]);
 
   // Reset timer when isRunning changes from false to true
   useEffect(() => {

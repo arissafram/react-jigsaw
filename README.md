@@ -132,6 +132,9 @@ function App() {
 | `onComplete` | `() => void`           | `() => {}`                | Callback when puzzle is completed       |
 | `onRefresh`  | `() => void`           | `() => {}`                | Callback when puzzle is refreshed       |
 | `options`    | `InitialPuzzleOptions` | `DEFAULT_OPTIONS` (below) | Configuration options for the puzzle    |
+| `paused`     | `boolean`              | `false`                   | Holds the timer at its current time     |
+
+`paused` can change at any time. While it is `true` the timer doesn't count and keeps its value; when it turns `false` the timer carries on from there. A puzzle mounted with `paused` starts at `00:00` once it is unpaused. Pieces are drawn, shuffled and draggable as usual. Refreshing and solving still reset and stop the timer.
 
 ### DEFUALT OPTIONS
 

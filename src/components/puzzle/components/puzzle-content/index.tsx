@@ -13,10 +13,11 @@ interface PuzzleContentProps {
   options: PuzzleOptions;
   onComplete?: () => void;
   onRefresh?: () => void;
+  paused?: boolean;
 }
 
 const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) => {
-  const { image, onComplete, onRefresh, options } = props;
+  const { image, onComplete, onRefresh, options, paused = false } = props;
   const {
     columns,
     refreshBoard,
@@ -83,7 +84,11 @@ const PuzzleContent: React.FC<PuzzleContentProps> = (props: PuzzleContentProps) 
       {options.puzzle.timer.enabled || options.puzzle.refreshButton.enabled ? (
         <div className={styles.settingsContainer}>
           {options.puzzle.timer.enabled && (
-            <Timer className={options.puzzle.timer.className} isRunning={timerIsRunning} />
+            <Timer
+              className={options.puzzle.timer.className}
+              isRunning={timerIsRunning}
+              paused={paused}
+            />
           )}
           {options.puzzle.refreshButton.enabled && (
             <RefreshButton
