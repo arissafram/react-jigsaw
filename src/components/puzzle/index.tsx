@@ -11,6 +11,7 @@ interface PuzzleProps {
   options?: InitialPuzzleOptions;
   onComplete?: () => void;
   onRefresh?: () => void;
+  paused?: boolean;
   responsive?: boolean;
 }
 

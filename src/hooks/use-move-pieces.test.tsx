@@ -357,3 +357,94 @@ describe('useMovePieces', () => {
     expect(screen.getByTestId('is-snapped')).toHaveTextContent('false');
   });
 });
+
+describe('useMovePieces touch scrolling', () => {
+  const TouchPiece = ({
+    onDragEnd = vi.fn(),
+    target = 300,
+  }: {
+    onDragEnd?: () => void;
+    target?: number;
+  }) => {
+    const { ref, dragState, isSnapped, handlers } = useMovePieces({
+      initialX: 10,
+      initialY: 20,
+      boardRef: mockBoardRef,
+      targetX: target,
+      targetY: target,
+      snapThreshold: 20,
+      onDragStart: vi.fn(),
+      onDragEnd,
+    });
+    return (
+      <svg>
+        <g ref={ref} {...handlers} data-testid="touch-piece" />
+        <text data-testid="touch-state">{JSON.stringify({ ...dragState, isSnapped })}</text>
+      </svg>
+    );
+  };
+
+  // Fires a cancelable touch event at the piece with the given position and time.
+  const touch = (el: Element, type: string, x: number, y: number, timeStamp: number) => {
+    const event = new Event(type, { bubbles: true, cancelable: true });
+    const point = { clientX: x, clientY: y };
+    Object.defineProperty(event, 'touches', { value: type === 'touchend' ? [] : [point] });
+    Object.defineProperty(event, 'timeStamp', { value: timeStamp });
+    el.dispatchEvent(event);
+    return event;
+  };
+
+  it('does not block touch scrolling with touch-action: none', () => {
+    render(<TouchPiece />);
+    expect(screen.getByTestId('touch-piece').style.touchAction).toBe('manipulation');
+  });
+
+  it('lets a fast up/down swipe that starts on a piece scroll the page', () => {
+    render(<TouchPiece />);
+    const piece = screen.getByTestId('touch-piece');
+    touch(piece, 'touchstart', 100, 100, 1000);
+    const first = touch(piece, 'touchmove', 102, 140, 1030); // 40px in 30ms
+    const next = touch(piece, 'touchmove', 104, 200, 1060);
+    expect(first.defaultPrevented).toBe(false);
+    expect(next.defaultPrevented).toBe(false);
+  });
+
+  it('keeps the page still while a piece is dragged slowly', () => {
+    render(<TouchPiece />);
+    const piece = screen.getByTestId('touch-piece');
+    touch(piece, 'touchstart', 100, 100, 1000);
+    const first = touch(piece, 'touchmove', 101, 106, 1100); // 6px in 100ms
+    const fastLater = touch(piece, 'touchmove', 101, 200, 1110);
+    expect(first.defaultPrevented).toBe(true);
+    expect(fastLater.defaultPrevented).toBe(true);
+  });
+
+  it('treats a fast sideways move as a drag, not a swipe', () => {
+    render(<TouchPiece />);
+    const piece = screen.getByTestId('touch-piece');
+    touch(piece, 'touchstart', 100, 100, 1000);
+    expect(touch(piece, 'touchmove', 150, 105, 1020).defaultPrevented).toBe(true);
+  });
+
+  it('puts the piece back, without snapping, when the browser cancels the drag to scroll', () => {
+    const onDragEnd = vi.fn();
+    // The piece starts within snapping distance, so ending the drag normally
+    // would snap it.
+    render(<TouchPiece onDragEnd={onDragEnd} target={15} />);
+    const piece = screen.getByTestId('touch-piece') as unknown as SVGGElement;
+    // jsdom has no pointer capture or PointerEvent fields
+    piece.setPointerCapture = vi.fn();
+    piece.hasPointerCapture = vi.fn(() => false);
+    const pointer = (type: string, init: Record<string, unknown>) => {
+      const event = new MouseEvent(type, { bubbles: true, cancelable: true, ...init });
+      Object.assign(event, { pointerId: 1, isPrimary: true });
+      return event;
+    };
+    fireEvent(piece, pointer('pointerdown', { clientX: 100, clientY: 100 }));
+    expect(JSON.parse(screen.getByTestId('touch-state').textContent!).isDragging).toBe(true);
+    fireEvent(window, pointer('pointercancel', { clientX: 100, clientY: 160 }));
+    const state = JSON.parse(screen.getByTestId('touch-state').textContent!);
+    expect(state).toMatchObject({ x: 10, y: 20, isDragging: false, isSnapped: false });
+    expect(onDragEnd).toHaveBeenCalled();
+  });
+});

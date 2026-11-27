@@ -1,5 +1,5 @@
-import fe, { createContext as pe, useState as I, useContext as he, useRef as X, useCallback as D, useEffect as Y, useMemo as Z } from "react";
-var H = { exports: {} }, G = {};
+import fe, { createContext as pe, useState as D, useContext as he, useRef as V, useCallback as B, useEffect as W, useMemo as Q } from "react";
+var K = { exports: {} }, q = {};
 /**
  * @license React
  * react-jsx-runtime.production.js
@@ -11,27 +11,27 @@ var H = { exports: {} }, G = {};
  */
 var ne;
 function me() {
-  if (ne) return G;
+  if (ne) return q;
   ne = 1;
   var r = Symbol.for("react.transitional.element"), t = Symbol.for("react.fragment");
-  function o(s, n, a) {
-    var f = null;
-    if (a !== void 0 && (f = "" + a), n.key !== void 0 && (f = "" + n.key), "key" in n) {
-      a = {};
-      for (var v in n)
-        v !== "key" && (a[v] = n[v]);
-    } else a = n;
-    return n = a.ref, {
+  function o(a, n, i) {
+    var m = null;
+    if (i !== void 0 && (m = "" + i), n.key !== void 0 && (m = "" + n.key), "key" in n) {
+      i = {};
+      for (var p in n)
+        p !== "key" && (i[p] = n[p]);
+    } else i = n;
+    return n = i.ref, {
       $$typeof: r,
-      type: s,
-      key: f,
+      type: a,
+      key: m,
       ref: n !== void 0 ? n : null,
-      props: a
+      props: i
     };
   }
-  return G.Fragment = t, G.jsx = o, G.jsxs = o, G;
+  return q.Fragment = t, q.jsx = o, q.jsxs = o, q;
 }
-var V = {};
+var H = {};
 /**
  * @license React
  * react-jsx-runtime.development.js
@@ -47,20 +47,20 @@ function ge() {
     function r(e) {
       if (e == null) return null;
       if (typeof e == "function")
-        return e.$$typeof === M ? null : e.displayName || e.name || null;
+        return e.$$typeof === L ? null : e.displayName || e.name || null;
       if (typeof e == "string") return e;
       switch (e) {
-        case z:
+        case E:
           return "Fragment";
-        case w:
+        case z:
           return "Profiler";
-        case u:
+        case d:
           return "StrictMode";
-        case y:
+        case k:
           return "Suspense";
-        case O:
+        case I:
           return "SuspenseList";
-        case T:
+        case N:
           return "Activity";
       }
       if (typeof e == "object")
@@ -69,19 +69,19 @@ function ge() {
         ), e.$$typeof) {
           case C:
             return "Portal";
-          case _:
+          case y:
             return (e.displayName || "Context") + ".Provider";
-          case l:
+          case c:
             return (e._context.displayName || "Context") + ".Consumer";
-          case P:
-            var h = e.render;
-            return e = e.displayName, e || (e = h.displayName || h.name || "", e = e !== "" ? "ForwardRef(" + e + ")" : "ForwardRef"), e;
-          case W:
-            return h = e.displayName || null, h !== null ? h : r(e.type) || "Memo";
-          case B:
-            h = e._payload, e = e._init;
+          case T:
+            var f = e.render;
+            return e = e.displayName, e || (e = f.displayName || f.name || "", e = e !== "" ? "ForwardRef(" + e + ")" : "ForwardRef"), e;
+          case F:
+            return f = e.displayName || null, f !== null ? f : r(e.type) || "Memo";
+          case M:
+            f = e._payload, e = e._init;
             try {
-              return r(e(h));
+              return r(e(f));
             } catch {
             }
         }
@@ -93,73 +93,73 @@ function ge() {
     function o(e) {
       try {
         t(e);
-        var h = !1;
+        var f = !1;
       } catch {
-        h = !0;
+        f = !0;
       }
-      if (h) {
-        h = console;
-        var x = h.error, j = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
-        return x.call(
-          h,
+      if (f) {
+        f = console;
+        var _ = f.error, j = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
+        return _.call(
+          f,
           "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
           j
         ), t(e);
       }
     }
-    function s(e) {
-      if (e === z) return "<>";
-      if (typeof e == "object" && e !== null && e.$$typeof === B)
+    function a(e) {
+      if (e === E) return "<>";
+      if (typeof e == "object" && e !== null && e.$$typeof === M)
         return "<...>";
       try {
-        var h = r(e);
-        return h ? "<" + h + ">" : "<...>";
+        var f = r(e);
+        return f ? "<" + f + ">" : "<...>";
       } catch {
         return "<...>";
       }
     }
     function n() {
-      var e = d.A;
+      var e = l.A;
       return e === null ? null : e.getOwner();
     }
-    function a() {
+    function i() {
       return Error("react-stack-top-frame");
     }
-    function f(e) {
-      if (c.call(e, "key")) {
-        var h = Object.getOwnPropertyDescriptor(e, "key").get;
-        if (h && h.isReactWarning) return !1;
+    function m(e) {
+      if (s.call(e, "key")) {
+        var f = Object.getOwnPropertyDescriptor(e, "key").get;
+        if (f && f.isReactWarning) return !1;
       }
       return e.key !== void 0;
     }
-    function v(e, h) {
-      function x() {
-        k || (k = !0, console.error(
+    function p(e, f) {
+      function _() {
+        R || (R = !0, console.error(
           "%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://react.dev/link/special-props)",
-          h
+          f
         ));
       }
-      x.isReactWarning = !0, Object.defineProperty(e, "key", {
-        get: x,
+      _.isReactWarning = !0, Object.defineProperty(e, "key", {
+        get: _,
         configurable: !0
       });
     }
-    function i() {
+    function g() {
       var e = r(this.type);
-      return N[e] || (N[e] = !0, console.error(
+      return $[e] || ($[e] = !0, console.error(
         "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
       )), e = this.props.ref, e !== void 0 ? e : null;
     }
-    function p(e, h, x, j, F, L, K, Q) {
-      return x = L.ref, e = {
-        $$typeof: $,
+    function h(e, f, _, j, U, Y, ee, te) {
+      return _ = Y.ref, e = {
+        $$typeof: P,
         type: e,
-        key: h,
-        props: L,
-        _owner: F
-      }, (x !== void 0 ? x : null) !== null ? Object.defineProperty(e, "ref", {
+        key: f,
+        props: Y,
+        _owner: U
+      }, (_ !== void 0 ? _ : null) !== null ? Object.defineProperty(e, "ref", {
         enumerable: !1,
-        get: i
+        get: g
       }) : Object.defineProperty(e, "ref", { enumerable: !1, value: null }), e._store = {}, Object.defineProperty(e._store, "validated", {
         configurable: !1,
         enumerable: !1,
@@ -174,33 +174,33 @@ function ge() {
         configurable: !1,
         enumerable: !1,
         writable: !0,
-        value: K
+        value: ee
       }), Object.defineProperty(e, "_debugTask", {
         configurable: !1,
         enumerable: !1,
         writable: !0,
-        value: Q
+        value: te
       }), Object.freeze && (Object.freeze(e.props), Object.freeze(e)), e;
     }
-    function S(e, h, x, j, F, L, K, Q) {
-      var A = h.children;
+    function v(e, f, _, j, U, Y, ee, te) {
+      var A = f.children;
       if (A !== void 0)
         if (j)
-          if (b(A)) {
+          if (u(A)) {
             for (j = 0; j < A.length; j++)
-              R(A[j]);
+              S(A[j]);
             Object.freeze && Object.freeze(A);
           } else
             console.error(
               "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead."
             );
-        else R(A);
-      if (c.call(h, "key")) {
+        else S(A);
+      if (s.call(f, "key")) {
         A = r(e);
-        var U = Object.keys(h).filter(function(de) {
+        var G = Object.keys(f).filter(function(de) {
           return de !== "key";
         });
-        j = 0 < U.length ? "{key: someKey, " + U.join(": ..., ") + ": ...}" : "{key: someKey}", re[A + j] || (U = 0 < U.length ? "{" + U.join(": ..., ") + ": ...}" : "{}", console.error(
+        j = 0 < G.length ? "{key: someKey, " + G.join(": ..., ") + ": ...}" : "{key: someKey}", J[A + j] || (G = 0 < G.length ? "{" + G.join(": ..., ") + ": ...}" : "{}", console.error(
           `A props object containing a "key" prop is being spread into JSX:
   let props = %s;
   <%s {...props} />
@@ -209,83 +209,83 @@ React keys must be passed directly to JSX without using spread:
   <%s key={someKey} {...props} />`,
           j,
           A,
-          U,
+          G,
           A
-        ), re[A + j] = !0);
+        ), J[A + j] = !0);
       }
-      if (A = null, x !== void 0 && (o(x), A = "" + x), f(h) && (o(h.key), A = "" + h.key), "key" in h) {
-        x = {};
-        for (var ee in h)
-          ee !== "key" && (x[ee] = h[ee]);
-      } else x = h;
-      return A && v(
-        x,
+      if (A = null, _ !== void 0 && (o(_), A = "" + _), m(f) && (o(f.key), A = "" + f.key), "key" in f) {
+        _ = {};
+        for (var re in f)
+          re !== "key" && (_[re] = f[re]);
+      } else _ = f;
+      return A && p(
+        _,
         typeof e == "function" ? e.displayName || e.name || "Unknown" : e
-      ), p(
+      ), h(
         e,
         A,
-        L,
-        F,
+        Y,
+        U,
         n(),
-        x,
-        K,
-        Q
+        _,
+        ee,
+        te
       );
     }
-    function R(e) {
-      typeof e == "object" && e !== null && e.$$typeof === $ && e._store && (e._store.validated = 1);
+    function S(e) {
+      typeof e == "object" && e !== null && e.$$typeof === P && e._store && (e._store.validated = 1);
     }
-    var g = fe, $ = Symbol.for("react.transitional.element"), C = Symbol.for("react.portal"), z = Symbol.for("react.fragment"), u = Symbol.for("react.strict_mode"), w = Symbol.for("react.profiler"), l = Symbol.for("react.consumer"), _ = Symbol.for("react.context"), P = Symbol.for("react.forward_ref"), y = Symbol.for("react.suspense"), O = Symbol.for("react.suspense_list"), W = Symbol.for("react.memo"), B = Symbol.for("react.lazy"), T = Symbol.for("react.activity"), M = Symbol.for("react.client.reference"), d = g.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, c = Object.prototype.hasOwnProperty, b = Array.isArray, E = console.createTask ? console.createTask : function() {
+    var w = fe, P = Symbol.for("react.transitional.element"), C = Symbol.for("react.portal"), E = Symbol.for("react.fragment"), d = Symbol.for("react.strict_mode"), z = Symbol.for("react.profiler"), c = Symbol.for("react.consumer"), y = Symbol.for("react.context"), T = Symbol.for("react.forward_ref"), k = Symbol.for("react.suspense"), I = Symbol.for("react.suspense_list"), F = Symbol.for("react.memo"), M = Symbol.for("react.lazy"), N = Symbol.for("react.activity"), L = Symbol.for("react.client.reference"), l = w.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, s = Object.prototype.hasOwnProperty, u = Array.isArray, x = console.createTask ? console.createTask : function() {
       return null;
     };
-    g = {
+    w = {
       "react-stack-bottom-frame": function(e) {
         return e();
       }
     };
-    var k, N = {}, q = g["react-stack-bottom-frame"].bind(
-      g,
-      a
-    )(), te = E(s(a)), re = {};
-    V.Fragment = z, V.jsx = function(e, h, x, j, F) {
-      var L = 1e4 > d.recentlyCreatedOwnerStacks++;
-      return S(
+    var R, $ = {}, O = w["react-stack-bottom-frame"].bind(
+      w,
+      i
+    )(), X = x(a(i)), J = {};
+    H.Fragment = E, H.jsx = function(e, f, _, j, U) {
+      var Y = 1e4 > l.recentlyCreatedOwnerStacks++;
+      return v(
         e,
-        h,
-        x,
+        f,
+        _,
         !1,
         j,
-        F,
-        L ? Error("react-stack-top-frame") : q,
-        L ? E(s(e)) : te
+        U,
+        Y ? Error("react-stack-top-frame") : O,
+        Y ? x(a(e)) : X
       );
-    }, V.jsxs = function(e, h, x, j, F) {
-      var L = 1e4 > d.recentlyCreatedOwnerStacks++;
-      return S(
+    }, H.jsxs = function(e, f, _, j, U) {
+      var Y = 1e4 > l.recentlyCreatedOwnerStacks++;
+      return v(
         e,
-        h,
-        x,
+        f,
+        _,
         !0,
         j,
-        F,
-        L ? Error("react-stack-top-frame") : q,
-        L ? E(s(e)) : te
+        U,
+        Y ? Error("react-stack-top-frame") : O,
+        Y ? x(a(e)) : X
       );
     };
-  }()), V;
+  }()), H;
 }
 var se;
 function be() {
-  return se || (se = 1, process.env.NODE_ENV === "production" ? H.exports = me() : H.exports = ge()), H.exports;
+  return se || (se = 1, process.env.NODE_ENV === "production" ? K.exports = me() : K.exports = ge()), K.exports;
 }
-var m = be();
+var b = be();
 const ve = {
   board: {
     className: "",
-    columns: 4,
+    columns: 3,
     height: 500,
-    outlineStrokeColor: "#bbb",
-    rows: 5,
+    outlineStrokeColor: "#000",
+    rows: 4,
     scatterArea: 0,
     showBoardSlotOutlines: !0,
     snapThreshold: 20,
@@ -296,27 +296,27 @@ const ve = {
   },
   onRefresh: () => {
   },
-  puzzlePiece: {
-    strokeColor: "gold",
-    strokeEnabled: !0
-  },
   puzzle: {
     className: "",
     responsive: !0,
     timer: {
       className: "",
-      enabled: !1
+      enabled: !0
     },
     refreshButton: {
       className: "",
-      enabled: !1
+      enabled: !0
     },
     rowsAndColumns: {
       className: "",
       enabled: !1
     }
+  },
+  puzzlePiece: {
+    strokeColor: "gold",
+    strokeEnabled: !0
   }
-}, we = "react-jigsaw", ce = 2, ie = pe(void 0), ze = (r) => {
+}, we = "react-jigsaw", ce = 2, ie = pe(void 0), Se = (r) => {
   if (typeof window < "u" && r) {
     const t = localStorage.getItem(we);
     if (t) {
@@ -326,30 +326,30 @@ const ve = {
     }
   }
   return {};
-}, Se = (r) => {
-  const { rows: t, columns: o } = ze(
+}, ze = (r) => {
+  const { rows: t, columns: o } = Se(
     r.checkLocalStorage
-  ), [s, n] = I(o ?? r.columns), [a, f] = I(t ?? r.rows), [v, i] = I(!0), [p, S] = I(0), R = a * s, C = {
-    columns: s,
-    numPieces: R,
-    refreshCount: p,
-    rows: a,
-    timerIsRunning: v,
-    setBoardGrid: (z, u) => {
-      f(z), n(u), i(!1), setTimeout(() => i(!0), 10);
+  ), [a, n] = D(o ?? r.columns), [i, m] = D(t ?? r.rows), [p, g] = D(!0), [h, v] = D(0), S = i * a, C = {
+    columns: a,
+    numPieces: S,
+    refreshCount: h,
+    rows: i,
+    timerIsRunning: p,
+    setBoardGrid: (E, d) => {
+      m(E), n(d), g(!1), setTimeout(() => g(!0), 10);
     },
     refreshBoard: () => {
-      i(!1), S((z) => z + 1), setTimeout(() => i(!0), 10);
+      g(!1), v((E) => E + 1), setTimeout(() => g(!0), 10);
     },
-    setTimerIsRunning: i
+    setTimerIsRunning: g
   };
-  return /* @__PURE__ */ m.jsx(ie.Provider, { value: C, children: r.children });
-}, Ce = () => {
+  return /* @__PURE__ */ b.jsx(ie.Provider, { value: C, children: r.children });
+}, Ee = () => {
   const r = he(ie);
   if (!r)
     throw new Error("usePuzzleContext must be used within a PuzzleProvider");
   return r;
-}, Re = (r, t) => t ? {
+}, xe = (r, t) => t ? {
   board: {
     className: t.board?.className ?? r.board.className,
     columns: t.board?.columns ?? r.board.columns,
@@ -384,187 +384,226 @@ const ve = {
       enabled: t.puzzle?.rowsAndColumns?.enabled ?? r.puzzle.rowsAndColumns.enabled
     }
   }
-} : r;
-function Ee({
+} : r, Ce = 0.5;
+function Re({
   initialX: r,
   initialY: t,
   boardRef: o,
-  targetX: s,
+  targetX: a,
   targetY: n,
-  snapThreshold: a,
-  onSnap: f,
-  onDragStart: v,
-  onDragEnd: i
+  snapThreshold: i,
+  onSnap: m,
+  onDragStart: p,
+  onDragEnd: g
 }) {
-  const p = X(null), [S, R] = I({
+  const h = V(null), [v, S] = D({
     isDragging: !1,
     x: r,
     y: t
-  }), [g, $] = I(!1), C = X(null), z = X(null), u = D(
-    (d, c) => {
-      const b = o.current;
-      if (!b) return { x: d, y: c };
-      const E = b.createSVGPoint();
-      E.x = d, E.y = c;
-      const k = E.matrixTransform(b.getScreenCTM()?.inverse());
-      return { x: k.x, y: k.y };
+  }), [w, P] = D(!1), C = V(null), E = V(null), d = B(
+    (l, s) => {
+      const u = o.current;
+      if (!u) return { x: l, y: s };
+      const x = u.createSVGPoint();
+      x.x = l, x.y = s;
+      const R = x.matrixTransform(u.getScreenCTM()?.inverse());
+      return { x: R.x, y: R.y };
     },
     [o]
-  ), w = D(
-    (d, c) => Math.hypot(d - s, c - n) <= a ? ($(!0), R((E) => ({ ...E, x: s, y: n, isDragging: !1 })), f?.(), !0) : !1,
-    [s, n, a, f]
-  ), l = D(
-    (d) => {
-      const c = C.current;
-      if (!c || !c.isDragging || d.pointerId !== c.pointerId) return;
-      const b = u(d.clientX, d.clientY), E = b.x - c.offsetX, k = b.y - c.offsetY;
-      R((N) => ({ ...N, x: E, y: k })), d.preventDefault();
+  ), z = B(
+    (l, s) => Math.hypot(l - a, s - n) <= i ? (P(!0), S((x) => ({ ...x, x: a, y: n, isDragging: !1 })), m?.(), !0) : !1,
+    [a, n, i, m]
+  ), c = B(
+    (l) => {
+      const s = C.current;
+      if (!s || !s.isDragging || l.pointerId !== s.pointerId) return;
+      const u = d(l.clientX, l.clientY), x = u.x - s.offsetX, R = u.y - s.offsetY;
+      S(($) => ({ ...$, x, y: R })), l.preventDefault();
     },
-    [u]
+    [d]
   );
-  z.current = l;
-  const _ = D(
-    (d) => {
-      const c = C.current;
-      if (!c || !c.isDragging || d.pointerId !== c.pointerId) return;
-      c.isDragging = !1, z.current && window.removeEventListener("pointermove", z.current), window.removeEventListener("pointerup", _), window.removeEventListener("pointercancel", _);
-      const b = p.current;
-      b && b.hasPointerCapture(d.pointerId) && b.releasePointerCapture(d.pointerId);
-      const E = u(d.clientX, d.clientY), k = E.x - c.offsetX, N = E.y - c.offsetY;
-      C.current = null, w(k, N) || R((q) => ({ ...q, isDragging: !1 })), i(), d.preventDefault();
+  E.current = c;
+  const y = B(
+    (l) => {
+      const s = C.current;
+      if (!s || !s.isDragging || l.pointerId !== s.pointerId) return;
+      s.isDragging = !1, E.current && window.removeEventListener("pointermove", E.current), window.removeEventListener("pointerup", y), window.removeEventListener("pointercancel", y);
+      const u = h.current;
+      u && u.hasPointerCapture(l.pointerId) && u.releasePointerCapture(l.pointerId);
+      const x = d(l.clientX, l.clientY), R = x.x - s.offsetX, $ = x.y - s.offsetY;
+      C.current = null, l.type === "pointercancel" ? S((O) => ({
+        ...O,
+        x: s.startX,
+        y: s.startY,
+        isDragging: !1
+      })) : z(R, $) || S((O) => ({ ...O, isDragging: !1 })), g(), l.preventDefault();
     },
-    [u, w, i]
-  ), P = D(
-    (d) => {
-      if (g || !d.isPrimary) return;
-      const c = p.current;
-      if (!c) return;
-      const b = u(d.clientX, d.clientY), E = b.x - S.x, k = b.y - S.y;
+    [d, z, g]
+  ), T = B(
+    (l) => {
+      if (w || !l.isPrimary) return;
+      const s = h.current;
+      if (!s) return;
+      const u = d(l.clientX, l.clientY), x = u.x - v.x, R = u.y - v.y;
       C.current = {
-        offsetX: E,
-        offsetY: k,
-        pointerId: d.pointerId,
-        isDragging: !0
-      }, c.setPointerCapture(d.pointerId), z.current && window.addEventListener("pointermove", z.current, { passive: !1 }), window.addEventListener("pointerup", _, { passive: !1 }), window.addEventListener("pointercancel", _, { passive: !1 }), R((N) => ({ ...N, isDragging: !0 })), v(), d.preventDefault();
+        offsetX: x,
+        offsetY: R,
+        pointerId: l.pointerId,
+        isDragging: !0,
+        startX: v.x,
+        startY: v.y
+      }, s.setPointerCapture(l.pointerId), E.current && window.addEventListener("pointermove", E.current, { passive: !1 }), window.addEventListener("pointerup", y, { passive: !1 }), window.addEventListener("pointercancel", y, { passive: !1 }), S(($) => ({ ...$, isDragging: !0 })), p(), l.preventDefault();
     },
-    [g, S.x, S.y, u, _, v]
-  ), y = D((d) => {
-    d.preventDefault();
-  }, []), O = D((d) => {
-    d.preventDefault();
-  }, []), W = D(
-    (d) => {
-      _(d.nativeEvent);
+    [w, v.x, v.y, d, y, p]
+  ), k = B((l) => {
+    l.preventDefault();
+  }, []), I = B((l) => {
+    l.preventDefault();
+  }, []), F = B(
+    (l) => {
+      y(l.nativeEvent);
     },
-    [_]
-  ), B = D(
-    (d, c) => {
-      g || R((b) => ({ ...b, x: d, y: c }));
+    [y]
+  );
+  W(() => {
+    const l = h.current;
+    if (!l) return;
+    let s = null, u = !1;
+    const x = (O) => {
+      if (O.touches.length !== 1) {
+        s = null;
+        return;
+      }
+      const X = O.touches[0];
+      s = { x: X.clientX, y: X.clientY, time: O.timeStamp }, u = !1;
+    }, R = (O) => {
+      if (s) {
+        if (!u) {
+          const X = O.touches[0], J = X.clientX - s.x, e = X.clientY - s.y, f = Math.hypot(J, e) / Math.max(O.timeStamp - s.time, 1);
+          if (Math.abs(e) > Math.abs(J) && f >= Ce) {
+            s = null;
+            return;
+          }
+          u = !0;
+        }
+        O.cancelable && O.preventDefault();
+      }
+    }, $ = () => {
+      s = null, u = !1;
+    };
+    return l.addEventListener("touchstart", x, { passive: !0 }), l.addEventListener("touchmove", R, { passive: !1 }), l.addEventListener("touchend", $), l.addEventListener("touchcancel", $), () => {
+      l.removeEventListener("touchstart", x), l.removeEventListener("touchmove", R), l.removeEventListener("touchend", $), l.removeEventListener("touchcancel", $);
+    };
+  }, []);
+  const M = B(
+    (l, s) => {
+      w || S((u) => ({ ...u, x: l, y: s }));
     },
-    [g]
-  ), T = D(
-    (d, c) => {
-      g || R((b) => ({ ...b, x: b.x + d, y: b.y + c }));
+    [w]
+  ), N = B(
+    (l, s) => {
+      w || S((u) => ({ ...u, x: u.x + l, y: u.y + s }));
     },
-    [g]
-  ), M = D(() => g ? !1 : w(S.x, S.y), [g, S.x, S.y, w]);
+    [w]
+  ), L = B(() => w ? !1 : z(v.x, v.y), [w, v.x, v.y, z]);
   return {
-    ref: p,
-    dragState: S,
-    isSnapped: g,
-    moveTo: B,
-    moveBy: T,
-    trySnap: M,
+    ref: h,
+    dragState: v,
+    isSnapped: w,
+    moveTo: M,
+    moveBy: N,
+    trySnap: L,
     handlers: {
-      onPointerDown: P,
-      onPointerMove: y,
-      onPointerUp: O,
-      onPointerCancel: W,
+      onPointerDown: T,
+      onPointerMove: k,
+      onPointerUp: I,
+      onPointerCancel: F,
       style: {
-        touchAction: "none",
-        cursor: g ? "default" : S.isDragging ? "grabbing" : "grab"
+        // Not 'none': see the touch handling above.
+        touchAction: "manipulation",
+        cursor: w ? "default" : v.isDragging ? "grabbing" : "grab"
       }
     }
   };
 }
-const xe = "_puzzlePiece_10f4h_1", _e = {
-  puzzlePiece: xe
-}, Pe = 10, $e = ({
+const _e = "_puzzlePiece_1ov7n_1", Pe = {
+  puzzlePiece: _e
+}, ye = 10, $e = ({
   boardHeight: r,
   boardWidth: t,
   image: o,
-  pieceIndex: s,
+  pieceIndex: a,
   initialX: n,
-  initialY: a,
-  path: f,
-  snapThreshold: v,
-  boardRef: i,
-  targetX: p,
-  targetY: S,
-  puzzlePieceOptions: R,
-  onSnap: g,
-  onSnapWithKeyboard: $,
+  initialY: i,
+  path: m,
+  snapThreshold: p,
+  boardRef: g,
+  targetX: h,
+  targetY: v,
+  puzzlePieceOptions: S,
+  onSnap: w,
+  onSnapWithKeyboard: P,
   registerPieceRef: C,
-  boardSlotKey: z,
-  onDragStart: u,
-  onDragEnd: w
+  boardSlotKey: E,
+  onDragStart: d,
+  onDragEnd: z
 }) => {
-  const { ref: l, dragState: _, isSnapped: P, moveBy: y, trySnap: O, handlers: W } = Ee({
+  const { ref: c, dragState: y, isSnapped: T, moveBy: k, trySnap: I, handlers: F } = Re({
     initialX: n,
-    initialY: a,
-    snapThreshold: v,
-    boardRef: i,
-    targetX: p,
-    targetY: S,
-    onSnap: g,
-    onDragStart: u,
-    onDragEnd: w
+    initialY: i,
+    snapThreshold: p,
+    boardRef: g,
+    targetX: h,
+    targetY: v,
+    onSnap: w,
+    onDragStart: d,
+    onDragEnd: z
   });
-  Y(() => (C && C(z, l.current), () => {
-    C && C(z, null);
-  }), [l, C, z]);
-  const B = (T) => {
-    if (P) return;
-    const M = Pe;
-    switch (T.key) {
+  W(() => (C && C(E, c.current), () => {
+    C && C(E, null);
+  }), [c, C, E]);
+  const M = (N) => {
+    if (T) return;
+    const L = ye;
+    switch (N.key) {
       case "ArrowUp":
-        T.preventDefault(), y(0, -M);
+        N.preventDefault(), k(0, -L);
         break;
       case "ArrowDown":
-        T.preventDefault(), y(0, M);
+        N.preventDefault(), k(0, L);
         break;
       case "ArrowLeft":
-        T.preventDefault(), y(-M, 0);
+        N.preventDefault(), k(-L, 0);
         break;
       case "ArrowRight":
-        T.preventDefault(), y(M, 0);
+        N.preventDefault(), k(L, 0);
         break;
       case "Enter":
       case " ": {
-        T.preventDefault(), O() && $ && $();
+        N.preventDefault(), I() && P && P();
         break;
       }
     }
   };
-  return Y(() => {
-    _.isDragging && l.current && l.current.parentNode && !P && l.current.parentNode.appendChild(l.current);
-  }, [l, _.isDragging, P]), Y(() => {
-    if (!_.isDragging && P && l.current && l.current.parentNode) {
-      const T = l.current.parentNode;
-      T.firstChild !== l.current && T.insertBefore(l.current, T.firstChild);
+  return W(() => {
+    y.isDragging && c.current && c.current.parentNode && !T && c.current.parentNode.appendChild(c.current);
+  }, [c, y.isDragging, T]), W(() => {
+    if (!y.isDragging && T && c.current && c.current.parentNode) {
+      const N = c.current.parentNode;
+      N.firstChild !== c.current && N.insertBefore(c.current, N.firstChild);
     }
-  }, [l, _.isDragging, P]), /* @__PURE__ */ m.jsxs(
+  }, [c, y.isDragging, T]), /* @__PURE__ */ b.jsxs(
     "g",
     {
-      ref: l,
-      transform: P ? "" : `translate(${_.x},${_.y})`,
-      ...W,
-      className: _e.puzzlePiece,
-      tabIndex: P ? -1 : 0,
-      onKeyDown: B,
+      ref: c,
+      transform: T ? "" : `translate(${y.x},${y.y})`,
+      ...F,
+      className: Pe.puzzlePiece,
+      tabIndex: T ? -1 : 0,
+      onKeyDown: M,
       children: [
-        /* @__PURE__ */ m.jsx("defs", { children: /* @__PURE__ */ m.jsx("clipPath", { id: `piece-clip-${s}`, children: /* @__PURE__ */ m.jsx("path", { d: f }) }) }),
-        /* @__PURE__ */ m.jsx(
+        /* @__PURE__ */ b.jsx("defs", { children: /* @__PURE__ */ b.jsx("clipPath", { id: `piece-clip-${a}`, children: /* @__PURE__ */ b.jsx("path", { d: m }) }) }),
+        /* @__PURE__ */ b.jsx(
           "image",
           {
             href: o,
@@ -572,17 +611,17 @@ const xe = "_puzzlePiece_10f4h_1", _e = {
             y: 0,
             width: t,
             height: r,
-            clipPath: `url(#piece-clip-${s})`,
+            clipPath: `url(#piece-clip-${a})`,
             preserveAspectRatio: "xMidYMid slice"
           }
         ),
-        /* @__PURE__ */ m.jsx(
+        /* @__PURE__ */ b.jsx(
           "path",
           {
-            d: f,
+            d: m,
             fill: "none",
-            stroke: P || !R.strokeEnabled ? "" : R.strokeColor,
-            strokeWidth: R.strokeEnabled ? ce : 0
+            stroke: T || !S.strokeEnabled ? "" : S.strokeColor,
+            strokeWidth: S.strokeEnabled ? ce : 0
           }
         )
       ]
@@ -593,11 +632,11 @@ const xe = "_puzzlePiece_10f4h_1", _e = {
   rows: t
 }) => {
   const o = [];
-  for (let s = 0; s < t; s++) {
-    o[s] = [];
+  for (let a = 0; a < t; a++) {
+    o[a] = [];
     for (let n = 0; n < r; n++) {
-      const a = n === r - 1 ? 0 : (s + n) % 2 === 0 ? 1 : -1, f = s === t - 1 ? 0 : (s + n) % 2 === 0 ? 1 : -1, v = n === 0 ? 0 : -o[s][n - 1][1], i = s === 0 ? 0 : -o[s - 1][n][2];
-      o[s][n] = [i, a, f, v];
+      const i = n === r - 1 ? 0 : (a + n) % 2 === 0 ? 1 : -1, m = a === t - 1 ? 0 : (a + n) % 2 === 0 ? 1 : -1, p = n === 0 ? 0 : -o[a][n - 1][1], g = a === 0 ? 0 : -o[a - 1][n][2];
+      o[a][n] = [g, i, m, p];
     }
   }
   return o;
@@ -606,340 +645,341 @@ const xe = "_puzzlePiece_10f4h_1", _e = {
   row: t,
   options: o
 }) => {
-  const { boardWidth: s, boardHeight: n, rows: a, columns: f, edgeMap: v } = o, i = s / f, p = n / a, S = r * i, R = t * p, [g, $, C, z] = v[t][r], u = Math.min(i, p) / 3, w = u / 2;
-  let l = `M${S},${R}`;
-  return g === 0 ? l += ` h${i}` : (l += ` h${(i - u) / 2}`, l += ` a${w},${w} 0 0 ${g === 1 ? 1 : 0} ${u},0`, l += ` h${(i - u) / 2}`), $ === 0 ? l += ` v${p}` : (l += ` v${(p - u) / 2}`, l += ` a${w},${w} 0 0 ${$ === 1 ? 1 : 0} 0,${u}`, l += ` v${(p - u) / 2}`), C === 0 ? l += ` h-${i}` : (l += ` h-${(i - u) / 2}`, l += ` a${w},${w} 0 0 ${C === 1 ? 1 : 0} -${u},0`, l += ` h-${(i - u) / 2}`), z === 0 ? l += ` v-${p}` : (l += ` v-${(p - u) / 2}`, l += ` a${w},${w} 0 0 ${z === 1 ? 1 : 0} 0,-${u}`, l += ` v-${(p - u) / 2}`), l += " Z", l;
-}, ye = "_boardSlotOutline_mbtg0_1", Te = "_snapped_mbtg0_6", ae = {
-  boardSlotOutline: ye,
-  snapped: Te
-}, Ne = (r) => {
-  const { boardPathOptions: t, boardSlots: o, showBoardSlotOutlines: s, snappedPieceIds: n } = r;
-  return s ? /* @__PURE__ */ m.jsx("g", { "data-testid": "board-outlines", children: o.map(({ pieceRow: a, pieceCol: f }) => {
-    const v = `${a}-${f}`, i = n.has(v);
-    return /* @__PURE__ */ m.jsx(
+  const { boardWidth: a, boardHeight: n, rows: i, columns: m, edgeMap: p } = o, g = a / m, h = n / i, v = r * g, S = t * h, [w, P, C, E] = p[t][r], d = Math.min(g, h) / 3, z = d / 2;
+  let c = `M${v},${S}`;
+  return w === 0 ? c += ` h${g}` : (c += ` h${(g - d) / 2}`, c += ` a${z},${z} 0 0 ${w === 1 ? 1 : 0} ${d},0`, c += ` h${(g - d) / 2}`), P === 0 ? c += ` v${h}` : (c += ` v${(h - d) / 2}`, c += ` a${z},${z} 0 0 ${P === 1 ? 1 : 0} 0,${d}`, c += ` v${(h - d) / 2}`), C === 0 ? c += ` h-${g}` : (c += ` h-${(g - d) / 2}`, c += ` a${z},${z} 0 0 ${C === 1 ? 1 : 0} -${d},0`, c += ` h-${(g - d) / 2}`), E === 0 ? c += ` v-${h}` : (c += ` v-${(h - d) / 2}`, c += ` a${z},${z} 0 0 ${E === 1 ? 1 : 0} 0,-${d}`, c += ` v-${(h - d) / 2}`), c += " Z", c;
+}, Te = "_boardSlotOutline_mbtg0_1", Ne = "_snapped_mbtg0_6", ae = {
+  boardSlotOutline: Te,
+  snapped: Ne
+}, je = (r) => {
+  const { boardPathOptions: t, boardSlots: o, showBoardSlotOutlines: a, snappedPieceIds: n } = r;
+  return a ? /* @__PURE__ */ b.jsx("g", { "data-testid": "board-outlines", children: o.map(({ pieceRow: i, pieceCol: m }) => {
+    const p = `${i}-${m}`, g = n.has(p);
+    return /* @__PURE__ */ b.jsx(
       "path",
       {
-        "data-testid": `outline-${a}-${f}`,
-        className: `${ae.boardSlotOutline} ${i ? ae.snapped : ""}`,
-        d: ue({ row: a, col: f, options: t }),
+        "data-testid": `outline-${i}-${m}`,
+        className: `${ae.boardSlotOutline} ${g ? ae.snapped : ""}`,
+        d: ue({ row: i, col: m, options: t }),
         stroke: t.outlineStrokeColor
       },
-      `outline-${a}-${f}`
+      `outline-${i}-${m}`
     );
   }) }) : null;
-}, je = (r, t) => Array.from({ length: r * t }, (o, s) => ({
+}, Ae = (r, t) => Array.from({ length: r * t }, (o, a) => ({
   // Math.floor(i / columns) gives us the row number (0, 1, 2, ...)
   // i % columns gives us the column number (0, 1, 2, ..., columns-1)
-  pieceRow: Math.floor(s / t),
-  pieceCol: s % t
-})), Ae = (r) => {
+  pieceRow: Math.floor(a / t),
+  pieceCol: a % t
+})), Oe = (r) => {
   const t = [...r];
   for (let o = t.length - 1; o > 0; o--) {
-    const s = Math.floor(Math.random() * (o + 1));
-    [t[o], t[s]] = [t[s], t[o]];
+    const a = Math.floor(Math.random() * (o + 1));
+    [t[o], t[a]] = [t[a], t[o]];
   }
   return t;
-}, Oe = ({
+}, Ie = ({
   boardWidth: r,
   boardHeight: t,
   boardSlots: o,
-  pieceHeight: s,
+  pieceHeight: a,
   pieceWidth: n,
-  scatterArea: a
+  scatterArea: i
 }) => {
-  const f = Ae(o), v = r + a * 2, i = t + a * 2, p = -a, S = -a;
-  return f.map(({ pieceRow: R, pieceCol: g }) => {
-    const $ = p + Math.random() * (v - n), C = S + Math.random() * (i - s), z = g * n, u = R * s, w = $ - z, l = C - u;
-    return { pieceRow: R, pieceCol: g, x: w, y: l };
+  const m = Oe(o), p = r + i * 2, g = t + i * 2, h = -i, v = -i;
+  return m.map(({ pieceRow: S, pieceCol: w }) => {
+    const P = h + Math.random() * (p - n), C = v + Math.random() * (g - a), E = w * n, d = S * a, z = P - E, c = C - d;
+    return { pieceRow: S, pieceCol: w, x: z, y: c };
   });
-}, Ie = "_board_13b9q_1", De = {
-  board: Ie
-}, Be = (r) => {
+}, De = "_board_13b9q_1", Be = {
+  board: De
+}, Me = (r) => {
   const {
     boardHeight: t,
     boardWidth: o,
-    className: s,
+    className: a,
     columns: n,
-    image: a,
-    onPuzzleComplete: f,
-    outlineStrokeColor: v,
-    puzzlePieceOptions: i,
-    rows: p,
-    showBoardSlotOutlines: S,
-    snapThreshold: R,
-    scatterArea: g,
-    onAnyPieceActiveChange: $
-  } = r, C = t / p, z = o / n, [u, w] = I([]), [l, _] = I(/* @__PURE__ */ new Set()), P = X(null), y = X(/* @__PURE__ */ new Map()), O = Z(() => ke({ rows: p, columns: n }), [p, n]), W = Z(
+    image: i,
+    onPuzzleComplete: m,
+    outlineStrokeColor: p,
+    puzzlePieceOptions: g,
+    rows: h,
+    showBoardSlotOutlines: v,
+    snapThreshold: S,
+    scatterArea: w,
+    onAnyPieceActiveChange: P
+  } = r, C = t / h, E = o / n, [d, z] = D([]), [c, y] = D(/* @__PURE__ */ new Set()), T = V(null), k = V(/* @__PURE__ */ new Map()), I = Q(() => ke({ rows: h, columns: n }), [h, n]), F = Q(
     () => ({
       boardHeight: t,
       boardWidth: o,
       columns: n,
-      edgeMap: O,
-      outlineStrokeColor: v,
-      rows: p
+      edgeMap: I,
+      outlineStrokeColor: p,
+      rows: h
     }),
-    [t, o, n, O, v, p]
-  ), B = Z(() => je(p, n), [p, n]);
-  Y(() => {
-    const c = Oe({
+    [t, o, n, I, p, h]
+  ), M = Q(() => Ae(h, n), [h, n]);
+  W(() => {
+    const s = Ie({
       boardHeight: t,
       boardWidth: o,
-      boardSlots: B,
+      boardSlots: M,
       pieceHeight: C,
-      pieceWidth: z,
-      scatterArea: g
+      pieceWidth: E,
+      scatterArea: w
     });
-    w(c), _(/* @__PURE__ */ new Set()), y.current.clear();
-  }, [t, o, B, C, z, g]), Y(() => {
-    const c = p * n;
-    l.size === c && f?.();
-  }, [l.size, p, n, f]);
-  const T = (c) => {
-    const { pieceRow: b, pieceCol: E } = u[c], k = `${b}-${E}`;
-    _((N) => /* @__PURE__ */ new Set([...N, k]));
-  }, M = (c) => {
-    const b = u.find((E, k) => {
-      const N = `${E.pieceRow}-${E.pieceCol}`;
-      return k !== c && !l.has(N);
+    z(s), y(/* @__PURE__ */ new Set()), k.current.clear();
+  }, [t, o, M, C, E, w]), W(() => {
+    const s = h * n;
+    c.size === s && m?.();
+  }, [c.size, h, n, m]);
+  const N = (s) => {
+    const { pieceRow: u, pieceCol: x } = d[s], R = `${u}-${x}`;
+    y(($) => /* @__PURE__ */ new Set([...$, R]));
+  }, L = (s) => {
+    const u = d.find((x, R) => {
+      const $ = `${x.pieceRow}-${x.pieceCol}`;
+      return R !== s && !c.has($);
     });
-    if (b) {
-      const E = `${b.pieceRow}-${b.pieceCol}`, k = y.current.get(E);
-      k && k.focus();
+    if (u) {
+      const x = `${u.pieceRow}-${u.pieceCol}`, R = k.current.get(x);
+      R && R.focus();
     }
-  }, d = (c, b) => {
-    b ? y.current.set(c, b) : y.current.delete(c);
+  }, l = (s, u) => {
+    u ? k.current.set(s, u) : k.current.delete(s);
   };
-  return /* @__PURE__ */ m.jsxs(
+  return /* @__PURE__ */ b.jsxs(
     "svg",
     {
-      ref: P,
-      className: `${De.board} ${s}`,
+      ref: T,
+      className: `${Be.board} ${a}`,
       "data-testid": "board",
       height: t,
       width: o,
       viewBox: `0 0 ${o} ${t}`,
       children: [
-        /* @__PURE__ */ m.jsx(
-          Ne,
+        /* @__PURE__ */ b.jsx(
+          je,
           {
-            boardPathOptions: W,
-            boardSlots: B,
-            showBoardSlotOutlines: S,
-            snappedPieceIds: l
+            boardPathOptions: F,
+            boardSlots: M,
+            showBoardSlotOutlines: v,
+            snappedPieceIds: c
           }
         ),
-        u.map(({ pieceRow: c, pieceCol: b, x: E, y: k }, N) => /* @__PURE__ */ m.jsx(
+        d.map(({ pieceRow: s, pieceCol: u, x, y: R }, $) => /* @__PURE__ */ b.jsx(
           $e,
           {
             boardHeight: t,
             boardWidth: o,
-            boardSlotKey: `${c}-${b}`,
-            image: a,
-            pieceIndex: N,
-            initialX: E,
-            initialY: k,
-            onSnap: () => T(N),
-            onSnapWithKeyboard: () => M(N),
-            path: ue({ col: b, row: c, options: W }),
-            puzzlePieceOptions: i,
-            registerPieceRef: d,
-            snapThreshold: R,
-            boardRef: P,
-            targetX: b * z / 100,
-            targetY: c * C / 100,
-            onDragStart: () => $?.(!0),
-            onDragEnd: () => $?.(!1)
+            boardSlotKey: `${s}-${u}`,
+            image: i,
+            pieceIndex: $,
+            initialX: x,
+            initialY: R,
+            onSnap: () => N($),
+            onSnapWithKeyboard: () => L($),
+            path: ue({ col: u, row: s, options: F }),
+            puzzlePieceOptions: g,
+            registerPieceRef: l,
+            snapThreshold: S,
+            boardRef: T,
+            targetX: u * E / 100,
+            targetY: s * C / 100,
+            onDragStart: () => P?.(!0),
+            onDragEnd: () => P?.(!1)
           },
-          `${c}-${b}`
+          `${s}-${u}`
         ))
       ]
     }
   );
-}, Me = "_editRowsColumns_1gi2i_1", Le = "_inlineNote_1gi2i_51", le = {
-  editRowsColumns: Me,
-  inlineNote: Le
-}, Ye = (r) => {
-  const { className: t, currentColumns: o, currentRows: s, onBoardSlotChange: n } = r, [a, f] = I(s.toString()), [v, i] = I(o.toString()), p = parseInt(a) !== s || parseInt(v) !== o, S = parseInt(a) >= 2 && parseInt(a) <= 10, R = parseInt(v) >= 2 && parseInt(v) <= 10, g = S && R && p;
-  Y(() => {
-    f(s.toString()), i(o.toString());
-  }, [s, o]);
-  const $ = (u) => {
-    const w = u.target.value;
-    (w === "" || /^\d+$/.test(w)) && f(w);
-  }, C = (u) => {
-    const w = u.target.value;
-    (w === "" || /^\d+$/.test(w)) && i(w);
-  }, z = (u) => {
-    u.preventDefault(), g && (localStorage.setItem(
+}, Le = "_editRowsColumns_1gi2i_1", Ye = "_inlineNote_1gi2i_51", le = {
+  editRowsColumns: Le,
+  inlineNote: Ye
+}, We = (r) => {
+  const { className: t, currentColumns: o, currentRows: a, onBoardSlotChange: n } = r, [i, m] = D(a.toString()), [p, g] = D(o.toString()), h = parseInt(i) !== a || parseInt(p) !== o, v = parseInt(i) >= 2 && parseInt(i) <= 10, S = parseInt(p) >= 2 && parseInt(p) <= 10, w = v && S && h;
+  W(() => {
+    m(a.toString()), g(o.toString());
+  }, [a, o]);
+  const P = (d) => {
+    const z = d.target.value;
+    (z === "" || /^\d+$/.test(z)) && m(z);
+  }, C = (d) => {
+    const z = d.target.value;
+    (z === "" || /^\d+$/.test(z)) && g(z);
+  }, E = (d) => {
+    d.preventDefault(), w && (localStorage.setItem(
       "react-jigsaw",
       JSON.stringify({
-        rows: parseFloat(a),
-        columns: parseFloat(v)
+        rows: parseFloat(i),
+        columns: parseFloat(p)
       })
-    ), n(parseInt(a), parseInt(v)));
+    ), n(parseInt(i), parseInt(p)));
   };
-  return /* @__PURE__ */ m.jsxs(m.Fragment, { children: [
-    /* @__PURE__ */ m.jsxs(
+  return /* @__PURE__ */ b.jsxs(b.Fragment, { children: [
+    /* @__PURE__ */ b.jsxs(
       "form",
       {
         "data-testid": "edit-rows-columns",
         className: `${le.editRowsColumns} ${t}`,
-        onSubmit: z,
+        onSubmit: E,
         children: [
-          /* @__PURE__ */ m.jsxs("label", { children: [
+          /* @__PURE__ */ b.jsxs("label", { children: [
             "Rows:",
-            /* @__PURE__ */ m.jsx("input", { type: "text", value: a, onChange: $, placeholder: "2-10" })
+            /* @__PURE__ */ b.jsx("input", { type: "text", value: i, onChange: P, placeholder: "2-10" })
           ] }),
-          /* @__PURE__ */ m.jsxs("label", { children: [
+          /* @__PURE__ */ b.jsxs("label", { children: [
             "Cols:",
-            /* @__PURE__ */ m.jsx("input", { type: "text", value: v, onChange: C, placeholder: "2-10" })
+            /* @__PURE__ */ b.jsx("input", { type: "text", value: p, onChange: C, placeholder: "2-10" })
           ] }),
-          /* @__PURE__ */ m.jsx("input", { type: "submit", value: "Ok", disabled: !g })
+          /* @__PURE__ */ b.jsx("input", { type: "submit", value: "Ok", disabled: !w })
         ]
       }
     ),
-    /* @__PURE__ */ m.jsx("span", { className: le.inlineNote, children: "(Valid numbers: 2-10)" })
+    /* @__PURE__ */ b.jsx("span", { className: le.inlineNote, children: "(Valid numbers: 2-10)" })
   ] });
-}, We = "_refreshButton_17b0p_1", Fe = {
-  refreshButton: We
+}, Fe = "_refreshButton_17b0p_1", Xe = {
+  refreshButton: Fe
 }, Ue = (r) => {
   const { className: t, onRefresh: o } = r;
-  return /* @__PURE__ */ m.jsx(
+  return /* @__PURE__ */ b.jsx(
     "button",
     {
       "data-testid": "refresh-button",
-      className: `${Fe.refreshButton} ${t}`,
+      className: `${Xe.refreshButton} ${t}`,
       onClick: o,
       title: "Refresh puzzle",
-      children: /* @__PURE__ */ m.jsxs(
+      children: /* @__PURE__ */ b.jsxs(
         "svg",
         {
           width: "20",
           height: "20",
           viewBox: "0 0 24 24",
           fill: "none",
-          stroke: "currentColor",
+          stroke: "#000000",
           strokeWidth: ce,
           strokeLinecap: "round",
           strokeLinejoin: "round",
           children: [
-            /* @__PURE__ */ m.jsx("path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" }),
-            /* @__PURE__ */ m.jsx("path", { d: "M21 3v5h-5" }),
-            /* @__PURE__ */ m.jsx("path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" }),
-            /* @__PURE__ */ m.jsx("path", { d: "M3 21v-5h5" })
+            /* @__PURE__ */ b.jsx("path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" }),
+            /* @__PURE__ */ b.jsx("path", { d: "M21 3v5h-5" }),
+            /* @__PURE__ */ b.jsx("path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" }),
+            /* @__PURE__ */ b.jsx("path", { d: "M3 21v-5h5" })
           ]
         }
       )
     }
   );
-}, Xe = "_timer_thvwo_1", Ge = {
-  timer: Xe
-}, Ve = (r) => {
-  const { className: t, isRunning: o, onTimeUpdate: s } = r, [n, a] = I(0), f = X(null);
-  Y(() => (o ? f.current = setInterval(() => {
-    a((i) => {
-      const p = i + 1;
-      return s?.(p), p;
+}, Ge = "_timer_1vcjo_1", Ve = {
+  timer: Ge
+}, Je = (r) => {
+  const { className: t, isRunning: o, onTimeUpdate: a, paused: n = !1 } = r, [i, m] = D(0), p = V(null), g = o && !n;
+  W(() => (g ? p.current = setInterval(() => {
+    m((v) => {
+      const S = v + 1;
+      return a?.(S), S;
     });
-  }, 1e3) : f.current && (clearInterval(f.current), f.current = null), () => {
-    f.current && clearInterval(f.current);
-  }), [o, s]), Y(() => {
-    o && a(0);
+  }, 1e3) : p.current && (clearInterval(p.current), p.current = null), () => {
+    p.current && clearInterval(p.current);
+  }), [g, a]), W(() => {
+    o && m(0);
   }, [o]);
-  const v = (i) => {
-    const p = Math.floor(i / 60), S = i % 60;
-    return `${p.toString().padStart(2, "0")}:${S.toString().padStart(2, "0")}`;
+  const h = (v) => {
+    const S = Math.floor(v / 60), w = v % 60;
+    return `${S.toString().padStart(2, "0")}:${w.toString().padStart(2, "0")}`;
   };
-  return /* @__PURE__ */ m.jsx("div", { "data-testid": "timer", className: `${Ge.timer} ${t}`, children: v(n) });
-}, Je = "_puzzle_c9hl6_1", qe = "_responsive_c9hl6_5", He = "_settingsContainer_c9hl6_13", J = {
-  puzzle: Je,
-  responsive: qe,
-  settingsContainer: He
-}, Ze = (r) => {
-  const { image: t, onComplete: o, onRefresh: s, options: n } = r, {
-    columns: a,
-    refreshBoard: f,
-    refreshCount: v,
-    rows: i,
-    setBoardGrid: p,
+  return /* @__PURE__ */ b.jsx("div", { "data-testid": "timer", className: `${Ve.timer} ${t}`, children: h(i) });
+}, qe = "_puzzle_c9hl6_1", He = "_responsive_c9hl6_5", Ze = "_settingsContainer_c9hl6_13", Z = {
+  puzzle: qe,
+  responsive: He,
+  settingsContainer: Ze
+}, Ke = (r) => {
+  const { image: t, onComplete: o, onRefresh: a, options: n, paused: i = !1 } = r, {
+    columns: m,
+    refreshBoard: p,
+    refreshCount: g,
+    rows: h,
+    setBoardGrid: v,
     setTimerIsRunning: S,
-    timerIsRunning: R
-  } = Ce(), [g, $] = I(!1);
-  Y(() => {
-    if (!g) return;
-    const P = (O) => {
-      O.preventDefault();
-    }, y = (O) => {
-      O.preventDefault();
+    timerIsRunning: w
+  } = Ee(), [P, C] = D(!1);
+  W(() => {
+    if (!P) return;
+    const k = (I) => {
+      I.preventDefault();
     };
-    return window.addEventListener("touchmove", P, { passive: !1 }), window.addEventListener("gesturestart", y, { passive: !1 }), () => {
-      window.removeEventListener("touchmove", P), window.removeEventListener("gesturestart", y);
+    return window.addEventListener("gesturestart", k, { passive: !1 }), () => {
+      window.removeEventListener("gesturestart", k);
     };
-  }, [g]);
-  const C = (P, y) => {
-    p(P, y);
+  }, [P]);
+  const E = (k, I) => {
+    v(k, I);
+  }, d = () => {
+    a?.(), p();
   }, z = () => {
-    s?.(), f();
-  }, u = () => {
     S(!1), o?.();
-  }, w = n.board.width / n.board.height, l = n.puzzle.responsive ? `${J.puzzle} ${J.responsive}` : J.puzzle, _ = Z(() => ({
-    ...n.puzzle.responsive ? { "--puzzle-aspect-ratio": w.toString() } : {},
-    touchAction: g ? "none" : void 0,
-    overscrollBehavior: g ? "none" : void 0
-  }), [n.puzzle.responsive, w, g]);
-  return /* @__PURE__ */ m.jsxs("div", { "data-testid": "puzzle-content", className: l, style: _, children: [
-    n.puzzle.timer.enabled || n.puzzle.refreshButton.enabled ? /* @__PURE__ */ m.jsxs("div", { className: J.settingsContainer, children: [
-      n.puzzle.timer.enabled && /* @__PURE__ */ m.jsx(Ve, { className: n.puzzle.timer.className, isRunning: R }),
-      n.puzzle.refreshButton.enabled && /* @__PURE__ */ m.jsx(
+  }, c = n.board.width / n.board.height, y = n.puzzle.responsive ? `${Z.puzzle} ${Z.responsive}` : Z.puzzle, T = Q(() => n.puzzle.responsive ? { "--puzzle-aspect-ratio": c.toString() } : {}, [n.puzzle.responsive, c]);
+  return /* @__PURE__ */ b.jsxs("div", { "data-testid": "puzzle-content", className: y, style: T, children: [
+    n.puzzle.timer.enabled || n.puzzle.refreshButton.enabled ? /* @__PURE__ */ b.jsxs("div", { className: Z.settingsContainer, children: [
+      n.puzzle.timer.enabled && /* @__PURE__ */ b.jsx(
+        Je,
+        {
+          className: n.puzzle.timer.className,
+          isRunning: w,
+          paused: i
+        }
+      ),
+      n.puzzle.refreshButton.enabled && /* @__PURE__ */ b.jsx(
         Ue,
         {
           className: n.puzzle.refreshButton.className,
-          onRefresh: z
+          onRefresh: d
         }
       )
     ] }) : null,
-    /* @__PURE__ */ m.jsx(
-      Be,
+    /* @__PURE__ */ b.jsx(
+      Me,
       {
         boardHeight: n.board.height,
         boardWidth: n.board.width,
         className: n.board.className,
-        columns: a,
+        columns: m,
         image: t,
-        onPuzzleComplete: u,
+        onPuzzleComplete: z,
         outlineStrokeColor: n.board.outlineStrokeColor,
         puzzlePieceOptions: n.puzzlePiece,
-        rows: i,
+        rows: h,
         scatterArea: n.board.scatterArea,
         showBoardSlotOutlines: n.board.showBoardSlotOutlines,
         snapThreshold: n.board.snapThreshold,
-        onAnyPieceActiveChange: $
+        onAnyPieceActiveChange: C
       },
-      `${i}-${a}-${v}`
+      `${h}-${m}-${g}`
     ),
-    n.puzzle.rowsAndColumns.enabled && /* @__PURE__ */ m.jsx("div", { className: J.settingsContainer, children: /* @__PURE__ */ m.jsx(
-      Ye,
+    n.puzzle.rowsAndColumns.enabled && /* @__PURE__ */ b.jsx("div", { className: Z.settingsContainer, children: /* @__PURE__ */ b.jsx(
+      We,
       {
         className: n.puzzle.rowsAndColumns.className,
-        currentRows: i,
-        currentColumns: a,
-        onBoardSlotChange: C
+        currentRows: h,
+        currentColumns: m,
+        onBoardSlotChange: E
       }
     ) })
   ] });
-}, Qe = (r) => {
-  const { options: t } = r, o = Re(ve, t);
-  return /* @__PURE__ */ m.jsx(
-    Se,
+}, et = (r) => {
+  const { options: t } = r, o = xe(ve, t);
+  return /* @__PURE__ */ b.jsx(
+    ze,
     {
       checkLocalStorage: o.checkLocalStorage,
       columns: o.board.columns,
       rows: o.board.rows,
-      children: /* @__PURE__ */ m.jsx(Ze, { ...r, options: o })
+      children: /* @__PURE__ */ b.jsx(Ke, { ...r, options: o })
     }
   );
 };
 export {
   ve as DEFAULT_PUZZLE_OPTIONS,
-  Qe as Puzzle
+  et as Puzzle
 };

@@ -3,6 +3,7 @@ interface TimerProps {
     className?: string;
     isRunning: boolean;
     onTimeUpdate?: (seconds: number) => void;
+    paused?: boolean;
 }
 declare const Timer: FC<TimerProps>;
 export default Timer;
